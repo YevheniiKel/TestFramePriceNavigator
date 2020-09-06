@@ -12,6 +12,7 @@ public class MainPage {
 
     public MainPage(WebDriver driver){
         this.driver = driver;
+        System.out.println("driverof the main page=" + driver);
     }
 
 
