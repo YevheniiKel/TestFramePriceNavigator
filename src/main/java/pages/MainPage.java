@@ -13,6 +13,8 @@ public class MainPage {
 
     private WebDriver driver;
 
+    private By searchField = By.className("search-text-input");
+
     private By loginButton = By.className("user-info");
     private By emailLoginField = By.id("login-form-login");
     private By passwordLoginField = By.id("login-form-password");
@@ -29,6 +31,7 @@ public class MainPage {
 
     private By invalidCredentialsNotification = By.xpath("//div[@class='form-group field-login-form-password required has-error']//div[@class='dropdown-hint afterLeft']");
     private By invalidEmailsNotification = By.xpath("//div[@class='form-group field-login-form-login required has-error']//div[@class='dropdown-hint afterLeft']");
+
     public MainPage(WebDriver driver){
         this.driver = driver;
     }

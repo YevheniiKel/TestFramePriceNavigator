@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.MainPage;
 import util.Generator;
-import util.consts;
+import util.Const;
 
 import static util.UtilSleep.sleep;
 
@@ -30,9 +30,9 @@ public class TestRunner {
         openMainPage();
         MainPage page = new MainPage(driver);
         sleep();
-        email = consts.VALID_EMAIL;
-        username = consts.VALID_USERNAME;
-        password = consts.VALID_PASSWORD;
+        email = Const.VALID_EMAIL;
+        username = Const.VALID_USERNAME;
+        password = Const.VALID_PASSWORD;
         page.openLoginPopup().enterLogin(email).enterPass(password).clickSignIn();
         Assert.assertEquals(page.getLoggedInUserUsername(),username);
     }
@@ -65,7 +65,7 @@ public class TestRunner {
     }
 
     private void openMainPage() {
-        driver.get(consts.HOME_URL);
+        driver.get(Const.HOME_URL);
 
     }
 }

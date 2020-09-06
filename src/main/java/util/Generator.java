@@ -18,10 +18,10 @@ public class Generator {
         return sb.toString();
     }
     public static String loginGenerator() {
-        return simpleStringGenerator(consts.EMAIL_SYMBOLS, intGenerator(1, 20));
+        return simpleStringGenerator(Const.EMAIL_SYMBOLS, intGenerator(1, 20));
     }
 
     public static String passGenerator() {
-        return simpleStringGenerator(consts.EMAIL_SYMBOLS, intGenerator(1, 20));
+        return simpleStringGenerator(Const.EMAIL_SYMBOLS, intGenerator(1, 20));
     }
 }

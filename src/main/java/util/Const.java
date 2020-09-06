@@ -1,6 +1,11 @@
 package util;
 
-public class consts {
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Arrays.asList;
+
+public class Const {
 
     public static final String VALID_EMAIL = "vasyaPupkin@gmail.com";
     public static final String VALID_USERNAME = "vasyaPupkin";
@@ -10,5 +15,17 @@ public class consts {
 
     public static final String BASE_SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZqwertyuiopasdfghjklzxcvbnm1234567890";
     public static final String EMAIL_SYMBOLS = BASE_SYMBOLS + "-_";
+
+    public static final List<String> CATEGORIES = asList(
+            "Компьютеры",
+            "Электроника",
+            "Бытовая техника",
+            "Все для дома",
+            "Мебель",
+            "Стройка",
+            "Дача, сад, огород"
+    );
+
+
 }
 
