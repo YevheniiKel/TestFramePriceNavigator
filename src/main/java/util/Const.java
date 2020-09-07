@@ -26,6 +26,9 @@ public class Const {
             "Дача, сад, огород"
     );
 
+    public static final String INVALID_SEARCH_QUERY = "fjbhjgjsdkjfglsdf";
+    public static final String PRODUCT_NOT_FOUND_NOTIFICATION = "Не найдено товаров";
+    public static final String NOTHING_FOUND_NOTIFICATION = "Ничего не найдено по запросу";
 
 }
 

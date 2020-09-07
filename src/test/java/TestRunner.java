@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import pages.HeaderPageFactory;
 import pages.MainPage;
 import util.Generator;
 import util.Const;
@@ -24,8 +25,17 @@ public class TestRunner {
         driver.manage().window().maximize();
     }
 
+    @Test(priority = 1)
+    public void testProductNotFoundPageBySearch() throws InterruptedException {
+        openMainPage();
+        HeaderPageFactory page = new HeaderPageFactory(driver);
+        sleep();
+        page.enterSearchQueryIntoSearchFieldAndPressEnter(Const.INVALID_SEARCH_QUERY);
+        Assert.assertTrue(page.isProductNotFountNotificationIsShown());
+    }
 
-    @Test
+
+    @Test(priority = 2)
     public void testLoginWithValidCredentials() throws InterruptedException {
         openMainPage();
         MainPage page = new MainPage(driver);
@@ -36,8 +46,7 @@ public class TestRunner {
         page.openLoginPopup().enterLogin(email).enterPass(password).clickSignIn();
         Assert.assertEquals(page.getLoggedInUserUsername(),username);
     }
-
-    @Test
+    @Test(priority = 3)
     public void testLoginWithNotRegisteredEmailAndPassword() throws InterruptedException {
         openMainPage();
         MainPage page = new MainPage(driver);
@@ -47,7 +56,8 @@ public class TestRunner {
         page.openLoginPopup().enterLogin(email).enterPass(password).clickSignIn();
         Assert.assertTrue(page.invalidCredentialsNotificationIsShown());
     }
-    @Test
+
+    @Test(priority = 4)
     public void testLoginWithInvalidEmail() throws InterruptedException {
         openMainPage();
         MainPage page = new MainPage(driver);
@@ -57,7 +67,6 @@ public class TestRunner {
         page.openLoginPopup().enterLogin(email).enterPass(password).clickSignIn();
         Assert.assertTrue(page.invalidEmailNotificationIsShown());
     }
-
 
     @AfterMethod
     public static void tearDown(){
