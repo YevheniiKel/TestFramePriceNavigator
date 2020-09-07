@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import util.Const;
 import util.UtilSleep;
 
-public class HeaderPageFactory {
+public class HeaderAnyPage {
 
     private WebDriver driver;
 
@@ -17,11 +17,11 @@ public class HeaderPageFactory {
     private By productNotFoundInSearchFormatDiv = By.xpath("//div[@class='search-info-head']");
 
 
-    public HeaderPageFactory(WebDriver driver){
+    public HeaderAnyPage(WebDriver driver){
         this.driver = driver;
     }
 
-    public HeaderPageFactory enterSearchQueryIntoSearchFieldAndPressEnter(String searchQuery) throws InterruptedException {
+    public HeaderAnyPage enterSearchQueryIntoSearchFieldAndPressEnter(String searchQuery) throws InterruptedException {
         driver.findElement(searchField).sendKeys(searchQuery);
         driver.findElement(searchField).sendKeys(Keys.ENTER);
         UtilSleep.sleep();
