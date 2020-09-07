@@ -21,5 +21,4 @@ public class SeleniumSetUp {
     public static void tearDown() {
         driver.quit();
     }
-
 }
