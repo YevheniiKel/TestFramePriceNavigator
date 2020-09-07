@@ -1,13 +1,14 @@
+import driverSetup.SeleniumSetUp;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CataloguePage;
 import pages.ComparingPage;
 import pages.HeaderAnyPage;
 import pages.MainPage;
-import util.CharDataForTestSite;
-import util.DataGenerator;
+import util.dataUtils.CharDataForTestSite;
+import util.dataUtils.DataGenerator;
 
-import static util.UtilSleep.sleep;
+import static util.elementUtils.WaitUtils.sleep;
 
 public class TestRunner extends SeleniumSetUp {
 
@@ -15,7 +16,7 @@ public class TestRunner extends SeleniumSetUp {
     private String username;
     private String password;
 
-    @Test(priority = 1)
+    @Test
     public void testProductNotFoundPageBySearch() throws InterruptedException {
         openMainPage();
         HeaderAnyPage page = new HeaderAnyPage(driver);
@@ -24,17 +25,18 @@ public class TestRunner extends SeleniumSetUp {
         Assert.assertTrue(page.isProductNotFountNotificationIsShown());
     }
 
-    @Test(priority = 6)
+    @Test
     public void testLoginWithValidCredentials() throws InterruptedException {
         email = CharDataForTestSite.VALID_EMAIL;
         username = CharDataForTestSite.VALID_USERNAME;
         password = CharDataForTestSite.VALID_PASSWORD;
+        System.out.println(email + " " + username + " " + password);
         MainPage mainPage = openMainPage();
         enterCredentialsOnTheMainPageToLogin(mainPage);
         Assert.assertEquals(mainPage.getLoggedInUserUsername(), username);
     }
 
-    @Test(priority = 3)
+    @Test
     public void testLoginWithNotRegisteredEmailAndPassword() throws InterruptedException {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
@@ -43,7 +45,7 @@ public class TestRunner extends SeleniumSetUp {
         Assert.assertTrue(mainPage.invalidCredentialsNotificationIsShown());
     }
 
-    @Test(priority = 4)
+    @Test
     public void testLoginWithInvalidEmail() throws InterruptedException {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
@@ -52,14 +54,14 @@ public class TestRunner extends SeleniumSetUp {
         Assert.assertTrue(mainPage.invalidEmailNotificationIsShown());
     }
 
-    @Test(priority = 5)
+    @Test
     public void checkThatUserCanOpenCataloguePageFromTheMainPage() throws InterruptedException {
         openCataloguePage();
         CataloguePage cataloguePage = new CataloguePage(driver);
         Assert.assertTrue(cataloguePage.isCatalogueIsDisplayed());
     }
 
-    @Test(priority = 1)
+    @Test
     public ComparingPage checkThatThreeProductsCanBeAddedToComparing() throws InterruptedException {
         openCataloguePage();
         CataloguePage cataloguePage = new CataloguePage(driver);
@@ -70,7 +72,7 @@ public class TestRunner extends SeleniumSetUp {
     }
 
 
-    @Test(priority = 2)
+    @Test
     public ComparingPage checkThatProductCanBeDeletedFromTheComparing() throws InterruptedException {
         ComparingPage comparingPage = checkThatThreeProductsCanBeAddedToComparing();
         comparingPage.deleteProductFromComparing();
@@ -78,7 +80,7 @@ public class TestRunner extends SeleniumSetUp {
         return comparingPage;
     }
 
-    @Test(priority = 2)
+    @Test
     public void testThatComparingLinkCreationFeatureGeneratesLinkAndItWorksProperly() throws InterruptedException {
         ComparingPage comparingPage = checkThatThreeProductsCanBeAddedToComparing()
                 .clickGenerateComparingLink();
@@ -90,13 +92,13 @@ public class TestRunner extends SeleniumSetUp {
         Assert.assertEquals(newComparingPage.amountOfComparingProducts(), amountOfComparingProducts);
     }
 
-    @Test(priority = 4, enabled = false)
+    @Test(enabled = false)
     public void testFavoriteShopsFeature() throws InterruptedException {
 //        openMainPage();
         //NOT IMPLEMENTED
     }
 
-    @Test(priority = 4, enabled = false)
+    @Test(enabled = false)
     public void test1() throws InterruptedException {
 //        openMainPage();
         //NOT IMPLEMENTED

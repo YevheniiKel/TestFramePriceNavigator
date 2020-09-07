@@ -1,4 +1,4 @@
-package util;
+package util.elementUtils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;

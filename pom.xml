@@ -7,9 +7,13 @@
     <groupId>org.example</groupId>
     <artifactId>testtry</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <properties>
         <maven.compiler.source>1.14</maven.compiler.source>
         <maven.compiler.target>1.14</maven.compiler.target>
+        <selenium.version>3.141.59</selenium.version>
+        <testng.version>7.3.0</testng.version>
+        <webdrivermanager.version>4.2.0</webdrivermanager.version>
     </properties>
 
     <dependencies>
@@ -37,8 +41,5 @@
             <version>4.2.0</version>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
-
 </project>

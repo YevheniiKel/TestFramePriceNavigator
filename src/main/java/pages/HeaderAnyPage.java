@@ -3,8 +3,8 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import util.UtilActionsWithElements;
-import util.UtilSleep;
+import util.elementUtils.UtilActionsWithElements;
+import util.elementUtils.WaitUtils;
 
 public class HeaderAnyPage {
 
@@ -23,7 +23,7 @@ public class HeaderAnyPage {
     public HeaderAnyPage enterSearchQueryIntoSearchFieldAndPressEnter(String searchQuery) throws InterruptedException {
         driver.findElement(searchField).sendKeys(searchQuery);
         driver.findElement(searchField).sendKeys(Keys.ENTER);
-        UtilSleep.sleep();
+        WaitUtils.sleep();
         return this;
     }
 

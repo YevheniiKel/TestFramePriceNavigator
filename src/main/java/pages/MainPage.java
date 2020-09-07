@@ -3,7 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static util.UtilSleep.sleep;
+import static util.elementUtils.WaitUtils.sleep;
 
 public class MainPage {
 
