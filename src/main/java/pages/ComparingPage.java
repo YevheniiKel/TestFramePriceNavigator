@@ -3,8 +3,6 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static util.UtilSleep.sleep;
-
 public class ComparingPage {
     private static String comparingLink;
 
@@ -13,21 +11,21 @@ public class ComparingPage {
     public ComparingPage(WebDriver driver) {
         this.driver = driver;
     }
+
     private By deleteButton = By.cssSelector(".delete");
     private By productsToCompare = By.className("item");
     private By comparingLinkButton = By.partialLinkText("Сформировать ссылку");
     private By comparingLinkField = By.id("static-link");
 
-
     public int amountOfComparingProducts() {
-    return driver.findElements(productsToCompare).size();
+        return driver.findElements(productsToCompare).size();
     }
 
     public void deleteProductFromComparing() {
         driver.findElements(deleteButton).get(2).click();
     }
 
-    public ComparingPage clickGenerateComparingLink(){
+    public ComparingPage clickGenerateComparingLink() {
         driver.findElement(comparingLinkButton).click();
         return this;
     }

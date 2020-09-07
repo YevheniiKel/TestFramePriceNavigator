@@ -1,7 +1,6 @@
 package util;
 
-public class Generator {
-
+public class DataGenerator {
 
     private static int intGenerator(int start, int numbers) {
         return (int) ((Math.random() * (numbers - start)) + start);
@@ -11,12 +10,14 @@ public class Generator {
         return (int) (Math.random() * length);
 
     }
+
     private static String simpleStringGenerator(String charset, int length) {
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++)
             sb.append(charset.charAt(intGenerator(charset.length())));
         return sb.toString();
     }
+
     public static String loginGenerator() {
         return simpleStringGenerator(Const.EMAIL_SYMBOLS, intGenerator(1, 20));
     }

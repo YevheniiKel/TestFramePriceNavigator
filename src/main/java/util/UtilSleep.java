@@ -2,7 +2,6 @@ package util;
 
 public class UtilSleep {
 
-
     public static void sleeplong() throws InterruptedException {
         Thread.sleep(3000);
     }

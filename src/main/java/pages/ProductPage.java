@@ -7,14 +7,15 @@ public class ProductPage {
     private WebDriver driver;
 
     private String shopName;
+
     public ProductPage(WebDriver driver) {
         this.driver = driver;
     }
-    private By IntoShopButton = By.className("form-btn form-btn--yellow price-click");
 
+    private By IntoShopButton = By.className("form-btn form-btn--yellow price-click");
 
     public ProductPage getInformationAboutOneShop() {
 
-    return this;
+        return this;
     }
 }

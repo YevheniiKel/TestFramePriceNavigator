@@ -1,6 +1,5 @@
 package util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -17,7 +16,6 @@ public class Const {
     public static final String EMAIL_SYMBOLS = BASE_SYMBOLS + "-_";
 
     public static final List<String> CATEGORIES = asList(
-
             "Ноутбуки",
             "Планшеты",
             "Игровые приставки",

@@ -2,13 +2,17 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
-import pages.*;
-import util.Generator;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import pages.CataloguePage;
+import pages.ComparingPage;
+import pages.HeaderAnyPage;
+import pages.MainPage;
 import util.Const;
+import util.DataGenerator;
 
 import static util.UtilSleep.sleep;
-
 
 public class TestRunner {
     public static WebDriver driver;
@@ -18,7 +22,7 @@ public class TestRunner {
     private static String password;
 
     @BeforeMethod
-    public static void setUP(){
+    public static void setUP() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -33,28 +37,28 @@ public class TestRunner {
         Assert.assertTrue(page.isProductNotFountNotificationIsShown());
     }
 
-
     @Test(priority = 6)
     public void testLoginWithValidCredentials() throws InterruptedException {
         email = Const.VALID_EMAIL;
         username = Const.VALID_USERNAME;
         password = Const.VALID_PASSWORD;
         MainPage mainPage = openMainPage().openLoginPopup().enterLogin(email).enterPass(password).clickSignIn();
-        Assert.assertEquals(mainPage.getLoggedInUserUsername(),username);
+        Assert.assertEquals(mainPage.getLoggedInUserUsername(), username);
     }
+
     @Test(priority = 3)
     public void testLoginWithNotRegisteredEmailAndPassword() throws InterruptedException {
 
-        email = Generator.loginGenerator();
-        password = Generator.passGenerator();
+        email = DataGenerator.loginGenerator();
+        password = DataGenerator.passGenerator();
         MainPage mainPage = openMainPage().openLoginPopup().enterLogin(email).enterPass(password).clickSignIn();
         Assert.assertTrue(mainPage.invalidCredentialsNotificationIsShown());
     }
 
     @Test(priority = 4)
     public void testLoginWithInvalidEmail() throws InterruptedException {
-        email = Generator.loginGenerator();
-        password = Generator.passGenerator();
+        email = DataGenerator.loginGenerator();
+        password = DataGenerator.passGenerator();
         MainPage mainPage = openMainPage().openLoginPopup().enterLogin(email).enterPass(password).clickSignIn();
         Assert.assertTrue(mainPage.invalidEmailNotificationIsShown());
     }
@@ -97,20 +101,20 @@ public class TestRunner {
         Assert.assertEquals(newComparingPage.amountOfComparingProducts(), amountOfComparingProducts);
     }
 
-    @Test(priority = 4,enabled=false)
+    @Test(priority = 4, enabled = false)
     public void testFavoriteShopsFeature() throws InterruptedException {
 //        openMainPage();
-    //NOT IMPLEMENTED
+        //NOT IMPLEMENTED
     }
 
-    @Test(priority = 4,enabled=false)
+    @Test(priority = 4, enabled = false)
     public void test1() throws InterruptedException {
 //        openMainPage();
         //NOT IMPLEMENTED
     }
 
     @AfterMethod
-    public static void tearDown(){
+    public static void tearDown() {
         driver.quit();
     }
 
@@ -120,9 +124,11 @@ public class TestRunner {
         sleep();
         return mainPage;
     }
+
     private void openProductPage() {
         driver.get(Const.PRODUCT_URL);
     }
+
     private void openCataloguePage() throws InterruptedException {
         openMainPage().chooseSubategory(Const.CATEGORIES.stream().findAny().get());
     }

@@ -16,8 +16,7 @@ public class HeaderAnyPage {
     private By productNotFoundInCatalougeFormatDiv = By.xpath("//div[@class='h2']");
     private By productNotFoundInSearchFormatDiv = By.xpath("//div[@class='search-info-head']");
 
-
-    public HeaderAnyPage(WebDriver driver){
+    public HeaderAnyPage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -28,18 +27,18 @@ public class HeaderAnyPage {
         return this;
     }
 
-    public boolean isProductNotFountNotificationIsShown(){
+    public boolean isProductNotFountNotificationIsShown() {
         try {
-           return driver.findElement(productNotFoundInCatalougeFormatDiv)
+            return driver.findElement(productNotFoundInCatalougeFormatDiv)
                     .getText().toLowerCase()
-                   .contains(Const.PRODUCT_NOT_FOUND_NOTIFICATION.toLowerCase());
-        }catch (NoSuchElementException e1){
+                    .contains(Const.PRODUCT_NOT_FOUND_NOTIFICATION.toLowerCase());
+        } catch (NoSuchElementException e1) {
             System.out.println();
-            try{
+            try {
                 return driver.findElement(productNotFoundInSearchFormatDiv)
                         .getText().toLowerCase()
                         .contains(Const.NOTHING_FOUND_NOTIFICATION.toLowerCase());
-            }catch (NoSuchElementException e2){
+            } catch (NoSuchElementException e2) {
                 return false;
             }
         }

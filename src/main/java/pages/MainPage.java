@@ -1,9 +1,5 @@
 package pages;
 
-import com.sun.jdi.event.StepEvent;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
-import util.UtilSleep;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -32,7 +28,7 @@ public class MainPage {
     private By invalidCredentialsNotification = By.xpath("//div[@class='form-group field-login-form-password required has-error']//div[@class='dropdown-hint afterLeft']");
     private By invalidEmailsNotification = By.xpath("//div[@class='form-group field-login-form-login required has-error']//div[@class='dropdown-hint afterLeft']");
 
-    public MainPage(WebDriver driver){
+    public MainPage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -43,7 +39,7 @@ public class MainPage {
         return this;
     }
 
-    public MainPage enterLogin(String email){
+    public MainPage enterLogin(String email) {
         //todo logger
         driver.findElement(emailLoginField)
                 .sendKeys(email);
@@ -62,16 +58,17 @@ public class MainPage {
     public MainPage clickSignIn() throws InterruptedException {
         driver.findElement(signButton).click();
         sleep();
-    return this;
+        return this;
     }
 
-    public String getLoggedInUserUsername(){
+    public String getLoggedInUserUsername() {
         return driver.findElement(userName).getText();
     }
 
     public boolean invalidCredentialsNotificationIsShown() {
         return driver.findElement(invalidCredentialsNotification).isDisplayed();
     }
+
     public boolean invalidEmailNotificationIsShown() {
         return driver.findElement(invalidEmailsNotification).isDisplayed();
     }

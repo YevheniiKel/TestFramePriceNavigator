@@ -20,28 +20,24 @@ public class CataloguePage {
     private By addToCompareButtonPath = By.className("add-to-compare-link");
     private By compareButtonPath = By.xpath("//span[@class='add-to-compare']/../span[@class='remove-from-compare']/a[contains(text(),'сравнить')]");
 
-
     private List<WebElement> addToCompareButtons;
-    private List<WebElement> compareButtons;
-
 
     public CataloguePage(WebDriver driver) {
         this.driver = driver;
         this.r = new Random();
     }
 
-
     public boolean isCatalogueIsDisplayed() {
         try {
             return driver.findElement(catalogue).isDisplayed();
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return false;
         }
     }
 
     public CataloguePage addThreeProductsToComparing() {
         addToCompareButtons = driver.findElements(addToCompareButtonPath);
-        clickTheElementsTimes(3,addToCompareButtons);
+        clickTheElementsTimes(3, addToCompareButtons);
         return this;
     }
 
