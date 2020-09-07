@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 import java.util.Random;
 
-import static util.Util.clickTheElementsTimes;
+import static util.UtilActionsWithElements.clickTheElementsTimes;
 
 public class CataloguePage {
 
