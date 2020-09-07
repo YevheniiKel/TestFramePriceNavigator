@@ -19,10 +19,10 @@ public class DataGenerator {
     }
 
     public static String loginGenerator() {
-        return simpleStringGenerator(Const.EMAIL_SYMBOLS, intGenerator(1, 20));
+        return simpleStringGenerator(CharDataForTestSite.EMAIL_SYMBOLS, intGenerator(1, 20));
     }
 
     public static String passGenerator() {
-        return simpleStringGenerator(Const.EMAIL_SYMBOLS, intGenerator(1, 20));
+        return simpleStringGenerator(CharDataForTestSite.EMAIL_SYMBOLS, intGenerator(1, 20));
     }
 }

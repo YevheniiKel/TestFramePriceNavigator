@@ -32,11 +32,10 @@ public class MainPage {
         this.driver = driver;
     }
 
-    public MainPage openLoginPopup() throws InterruptedException {
+    public void openLoginPopup() throws InterruptedException {
         driver.findElement(loginButton).click();
         sleep();
         //todo logger
-        return this;
     }
 
     public MainPage enterLogin(String email) {

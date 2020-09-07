@@ -1,57 +1,45 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CataloguePage;
 import pages.ComparingPage;
 import pages.HeaderAnyPage;
 import pages.MainPage;
-import util.Const;
+import util.CharDataForTestSite;
 import util.DataGenerator;
 
 import static util.UtilSleep.sleep;
 
-public class TestRunner {
-    public static WebDriver driver;
+public class TestRunner extends SeleniumSetUp {
 
-    private static String email;
-    private static String username;
-    private static String password;
-
-    @BeforeMethod
-    public static void setUP() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
+    private String email;
+    private String username;
+    private String password;
 
     @Test(priority = 1)
     public void testProductNotFoundPageBySearch() throws InterruptedException {
         openMainPage();
         HeaderAnyPage page = new HeaderAnyPage(driver);
         sleep();
-        page.enterSearchQueryIntoSearchFieldAndPressEnter(Const.INVALID_SEARCH_QUERY);
+        page.enterSearchQueryIntoSearchFieldAndPressEnter(CharDataForTestSite.INVALID_SEARCH_QUERY);
         Assert.assertTrue(page.isProductNotFountNotificationIsShown());
     }
 
     @Test(priority = 6)
     public void testLoginWithValidCredentials() throws InterruptedException {
-        email = Const.VALID_EMAIL;
-        username = Const.VALID_USERNAME;
-        password = Const.VALID_PASSWORD;
-        MainPage mainPage = openMainPage().openLoginPopup().enterLogin(email).enterPass(password).clickSignIn();
+        email = CharDataForTestSite.VALID_EMAIL;
+        username = CharDataForTestSite.VALID_USERNAME;
+        password = CharDataForTestSite.VALID_PASSWORD;
+        MainPage mainPage = openMainPage();
+        enterCredentialsOnTheMainPageToLogin(mainPage);
         Assert.assertEquals(mainPage.getLoggedInUserUsername(), username);
     }
 
     @Test(priority = 3)
     public void testLoginWithNotRegisteredEmailAndPassword() throws InterruptedException {
-
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
-        MainPage mainPage = openMainPage().openLoginPopup().enterLogin(email).enterPass(password).clickSignIn();
+        MainPage mainPage = openMainPage();
+        enterCredentialsOnTheMainPageToLogin(mainPage);
         Assert.assertTrue(mainPage.invalidCredentialsNotificationIsShown());
     }
 
@@ -59,10 +47,10 @@ public class TestRunner {
     public void testLoginWithInvalidEmail() throws InterruptedException {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
-        MainPage mainPage = openMainPage().openLoginPopup().enterLogin(email).enterPass(password).clickSignIn();
+        MainPage mainPage = openMainPage();
+        enterCredentialsOnTheMainPageToLogin(mainPage);
         Assert.assertTrue(mainPage.invalidEmailNotificationIsShown());
     }
-
 
     @Test(priority = 5)
     public void checkThatUserCanOpenCataloguePageFromTheMainPage() throws InterruptedException {
@@ -75,7 +63,7 @@ public class TestRunner {
     public ComparingPage checkThatThreeProductsCanBeAddedToComparing() throws InterruptedException {
         openCataloguePage();
         CataloguePage cataloguePage = new CataloguePage(driver);
-        cataloguePage.addThreeProductsToComparing().clickCompare();
+        addProductsToComparingAndClickCompare(cataloguePage);
         ComparingPage comparingPage = new ComparingPage(driver);
         Assert.assertEquals(comparingPage.amountOfComparingProducts(), 3);
         return comparingPage;
@@ -83,7 +71,7 @@ public class TestRunner {
 
 
     @Test(priority = 2)
-    public ComparingPage checkThatproductCanBeDeletedFromTheComparing() throws InterruptedException {
+    public ComparingPage checkThatProductCanBeDeletedFromTheComparing() throws InterruptedException {
         ComparingPage comparingPage = checkThatThreeProductsCanBeAddedToComparing();
         comparingPage.deleteProductFromComparing();
         Assert.assertEquals(comparingPage.amountOfComparingProducts(), 2);
@@ -92,7 +80,8 @@ public class TestRunner {
 
     @Test(priority = 2)
     public void testThatComparingLinkCreationFeatureGeneratesLinkAndItWorksProperly() throws InterruptedException {
-        ComparingPage comparingPage = checkThatThreeProductsCanBeAddedToComparing().clickGenerateComparingLink();
+        ComparingPage comparingPage = checkThatThreeProductsCanBeAddedToComparing()
+                .clickGenerateComparingLink();
         comparingPage.setComparingLinkFromTheField();
         int amountOfComparingProducts = comparingPage.amountOfComparingProducts();
         ComparingPage newComparingPage = new ComparingPage(driver);
@@ -113,23 +102,37 @@ public class TestRunner {
         //NOT IMPLEMENTED
     }
 
-    @AfterMethod
-    public static void tearDown() {
-        driver.quit();
-    }
-
     private MainPage openMainPage() throws InterruptedException {
-        driver.get(Const.HOME_URL);
+        driver.get(CharDataForTestSite.HOME_URL);
         MainPage mainPage = new MainPage(driver);
         sleep();
         return mainPage;
     }
 
     private void openProductPage() {
-        driver.get(Const.PRODUCT_URL);
+        driver.get(CharDataForTestSite.PRODUCT_URL);
     }
 
     private void openCataloguePage() throws InterruptedException {
-        openMainPage().chooseSubategory(Const.CATEGORIES.stream().findAny().get());
+        openMainPage().chooseSubategory(CharDataForTestSite.CATEGORIES.stream().findAny().get());
+    }
+
+    private void enterCredentialsOnTheMainPageToLogin(MainPage mainPage) throws InterruptedException {
+        mainPage.openLoginPopup();
+        mainPage.enterLogin(email)
+                .enterPass(password)
+                .clickSignIn();
+    }
+
+    private void addProductsToComparingAndClickCompare(CataloguePage cataloguePage) {
+        cataloguePage.addThreeProductsToComparing();
+        cataloguePage.clickCompare();
+    }
+
+    private ComparingPage a() throws InterruptedException {
+        openCataloguePage();
+        CataloguePage cataloguePage = new CataloguePage(driver);
+        addProductsToComparingAndClickCompare(cataloguePage);
+        return new ComparingPage(driver);
     }
 }

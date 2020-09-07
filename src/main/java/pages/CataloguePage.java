@@ -35,10 +35,9 @@ public class CataloguePage {
         }
     }
 
-    public CataloguePage addThreeProductsToComparing() {
+    public void addThreeProductsToComparing() {
         addToCompareButtons = driver.findElements(addToCompareButtonPath);
         clickTheElementsTimes(3, addToCompareButtons);
-        return this;
     }
 
     public void clickCompare() {
