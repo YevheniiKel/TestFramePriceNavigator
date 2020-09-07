@@ -75,4 +75,9 @@ public class MainPage {
     public boolean invalidEmailNotificationIsShown() {
         return driver.findElement(invalidEmailsNotification).isDisplayed();
     }
+
+    public void chooseSubategory(String category) throws InterruptedException {
+        driver.findElement(By.linkText(category)).click();
+        sleep();
+    }
 }

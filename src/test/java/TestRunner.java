@@ -3,8 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.HeaderPageFactory;
-import pages.MainPage;
+import pages.*;
 import util.Generator;
 import util.Const;
 
@@ -25,7 +24,7 @@ public class TestRunner {
         driver.manage().window().maximize();
     }
 
-    @Test(priority = 1)
+    @Test(priority = 10)
     public void testProductNotFoundPageBySearch() throws InterruptedException {
         openMainPage();
         HeaderPageFactory page = new HeaderPageFactory(driver);
@@ -68,6 +67,43 @@ public class TestRunner {
         Assert.assertTrue(page.invalidEmailNotificationIsShown());
     }
 
+
+    @Test(priority = 5)
+    public void checkThatUserCanOpenCataloguePageFromTheMainPage() throws InterruptedException {
+        openMainPage();
+        MainPage mainPage = new MainPage(driver);
+        sleep();
+        mainPage.chooseSubategory(Const.CATEGORIES.stream().findAny().get());
+        CatalougePage catalougePage = new CatalougePage(driver);
+        Assert.assertTrue(catalougePage.isCatalogueIsDisplayed());
+    }
+
+    @Test(priority = 1)
+    public void checkThatThreeProductsCanBeAddedToComparingAndThenOneOfThemDeleted() throws InterruptedException {
+        openMainPage();
+    }
+
+
+    @Test(priority = 4)
+    public void testThatComparingLinkCreationGeneratesAndWorksProperly() throws InterruptedException {
+       // openComparingPage();
+    }
+
+    @Test(priority = 4)
+    public void testFavoriteShopsFeature() throws InterruptedException {
+        openMainPage();
+    }
+
+    @Test(priority = 4)
+    public void test2() throws InterruptedException {
+        openMainPage();
+    }
+
+    @Test(priority = 4)
+    public void test1() throws InterruptedException {
+        openMainPage();
+    }
+
     @AfterMethod
     public static void tearDown(){
         driver.quit();
@@ -75,6 +111,11 @@ public class TestRunner {
 
     private void openMainPage() {
         driver.get(Const.HOME_URL);
-
+    }
+    private void openProductPage() {
+        driver.get(Const.PRODUCT_URL);
+    }
+    private void openCataloguePage() {
+        driver.get(Const.CATALOGUE_URL);
     }
 }
