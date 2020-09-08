@@ -7,10 +7,10 @@ public class PropertyReader {
     private PropertyReader() {
     }
 
-    private static String getPropertyFromFile(String name, String pathToPropertyFile) {
+    public static String getProperty(String name) {
         try {
             Properties props = new Properties();
-            props.load(PropertyReader.class.getResourceAsStream(pathToPropertyFile));
+            props.load(PropertyReader.class.getResourceAsStream("/config.properties"));
             String property = props.getProperty(name);
             if (property == null) {
                 throw new IllegalArgumentException(String.format("Could not read property with key: %s", name));
@@ -21,12 +21,5 @@ public class PropertyReader {
             throw new IllegalStateException(e);
         }
     }
-
-    public static String getProperty(String name) {
-        return getPropertyFromFile(name, "/config.properties");
-    }
-
-    public static String getMessage(String forAssert) {
-        return getPropertyFromFile(forAssert, "/assertMessages.properties");
-    }
 }
+

@@ -5,7 +5,6 @@ import pages.CataloguePage;
 import pages.ComparingPage;
 import pages.HeaderAnyPage;
 import pages.MainPage;
-import util.PropertyReader;
 import util.dataUtils.CharDataForTestSite;
 import util.dataUtils.DataGenerator;
 
@@ -24,7 +23,7 @@ public class TestRunner extends BaseTestSetup {
         sleepSeconds(3);
         page.enterSearchQueryIntoSearchFieldAndPressEnter(CharDataForTestSite.INVALID_SEARCH_QUERY);
         Assert.assertTrue(page.isProductNotFountNotificationIsShown(),
-                PropertyReader.getMessage("productNotFountNotificationIsShownMessage"));
+                "NothingToShow search notification is not shown");
     }
 
     @Test
@@ -32,12 +31,11 @@ public class TestRunner extends BaseTestSetup {
         email = CharDataForTestSite.VALID_EMAIL;
         username = CharDataForTestSite.VALID_USERNAME;
         password = CharDataForTestSite.VALID_PASSWORD;
-        System.out.println(email + " " + username + " " + password);
         MainPage mainPage = openMainPage();
         enterCredentialsOnTheMainPageToLogin(mainPage);
         Assert.assertEquals(
                 mainPage.getLoggedInUserUsername(), username,
-                PropertyReader.getMessage("UsernameIsNotShownAfterLogin"));
+                "Account username is not shown in the right top corner of the page");
     }
 
     @Test
@@ -48,7 +46,7 @@ public class TestRunner extends BaseTestSetup {
         enterCredentialsOnTheMainPageToLogin(mainPage);
         Assert.assertTrue(
                 mainPage.invalidCredentialsNotificationIsShown(),
-                PropertyReader.getMessage("invalidCredentialsNotificationIsNotShown"));
+                "Invalid credentials notification is not shown");
     }
 
     @Test
@@ -59,7 +57,7 @@ public class TestRunner extends BaseTestSetup {
         enterCredentialsOnTheMainPageToLogin(mainPage);
         Assert.assertTrue(
                 mainPage.invalidEmailNotificationIsShown(),
-                PropertyReader.getMessage("invalidEmailNotificationIsNotShown"));
+                "Invalid email notification is not shown");
     }
 
     @Test
@@ -67,29 +65,32 @@ public class TestRunner extends BaseTestSetup {
         openCataloguePage();
         CataloguePage cataloguePage = new CataloguePage(driver);
         Assert.assertTrue(cataloguePage.isCatalogueIsDisplayed(),
-                PropertyReader.getMessage("catalogueIsNotDisplayed"));
+                "Catalogue is not displayed");
 
     }
 
     @Test
     public ComparingPage checkThatThreeProductsCanBeAddedToComparing() throws InterruptedException {
+        int productsToCompare = 3;
         openCataloguePage();
         CataloguePage cataloguePage = new CataloguePage(driver);
         addProductsToComparingAndClickCompare(cataloguePage);
         ComparingPage comparingPage = new ComparingPage(driver);
-        Assert.assertEquals(comparingPage.amountOfComparingProducts(), 3,
-                PropertyReader.getMessage("ComparingAmountIsNotMeetExpected"));
+        Assert.assertEquals(comparingPage.amountOfComparingProducts(), productsToCompare,
+                String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
+                        comparingPage.amountOfComparingProducts(), ++productsToCompare));
         return comparingPage;
     }
 
 
     @Test
     public ComparingPage checkThatProductCanBeDeletedFromTheComparing() throws InterruptedException {
+        int productsToCompare = 2;
         ComparingPage comparingPage = checkThatThreeProductsCanBeAddedToComparing();
         comparingPage.deleteProductFromComparing();
-        Assert.assertEquals(comparingPage.amountOfComparingProducts(), 2,
-                PropertyReader.getMessage("ComparingAmountIsNotMeetExpected"));
-
+        Assert.assertEquals(comparingPage.amountOfComparingProducts(), productsToCompare,
+                String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
+                        comparingPage.amountOfComparingProducts(), ++productsToCompare));
         return comparingPage;
     }
 
@@ -103,7 +104,8 @@ public class TestRunner extends BaseTestSetup {
         driver.get(ComparingPage.getComparingLink());
         sleepSeconds(3);
         Assert.assertEquals(newComparingPage.amountOfComparingProducts(), amountOfComparingProducts,
-                PropertyReader.getMessage("ComparingAmountIsNotMeetExpected"));
+                String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
+                        comparingPage.amountOfComparingProducts(), ++amountOfComparingProducts));
 
     }
 
