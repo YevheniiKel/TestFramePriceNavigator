@@ -7,7 +7,6 @@ public class PropertyReader {
     private PropertyReader() {
     }
 
-
     private static String getPropertyFromFile(String name, String pathToPropertyFile) {
         try {
             Properties props = new Properties();
@@ -25,8 +24,6 @@ public class PropertyReader {
 
     public static String getProperty(String name) {
         return getPropertyFromFile(name, "/config.properties");
-
-
     }
 
     public static String getMessage(String forAssert) {
