@@ -8,7 +8,6 @@ public class DataGenerator {
 
     private static int intGenerator(int length) {
         return (int) (Math.random() * length);
-
     }
 
     private static String simpleStringGenerator(String charset, int length) {

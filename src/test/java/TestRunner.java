@@ -1,16 +1,17 @@
-import driverSetup.SeleniumSetUp;
+import driverSetup.BaseTestSetup;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CataloguePage;
 import pages.ComparingPage;
 import pages.HeaderAnyPage;
 import pages.MainPage;
+import util.PropertyReader;
 import util.dataUtils.CharDataForTestSite;
 import util.dataUtils.DataGenerator;
 
-import static util.elementUtils.WaitUtils.sleep;
+import static util.elementUtils.WaitUtils.sleepSeconds;
 
-public class TestRunner extends SeleniumSetUp {
+public class TestRunner extends BaseTestSetup {
 
     private String email;
     private String username;
@@ -20,9 +21,10 @@ public class TestRunner extends SeleniumSetUp {
     public void testProductNotFoundPageBySearch() throws InterruptedException {
         openMainPage();
         HeaderAnyPage page = new HeaderAnyPage(driver);
-        sleep();
+        sleepSeconds(3);
         page.enterSearchQueryIntoSearchFieldAndPressEnter(CharDataForTestSite.INVALID_SEARCH_QUERY);
-        Assert.assertTrue(page.isProductNotFountNotificationIsShown());
+        Assert.assertTrue(page.isProductNotFountNotificationIsShown(),
+                PropertyReader.getMessage("productNotFountNotificationIsShownMessage"));
     }
 
     @Test
@@ -33,7 +35,9 @@ public class TestRunner extends SeleniumSetUp {
         System.out.println(email + " " + username + " " + password);
         MainPage mainPage = openMainPage();
         enterCredentialsOnTheMainPageToLogin(mainPage);
-        Assert.assertEquals(mainPage.getLoggedInUserUsername(), username);
+        Assert.assertEquals(
+                mainPage.getLoggedInUserUsername(), username,
+                PropertyReader.getMessage("UsernameIsNotShownAfterLogin"));
     }
 
     @Test
@@ -42,7 +46,9 @@ public class TestRunner extends SeleniumSetUp {
         password = DataGenerator.passGenerator();
         MainPage mainPage = openMainPage();
         enterCredentialsOnTheMainPageToLogin(mainPage);
-        Assert.assertTrue(mainPage.invalidCredentialsNotificationIsShown());
+        Assert.assertTrue(
+                mainPage.invalidCredentialsNotificationIsShown(),
+                PropertyReader.getMessage("invalidCredentialsNotificationIsNotShown"));
     }
 
     @Test
@@ -51,14 +57,18 @@ public class TestRunner extends SeleniumSetUp {
         password = DataGenerator.passGenerator();
         MainPage mainPage = openMainPage();
         enterCredentialsOnTheMainPageToLogin(mainPage);
-        Assert.assertTrue(mainPage.invalidEmailNotificationIsShown());
+        Assert.assertTrue(
+                mainPage.invalidEmailNotificationIsShown(),
+                PropertyReader.getMessage("invalidEmailNotificationIsNotShown"));
     }
 
     @Test
     public void checkThatUserCanOpenCataloguePageFromTheMainPage() throws InterruptedException {
         openCataloguePage();
         CataloguePage cataloguePage = new CataloguePage(driver);
-        Assert.assertTrue(cataloguePage.isCatalogueIsDisplayed());
+        Assert.assertTrue(cataloguePage.isCatalogueIsDisplayed(),
+                PropertyReader.getMessage("catalogueIsNotDisplayed"));
+
     }
 
     @Test
@@ -67,7 +77,8 @@ public class TestRunner extends SeleniumSetUp {
         CataloguePage cataloguePage = new CataloguePage(driver);
         addProductsToComparingAndClickCompare(cataloguePage);
         ComparingPage comparingPage = new ComparingPage(driver);
-        Assert.assertEquals(comparingPage.amountOfComparingProducts(), 3);
+        Assert.assertEquals(comparingPage.amountOfComparingProducts(), 3,
+                PropertyReader.getMessage("ComparingAmountIsNotMeetExpected"));
         return comparingPage;
     }
 
@@ -76,7 +87,9 @@ public class TestRunner extends SeleniumSetUp {
     public ComparingPage checkThatProductCanBeDeletedFromTheComparing() throws InterruptedException {
         ComparingPage comparingPage = checkThatThreeProductsCanBeAddedToComparing();
         comparingPage.deleteProductFromComparing();
-        Assert.assertEquals(comparingPage.amountOfComparingProducts(), 2);
+        Assert.assertEquals(comparingPage.amountOfComparingProducts(), 2,
+                PropertyReader.getMessage("ComparingAmountIsNotMeetExpected"));
+
         return comparingPage;
     }
 
@@ -88,8 +101,10 @@ public class TestRunner extends SeleniumSetUp {
         int amountOfComparingProducts = comparingPage.amountOfComparingProducts();
         ComparingPage newComparingPage = new ComparingPage(driver);
         driver.get(ComparingPage.getComparingLink());
-        sleep();
-        Assert.assertEquals(newComparingPage.amountOfComparingProducts(), amountOfComparingProducts);
+        sleepSeconds(3);
+        Assert.assertEquals(newComparingPage.amountOfComparingProducts(), amountOfComparingProducts,
+                PropertyReader.getMessage("ComparingAmountIsNotMeetExpected"));
+
     }
 
     @Test(enabled = false)
@@ -107,7 +122,7 @@ public class TestRunner extends SeleniumSetUp {
     private MainPage openMainPage() throws InterruptedException {
         driver.get(CharDataForTestSite.HOME_URL);
         MainPage mainPage = new MainPage(driver);
-        sleep();
+        sleepSeconds(3);
         return mainPage;
     }
 
@@ -116,7 +131,7 @@ public class TestRunner extends SeleniumSetUp {
     }
 
     private void openCataloguePage() throws InterruptedException {
-        openMainPage().chooseSubategory(CharDataForTestSite.CATEGORIES.stream().findAny().get());
+        openMainPage().chooseSubCategory(CharDataForTestSite.CATEGORIES.stream().findAny().get());
     }
 
     private void enterCredentialsOnTheMainPageToLogin(MainPage mainPage) throws InterruptedException {
@@ -129,12 +144,5 @@ public class TestRunner extends SeleniumSetUp {
     private void addProductsToComparingAndClickCompare(CataloguePage cataloguePage) {
         cataloguePage.addThreeProductsToComparing();
         cataloguePage.clickCompare();
-    }
-
-    private ComparingPage a() throws InterruptedException {
-        openCataloguePage();
-        CataloguePage cataloguePage = new CataloguePage(driver);
-        addProductsToComparingAndClickCompare(cataloguePage);
-        return new ComparingPage(driver);
     }
 }

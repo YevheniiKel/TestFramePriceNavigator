@@ -3,7 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static util.elementUtils.WaitUtils.sleep;
+import static util.elementUtils.WaitUtils.sleepSeconds;
 
 public class MainPage {
 
@@ -34,7 +34,7 @@ public class MainPage {
 
     public void openLoginPopup() throws InterruptedException {
         driver.findElement(loginButton).click();
-        sleep();
+        sleepSeconds(3);
         //todo logger
     }
 
@@ -50,13 +50,13 @@ public class MainPage {
         //todo logger
         driver.findElement(passwordLoginField)
                 .sendKeys(password);
-        sleep();
+        sleepSeconds(3);
         return this;
     }
 
     public MainPage clickSignIn() throws InterruptedException {
         driver.findElement(signButton).click();
-        sleep();
+        sleepSeconds(3);
         return this;
     }
 
@@ -72,8 +72,8 @@ public class MainPage {
         return driver.findElement(invalidEmailsNotification).isDisplayed();
     }
 
-    public void chooseSubategory(String category) throws InterruptedException {
+    public void chooseSubCategory(String category) throws InterruptedException {
         driver.findElement(By.linkText(category)).click();
-        sleep();
+        sleepSeconds(3);
     }
 }

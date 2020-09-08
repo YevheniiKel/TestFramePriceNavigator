@@ -9,10 +9,10 @@ import java.util.List;
 
 public class UtilActionsWithElements {
 
-    public static boolean isElementDisplayed(WebDriver driver, By element){
+    public static boolean isElementDisplayed(WebDriver driver, By element) {
         try {
             return driver.findElement(element).isDisplayed();
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return false;
         }
     }

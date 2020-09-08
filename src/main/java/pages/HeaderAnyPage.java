@@ -23,11 +23,11 @@ public class HeaderAnyPage {
     public HeaderAnyPage enterSearchQueryIntoSearchFieldAndPressEnter(String searchQuery) throws InterruptedException {
         driver.findElement(searchField).sendKeys(searchQuery);
         driver.findElement(searchField).sendKeys(Keys.ENTER);
-        WaitUtils.sleep();
+        WaitUtils.sleepSeconds(3);
         return this;
     }
 
-    public boolean isProductNotFountNotificationIsShown() {
+    public boolean isProductNotFountNotificationIsShown() { //todo make separated test cases, redesign tests with dataProvider
         return UtilActionsWithElements.isElementDisplayed(driver, nothingToSHowInCatalogue)
                 ||
                 UtilActionsWithElements.isElementDisplayed(driver, nothingToSHowInSearchResult);

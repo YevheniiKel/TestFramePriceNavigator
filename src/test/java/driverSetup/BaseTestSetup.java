@@ -4,13 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-public class SeleniumSetUp {
-    public WebDriver driver;
+public class BaseTestSetup {
+    protected WebDriver driver;
 
     @BeforeMethod
     public void setUP() {
-        driver = BrowserFactory.getDriver1("BROWSER");
-        driver.manage().window().maximize();
+        driver = BrowserFactory.getDriver();
     }
 
     @AfterMethod
