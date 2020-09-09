@@ -65,38 +65,33 @@ public class TestRunner extends BaseTestSetup {
         openCataloguePage();
         CataloguePage cataloguePage = new CataloguePage(driver);
         Assert.assertTrue(cataloguePage.isCatalogueIsDisplayed(),
-                "Catalogue is not displayed");
+                "Catalogue is not displayed on the catalogue page");
 
     }
 
     @Test
-    public ComparingPage checkThatThreeProductsCanBeAddedToComparing() throws InterruptedException {
+    public void checkThatThreeProductsCanBeAddedToComparing() throws InterruptedException {
         int productsToCompare = 3;
-        openCataloguePage();
-        CataloguePage cataloguePage = new CataloguePage(driver);
-        addProductsToComparingAndClickCompare(cataloguePage);
-        ComparingPage comparingPage = new ComparingPage(driver);
+        ComparingPage comparingPage = openCataloguePageAndAddThreeProductsToComparing();
         Assert.assertEquals(comparingPage.amountOfComparingProducts(), productsToCompare,
                 String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
-                        comparingPage.amountOfComparingProducts(), ++productsToCompare));
-        return comparingPage;
+                        comparingPage.amountOfComparingProducts(), productsToCompare));
     }
 
 
     @Test
-    public ComparingPage checkThatProductCanBeDeletedFromTheComparing() throws InterruptedException {
+    public void checkThatProductCanBeDeletedFromTheComparing() throws InterruptedException {
         int productsToCompare = 2;
-        ComparingPage comparingPage = checkThatThreeProductsCanBeAddedToComparing();
+        ComparingPage comparingPage = openCataloguePageAndAddThreeProductsToComparing();
         comparingPage.deleteProductFromComparing();
         Assert.assertEquals(comparingPage.amountOfComparingProducts(), productsToCompare,
                 String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
-                        comparingPage.amountOfComparingProducts(), ++productsToCompare));
-        return comparingPage;
+                        comparingPage.amountOfComparingProducts(), productsToCompare));
     }
 
     @Test
     public void testThatComparingLinkCreationFeatureGeneratesLinkAndItWorksProperly() throws InterruptedException {
-        ComparingPage comparingPage = checkThatThreeProductsCanBeAddedToComparing()
+        ComparingPage comparingPage = openCataloguePageAndAddThreeProductsToComparing()
                 .clickGenerateComparingLink();
         comparingPage.setComparingLinkFromTheField();
         int amountOfComparingProducts = comparingPage.amountOfComparingProducts();
@@ -106,10 +101,10 @@ public class TestRunner extends BaseTestSetup {
         Assert.assertEquals(newComparingPage.amountOfComparingProducts(), amountOfComparingProducts,
                 String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
                         comparingPage.amountOfComparingProducts(), ++amountOfComparingProducts));
-
     }
+//______________________________________________________________________________
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void testFavoriteShopsFeature() throws InterruptedException {
 //        openMainPage();
         //NOT IMPLEMENTED
@@ -135,6 +130,15 @@ public class TestRunner extends BaseTestSetup {
     private void openCataloguePage() throws InterruptedException {
         openMainPage().chooseSubCategory(CharDataForTestSite.CATEGORIES.stream().findAny().get());
     }
+
+    private ComparingPage openCataloguePageAndAddThreeProductsToComparing() throws InterruptedException {
+        openCataloguePage();
+        CataloguePage cataloguePage = new CataloguePage(driver);
+        addProductsToComparingAndClickCompare(cataloguePage);
+        ComparingPage comparingPage = new ComparingPage(driver);
+        return comparingPage;
+    }
+
 
     private void enterCredentialsOnTheMainPageToLogin(MainPage mainPage) throws InterruptedException {
         mainPage.openLoginPopup();

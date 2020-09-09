@@ -1,6 +1,5 @@
 package util.elementUtils;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,9 +8,9 @@ import java.util.List;
 
 public class UtilActionsWithElements {
 
-    public static boolean isElementDisplayed(WebDriver driver, By element) {
+    public static boolean isElementDisplayed(WebDriver driver, WebElement element) {
         try {
-            return driver.findElement(element).isDisplayed();
+            return element.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }

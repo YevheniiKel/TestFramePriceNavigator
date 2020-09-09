@@ -1,10 +1,11 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -16,9 +17,15 @@ public class CataloguePage {
 
     private Random r;
 
-    private By catalogue = By.className("catalog");
-    private By addToCompareButtonPath = By.className("add-to-compare-link");
-    private By compareButtonPath = By.xpath("//span[@class='add-to-compare']/../span[@class='remove-from-compare']/a[contains(text(),'сравнить')]");
+    @FindBy(className = "catalog")
+    WebElement catalogue;
+
+    @FindBy(className = "add-to-compare-link")
+    WebElement addToCompareButtonPath;
+
+    @FindBy(xpath = "//span[@class='add-to-compare']/../span[@class='remove-from-compare']/a[contains(text(),'сравнить')]")
+    WebElement compareButtonPath;
+
 
     private List<WebElement> addToCompareButtons;
 
@@ -29,18 +36,18 @@ public class CataloguePage {
 
     public boolean isCatalogueIsDisplayed() {
         try {
-            return driver.findElement(catalogue).isDisplayed();
+            return catalogue.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
     }
 
     public void addThreeProductsToComparing() {
-        addToCompareButtons = driver.findElements(addToCompareButtonPath);
+        addToCompareButtons = Arrays.asList(addToCompareButtonPath);
         clickTheElementsTimes(3, addToCompareButtons);
     }
 
     public void clickCompare() {
-        driver.findElement(compareButtonPath).click();
+        compareButtonPath.click();
     }
 }
