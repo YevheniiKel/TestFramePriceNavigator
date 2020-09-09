@@ -4,15 +4,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import util.elementUtils.UtilActionsWithElements;
 import util.elementUtils.WaitUtils;
 
-public class HeaderAnyPage {
+public class HeaderAnyPage extends BasePage {
 
-    private WebDriver driver;
-
-    @FindBy(className = "search-text-input")
-    WebElement searchField;
+    @FindBy(how = How.CLASS_NAME, className = "search-text-input")
+    public WebElement searchField;
 
     @FindBy(className = "search-tips-body")
     WebElement searchResultList;
@@ -24,7 +23,7 @@ public class HeaderAnyPage {
     WebElement nothingToSHowInSearchResult;
 
     public HeaderAnyPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public HeaderAnyPage enterSearchQueryIntoSearchFieldAndPressEnter(String searchQuery) throws InterruptedException {
@@ -34,9 +33,17 @@ public class HeaderAnyPage {
         return this;
     }
 
+    public HeaderAnyPage enterSearchQueryIntoSearchFieldAndClearTheSearchField(String searchQuery) throws InterruptedException {
+        searchField.sendKeys(searchQuery);
+
+        searchField.clear();
+        WaitUtils.sleepSeconds(3);
+        return this;
+    }
+
     public boolean isProductNotFountNotificationIsShown() { //todo make separated test cases, redesign tests with dataProvider
-        return UtilActionsWithElements.isElementDisplayed(driver, nothingToSHowInCatalogue)
+        return UtilActionsWithElements.isElementDisplayed(nothingToSHowInCatalogue)
                 ||
-                UtilActionsWithElements.isElementDisplayed(driver, nothingToSHowInSearchResult);
+                UtilActionsWithElements.isElementDisplayed(nothingToSHowInSearchResult);
     }
 }

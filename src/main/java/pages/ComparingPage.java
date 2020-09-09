@@ -6,13 +6,12 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class ComparingPage {
+public class ComparingPage extends BasePage {
+
     private static String comparingLink;
 
-    private WebDriver driver;
-
     public ComparingPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     @FindBy(css = ".delete")

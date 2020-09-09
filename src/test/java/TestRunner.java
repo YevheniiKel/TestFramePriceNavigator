@@ -17,12 +17,31 @@ public class TestRunner extends BaseTestSetup {
     private String password;
 
     @Test
+    public void checkThatSiteDefautlCityIsKh() throws InterruptedException {
+        openMainPage();
+        HeaderAnyPage page = new HeaderAnyPage(super.driver);
+        sleepSeconds(3);
+        Assert.assertEquals(page.searchField.getAttribute("placeholder"), "Найти товар в Харькове",
+                String.format("The placeholder text is incorrect: %s", "Найти товар в Харькове"));
+    }
+
+    @Test
     public void testProductNotFoundPageBySearch() throws InterruptedException {
         openMainPage();
-        HeaderAnyPage page = new HeaderAnyPage(driver);
+        HeaderAnyPage page = new HeaderAnyPage(super.driver);
         sleepSeconds(3);
         page.enterSearchQueryIntoSearchFieldAndPressEnter(CharDataForTestSite.INVALID_SEARCH_QUERY);
         Assert.assertTrue(page.isProductNotFountNotificationIsShown(),
+                "NothingToShow search notification is not shown");
+    }
+
+    @Test
+    public void testDeletingTextFromTheSearchField() throws InterruptedException {
+        openMainPage();
+        HeaderAnyPage page = new HeaderAnyPage(super.driver);
+        sleepSeconds(3);
+        page.searchField.sendKeys(CharDataForTestSite.INVALID_SEARCH_QUERY);
+        Assert.assertEquals(page.searchField.getText(), "",
                 "NothingToShow search notification is not shown");
     }
 
@@ -102,7 +121,6 @@ public class TestRunner extends BaseTestSetup {
                 String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
                         comparingPage.amountOfComparingProducts(), ++amountOfComparingProducts));
     }
-//______________________________________________________________________________
 
     @Test(enabled = true)
     public void testFavoriteShopsFeature() throws InterruptedException {
@@ -128,7 +146,11 @@ public class TestRunner extends BaseTestSetup {
     }
 
     private void openCataloguePage() throws InterruptedException {
-        openMainPage().chooseSubCategory(CharDataForTestSite.CATEGORIES.stream().findAny().get());
+        openMainPage().chooseSubCategory(CharDataForTestSite
+                .CATEGORIES
+                .stream()
+                .findAny()
+                .get());
     }
 
     private ComparingPage openCataloguePageAndAddThreeProductsToComparing() throws InterruptedException {
@@ -141,6 +163,7 @@ public class TestRunner extends BaseTestSetup {
 
 
     private void enterCredentialsOnTheMainPageToLogin(MainPage mainPage) throws InterruptedException {
+        sleepSeconds(3);
         mainPage.openLoginPopup();
         mainPage.enterLogin(email)
                 .enterPass(password)

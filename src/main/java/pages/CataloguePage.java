@@ -11,7 +11,7 @@ import java.util.Random;
 
 import static util.elementUtils.UtilActionsWithElements.clickTheElementsTimes;
 
-public class CataloguePage {
+public class CataloguePage extends BasePage {
 
     private WebDriver driver;
 
@@ -30,7 +30,7 @@ public class CataloguePage {
     private List<WebElement> addToCompareButtons;
 
     public CataloguePage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         this.r = new Random();
     }
 
