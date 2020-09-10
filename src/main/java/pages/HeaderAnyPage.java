@@ -27,8 +27,7 @@ public class HeaderAnyPage extends BasePage {
     }
 
     public HeaderAnyPage enterSearchQuery(String searchQuery) throws InterruptedException {
-        searchField.sendKeys(searchQuery);
-        searchField.sendKeys(Keys.ENTER);
+        searchField.sendKeys(searchQuery, Keys.ENTER);
         WaitUtils.sleepSeconds(3);
         return this;
     }

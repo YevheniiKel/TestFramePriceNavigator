@@ -26,6 +26,10 @@ public class ComparingPage extends BasePage {
     @FindBy(id = "static-link")
     WebElement comparingLinkField;
 
+    public static String getComparingLink() {
+        return comparingLink;
+    }
+
     public int amountOfComparingProducts() {
         return productsToCompare.size();
     }
@@ -41,9 +45,5 @@ public class ComparingPage extends BasePage {
 
     public void setComparingLinkFromTheField() {
         comparingLink = comparingLinkField.getText();
-    }
-
-    public static String getComparingLink() throws InterruptedException {
-        return comparingLink;
     }
 }
