@@ -10,6 +10,10 @@ import util.elementUtils.WaitUtils;
 
 public class HeaderAnyPage extends BasePage {
 
+    public HeaderAnyPage(WebDriver driver) {
+        super(driver);
+    }
+
     @FindBy(how = How.CLASS_NAME, className = "search-text-input")
     public WebElement searchField;
 
@@ -21,10 +25,6 @@ public class HeaderAnyPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='search-info']")
     WebElement nothingToSHowInSearchResult;
-
-    public HeaderAnyPage(WebDriver driver) {
-        super(driver);
-    }
 
     public HeaderAnyPage enterSearchQuery(String searchQuery) throws InterruptedException {
         searchField.sendKeys(searchQuery, Keys.ENTER);

@@ -9,6 +9,10 @@ import static util.elementUtils.WaitUtils.sleepSeconds;
 
 public class MainPage extends BasePage {
 
+    public MainPage(WebDriver driver) {
+        super(driver);
+    }
+
     @FindBy(className = "search-text-input")
     WebElement searchField;
 
@@ -50,10 +54,6 @@ public class MainPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='form-group field-login-form-login required has-error']//div[@class='dropdown-hint afterLeft']")
     WebElement invalidEmailsNotification;
-
-    public MainPage(WebDriver driver) {
-        super(driver);
-    }
 
     public void openLoginPopup() throws InterruptedException {
         loginButton.click();

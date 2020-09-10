@@ -11,7 +11,13 @@ import static util.elementUtils.UtilActionsWithElements.clickTheElementsTimes;
 
 public class CataloguePage extends BasePage {
 
-    @FindBy(className = "catalog")
+    private List<WebElement> addToCompareButtons;
+
+    public CataloguePage(WebDriver driver) {
+        super(driver);
+    }
+
+    @FindBy(xpath = "//section[@class='catalog']")
     WebElement catalogue;
 
     @FindBy(className = "add-to-compare-link")
@@ -19,13 +25,6 @@ public class CataloguePage extends BasePage {
 
     @FindBy(xpath = "//span[@class='add-to-compare']/../span[@class='remove-from-compare']/a[contains(text(),'сравнить')]")
     WebElement compareButtonPath;
-
-
-    private List<WebElement> addToCompareButtons;
-
-    public CataloguePage(WebDriver driver) {
-        super(driver);
-    }
 
     public boolean isCatalogueIsDisplayed() {
         try {
