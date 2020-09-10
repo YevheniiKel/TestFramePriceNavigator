@@ -26,7 +26,7 @@ public class HeaderAnyPage extends BasePage {
         super(driver);
     }
 
-    public HeaderAnyPage enterSearchQueryIntoSearchFieldAndPressEnter(String searchQuery) throws InterruptedException {
+    public HeaderAnyPage enterSearchQuery(String searchQuery) throws InterruptedException {
         searchField.sendKeys(searchQuery);
         searchField.sendKeys(Keys.ENTER);
         WaitUtils.sleepSeconds(3);
@@ -35,13 +35,13 @@ public class HeaderAnyPage extends BasePage {
 
     public HeaderAnyPage enterSearchQueryIntoSearchFieldAndClearTheSearchField(String searchQuery) throws InterruptedException {
         searchField.sendKeys(searchQuery);
-
         searchField.clear();
         WaitUtils.sleepSeconds(3);
         return this;
     }
 
-    public boolean isProductNotFountNotificationIsShown() { //todo make separated test cases, redesign tests with dataProvider
+    public boolean isProductNotFountNotificationIsShown() throws InterruptedException { //todo make separated test cases, redesign tests with dataProvider
+        WaitUtils.sleepSeconds(1);
         return UtilActionsWithElements.isElementDisplayed(nothingToSHowInCatalogue)
                 ||
                 UtilActionsWithElements.isElementDisplayed(nothingToSHowInSearchResult);
