@@ -1,4 +1,4 @@
-package driverSetup;
+package ui.driverSetup;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -26,8 +26,7 @@ class BrowserFactory {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions options = new ChromeOptions()
                         .addArguments("start-maximized")
-                        .addArguments("disable-infobars")
-                        .addArguments("--headless");
+                        .addArguments("disable-infobars");
                 return new ChromeDriver(options);
             }
             case "EDGE" -> {

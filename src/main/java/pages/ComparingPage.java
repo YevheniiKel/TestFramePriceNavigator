@@ -1,40 +1,49 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-public class ComparingPage {
+import java.util.List;
+
+public class ComparingPage extends BasePage {
+
     private static String comparingLink;
 
-    private WebDriver driver;
-
     public ComparingPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-    private By deleteButton = By.cssSelector(".delete");
-    private By productsToCompare = By.className("item");
-    private By comparingLinkButton = By.partialLinkText("Сформировать ссылку");
-    private By comparingLinkField = By.id("static-link");
+    @FindBy(css = ".delete")
+    List<WebElement> deleteButton;
+
+    @FindBy(className = "item")
+    List<WebElement> productsToCompare;
+
+    @FindBy(partialLinkText = "Сформировать ссылку")
+    WebElement comparingLinkButton;
+
+    @FindBy(id = "static-link")
+    WebElement comparingLinkField;
+
+    public static String getComparingLink() {
+        return comparingLink;
+    }
 
     public int amountOfComparingProducts() {
-        return driver.findElements(productsToCompare).size();
+        return productsToCompare.size();
     }
 
     public void deleteProductFromComparing() {
-        driver.findElements(deleteButton).get(2).click();
+        deleteButton.get(2).click();
     }
 
     public ComparingPage clickGenerateComparingLink() {
-        driver.findElement(comparingLinkButton).click();
+        comparingLinkButton.click();
         return this;
     }
 
     public void setComparingLinkFromTheField() {
-        comparingLink = driver.findElement(comparingLinkField).getText();
-    }
-
-    public static String getComparingLink() throws InterruptedException {
-        return comparingLink;
+        comparingLink = comparingLinkField.getText();
     }
 }
