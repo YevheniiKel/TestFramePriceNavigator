@@ -13,46 +13,43 @@ public class MainPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(className = "search-text-input")
-    WebElement searchField;
-
-    @FindBy(className = "user-info")
+    @FindBy(xpath = "//span[@class='user-info']")
     WebElement loginButton;
 
-    @FindBy(id = "login-form-login")
+    @FindBy(xpath = "//input[@id='login-form-login']")
     WebElement emailLoginField;
 
-    @FindBy(id = "login-form-password")
+    @FindBy(xpath = "//input[@id='login-form-password']")
     WebElement passwordLoginField;
 
-    @FindBy(css = "#register-form-container #register-form")
+    @FindBy(xpath = "//form[@id='register-form']")
     WebElement registerFrame;
 
-    @FindBy(css = "#register-form-email")
+    @FindBy(xpath = "//input[@id='register-form-email']")
     WebElement emailRegisterField;
 
-    @FindBy(css = "#register-form-password")
+    @FindBy(xpath = "//input[@id='register-form-password']")
     WebElement passwordRegisterFieldFirst;
 
-    @FindBy(css = "#register-form-password_repeat")
+    @FindBy(xpath = "//input[@id='register-form-password_repeat']")
     WebElement passwordRegisterFieldSecond;
 
-    @FindBy(css = ".form-btn")
-    WebElement registerSignUpButton;
+    @FindBy(xpath = "//parent::form[@id='register-form']//button[@class='form-btn']")
+    WebElement registerSignUpButton; //confirm registration
 
-    @FindBy(id = "loginButton")
+    @FindBy(xpath = "//span[@class='user-info']//a")
+    WebElement registrationButton; // open registration form
+
+    @FindBy(xpath = "//button[@id='loginButton']")
     WebElement signButton;
 
-    @FindBy(linkText = "Зарегистрируйтесь")
-    WebElement registrationButton;
-
-    @FindBy(css = "div.base:nth-child(3) div.base-container header.header div.td-table div.td-block:nth-child(2) div.links.dropdown nav.links-nav:nth-child(1) ul:nth-child(1) li:nth-child(4) span.user-info a:nth-child(1) > span:nth-child(2)")
+    @FindBy(xpath = "//span[@class='user-info']//span")
     WebElement userName;
 
-    @FindBy(xpath = "//div[@class='form-group field-login-form-password required has-error']//div[@class='dropdown-hint afterLeft']")
+    @FindBy(xpath = "//input[@id='login-form-password']/../div[contains(@class, 'hint')]")
     WebElement invalidCredentialsNotification;
 
-    @FindBy(xpath = "//div[@class='form-group field-login-form-login required has-error']//div[@class='dropdown-hint afterLeft']")
+    @FindBy(xpath = "//input[@id='login-form-login']/../div[contains(@class, 'hint')]")
     WebElement invalidEmailsNotification;
 
     public void openLoginPopup() throws InterruptedException {

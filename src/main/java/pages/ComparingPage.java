@@ -14,16 +14,16 @@ public class ComparingPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(css = ".delete")
+    @FindBy(xpath = "//a[@class='delete']")
     List<WebElement> deleteButton;
 
-    @FindBy(className = "item")
-    List<WebElement> productsToCompare;
+    @FindBy(xpath = "//th[@class = 'item']")
+    List<WebElement> productsOnComparing;
 
-    @FindBy(partialLinkText = "Сформировать ссылку")
+    @FindBy(xpath = "//a[@data-select-text='static-link']")
     WebElement comparingLinkButton;
 
-    @FindBy(id = "static-link")
+    @FindBy(xpath = "//textarea[@id='static-link']")
     WebElement comparingLinkField;
 
     public static String getComparingLink() {
@@ -31,7 +31,7 @@ public class ComparingPage extends BasePage {
     }
 
     public int amountOfComparingProducts() {
-        return productsToCompare.size();
+        return productsOnComparing.size();
     }
 
     public void deleteProductFromComparing() {

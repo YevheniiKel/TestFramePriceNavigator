@@ -20,10 +20,10 @@ public class CataloguePage extends BasePage {
     @FindBy(xpath = "//section[@class='catalog']")
     WebElement catalogue;
 
-    @FindBy(className = "add-to-compare-link")
+    @FindBy(xpath = "//a[@class='add-to-compare-link']")
     List<WebElement> addToCompareButtonPath;
 
-    @FindBy(xpath = "//span[@class='add-to-compare']/../span[@class='remove-from-compare']/a[contains(text(),'сравнить')]")
+    @FindBy(xpath = "//a[contains(@href, '/compare/')]")
     WebElement compareButtonPath;
 
     public boolean isCatalogueIsDisplayed() {
