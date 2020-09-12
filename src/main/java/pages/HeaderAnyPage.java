@@ -13,13 +13,13 @@ public class HeaderAnyPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//input[@class = 'search-text-input']")
+    @FindBy(xpath = ".//input[@class = 'search-text-input']")
     public WebElement searchField;
 
-    @FindBy(xpath = "//div[@class='no-block']")
+    @FindBy(xpath = ".//div[@class='no-block']")
     WebElement nothingToSHowInCatalogue;
 
-    @FindBy(xpath = "//div[@class='search-info']")
+    @FindBy(xpath = ".//div[@class='search-info']")
     WebElement nothingToSHowInSearchResult;
 
     public HeaderAnyPage enterSearchQuery(String searchQuery) throws InterruptedException {

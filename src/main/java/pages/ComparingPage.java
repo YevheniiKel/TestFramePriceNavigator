@@ -14,16 +14,16 @@ public class ComparingPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//a[@class='delete']")
+    @FindBy(xpath = ".//a[@class='delete']")
     List<WebElement> deleteButton;
 
-    @FindBy(xpath = "//th[@class = 'item']")
+    @FindBy(xpath = ".//th[@class = 'item']")
     List<WebElement> productsOnComparing;
 
-    @FindBy(xpath = "//a[@data-select-text='static-link']")
+    @FindBy(xpath = ".//a[@data-select-text='static-link']")
     WebElement comparingLinkButton;
 
-    @FindBy(xpath = "//textarea[@id='static-link']")
+    @FindBy(xpath = ".//textarea[@id='static-link']")
     WebElement comparingLinkField;
 
     public static String getComparingLink() {

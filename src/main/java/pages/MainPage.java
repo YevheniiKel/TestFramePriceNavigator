@@ -13,25 +13,25 @@ public class MainPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//span[@class='user-info']")
+    @FindBy(xpath = ".//span[@class='user-info']")
     WebElement loginButton;
 
-    @FindBy(xpath = "//input[@id='login-form-login']")
+    @FindBy(xpath = ".//input[@id='login-form-login']")
     WebElement emailLoginField;
 
-    @FindBy(xpath = "//input[@id='login-form-password']")
+    @FindBy(xpath = ".//input[@id='login-form-password']")
     WebElement passwordLoginField;
 
-    @FindBy(xpath = "//button[@id='loginButton']")
+    @FindBy(xpath = ".//button[@id='loginButton']")
     WebElement signButton;
 
-    @FindBy(xpath = "//span[@class='user-info']//span")
+    @FindBy(xpath = ".//span[@class='user-info']//span")
     WebElement userName;
 
-    @FindBy(xpath = "//input[@id='login-form-password']/../div[contains(@class, 'hint')]")
+    @FindBy(xpath = ".//input[@id='login-form-password']/following-sibling::div[contains(@class, 'hint')]")
     WebElement invalidCredentialsNotification;
 
-    @FindBy(xpath = "//input[@id='login-form-login']/../div[contains(@class, 'hint')]")
+    @FindBy(xpath = ".//input[@id='login-form-login']/following-sibling::div[contains(@class, 'hint')]")
     WebElement invalidEmailsNotification;
 
     public void openLoginPopup() throws InterruptedException {

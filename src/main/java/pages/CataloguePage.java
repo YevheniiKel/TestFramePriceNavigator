@@ -17,13 +17,13 @@ public class CataloguePage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//section[@class='catalog']")
+    @FindBy(xpath = ".//section[@class='catalog']")
     WebElement catalogue;
 
-    @FindBy(xpath = "//a[@class='add-to-compare-link']")
+    @FindBy(xpath = ".//a[@class='add-to-compare-link']")
     List<WebElement> addToCompareButtonPath;
 
-    @FindBy(xpath = "//a[contains(@href, '/compare/')]")
+    @FindBy(xpath = ".//a[contains(@href, '/compare/')]")
     WebElement compareButtonPath;
 
     public boolean isCatalogueIsDisplayed() {
