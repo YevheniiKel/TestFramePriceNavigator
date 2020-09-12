@@ -10,7 +10,7 @@ import util.dataUtils.DataGenerator;
 
 import static util.elementUtils.WaitUtils.sleepSeconds;
 
-public class ComparingTest extends BaseTestSetup { //todo fix is needed/ Case if there is no 3 products in this catalogue of subcategory
+public class ComparingTest extends BaseTestSetup {
 
     private int amountOfSubcategories;
 
