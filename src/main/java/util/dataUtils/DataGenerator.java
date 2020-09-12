@@ -2,11 +2,11 @@ package util.dataUtils;
 
 public class DataGenerator {
 
-    private static int intGenerator(int start, int numbers) {
+    public static int intGenerator(int start, int numbers) {
         return (int) ((Math.random() * (numbers - start)) + start);
     }
 
-    private static int intGenerator(int length) {
+    public static int intGenerator(int length) {
         return (int) (Math.random() * length);
     }
 
@@ -18,10 +18,10 @@ public class DataGenerator {
     }
 
     public static String loginGenerator() {
-        return simpleStringGenerator(CharDataForTestSite.EMAIL_SYMBOLS, intGenerator(1, 20));
+        return simpleStringGenerator(CharDataForTestSite.EMAIL_SYMBOLS, intGenerator(4, 20));
     }
 
     public static String passGenerator() {
-        return simpleStringGenerator(CharDataForTestSite.EMAIL_SYMBOLS, intGenerator(1, 20));
+        return simpleStringGenerator(CharDataForTestSite.EMAIL_SYMBOLS, intGenerator(6, 20));
     }
 }
