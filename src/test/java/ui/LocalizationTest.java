@@ -10,7 +10,7 @@ import static util.elementUtils.WaitUtils.sleepSeconds;
 
 public class LocalizationTest extends BaseTestSetup {
 
-    HeaderAnyPage headerAnyPage;
+    private HeaderAnyPage headerAnyPage;
 
     @BeforeMethod
     public void localizationTestSetup() {

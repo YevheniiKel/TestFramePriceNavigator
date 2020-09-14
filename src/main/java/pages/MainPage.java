@@ -1,9 +1,11 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import util.dataUtils.DataGenerator;
+
+import java.util.List;
 
 import static util.elementUtils.WaitUtils.sleepSeconds;
 
@@ -13,47 +15,47 @@ public class MainPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(className = "search-text-input")
-    WebElement searchField;
-
-    @FindBy(className = "user-info")
+    @FindBy(xpath = ".//span[@class='user-info']")
     WebElement loginButton;
 
-    @FindBy(id = "login-form-login")
+    @FindBy(xpath = ".//input[@id='login-form-login']")
     WebElement emailLoginField;
 
-    @FindBy(id = "login-form-password")
+    @FindBy(xpath = ".//input[@id='login-form-password']")
     WebElement passwordLoginField;
 
-    @FindBy(css = "#register-form-container #register-form")
-    WebElement registerFrame;
-
-    @FindBy(css = "#register-form-email")
-    WebElement emailRegisterField;
-
-    @FindBy(css = "#register-form-password")
-    WebElement passwordRegisterFieldFirst;
-
-    @FindBy(css = "#register-form-password_repeat")
-    WebElement passwordRegisterFieldSecond;
-
-    @FindBy(css = ".form-btn")
-    WebElement registerSignUpButton;
-
-    @FindBy(id = "loginButton")
+    @FindBy(xpath = ".//button[@id='loginButton']")
     WebElement signButton;
 
-    @FindBy(linkText = "Зарегистрируйтесь")
-    WebElement registrationButton;
+    @FindBy(xpath = ".//form[@id='register-form']")
+    WebElement registerFrame;
 
-    @FindBy(css = "div.base:nth-child(3) div.base-container header.header div.td-table div.td-block:nth-child(2) div.links.dropdown nav.links-nav:nth-child(1) ul:nth-child(1) li:nth-child(4) span.user-info a:nth-child(1) > span:nth-child(2)")
+    @FindBy(xpath = ".//input[@id='register-form-email']")
+    WebElement emailRegisterField;
+
+    @FindBy(xpath = ".//input[@id='register-form-password']")
+    WebElement passwordRegisterFieldFirst;
+
+    @FindBy(xpath = ".//input[@id='register-form-password_repeat']")
+    WebElement passwordRegisterFieldSecond;
+
+    @FindBy(xpath = ".//form[@id='register-form']//button[@class='form-btn']")
+    WebElement registerSignUpButton; //confirm registration
+
+    @FindBy(xpath = ".//form[@id='login-form']/following::a[not(@class = 'forgot-password') and @onclick]")
+    WebElement registrationButton; // open registration form
+
+    @FindBy(xpath = ".//span[@class='user-info']//span")
     WebElement userName;
 
-    @FindBy(xpath = "//div[@class='form-group field-login-form-password required has-error']//div[@class='dropdown-hint afterLeft']")
+    @FindBy(xpath = ".//input[@id='login-form-password']/following-sibling::div[contains(@class, 'hint')]")
     WebElement invalidCredentialsNotification;
 
-    @FindBy(xpath = "//div[@class='form-group field-login-form-login required has-error']//div[@class='dropdown-hint afterLeft']")
+    @FindBy(xpath = ".//input[@id='login-form-login']/following-sibling::div[contains(@class, 'hint')]")
     WebElement invalidEmailsNotification;
+
+    @FindBy(xpath = ".//div[@class='pc-block']//a[@title]")
+    public List<WebElement> subCategories;
 
     public void openLoginPopup() throws InterruptedException {
         loginButton.click();
@@ -84,6 +86,31 @@ public class MainPage extends BasePage {
         return this;
     }
 
+    public void clickRegisterButton() throws InterruptedException {
+        registrationButton.click();
+        sleepSeconds(1);
+    }
+
+    public void enterRegEmail(String email) {
+        emailRegisterField
+                .sendKeys(email);
+    }
+
+    public void regEnterFirstPassword(String password) {
+        passwordRegisterFieldFirst
+                .sendKeys(password);
+    }
+
+    public void regEnterSecondPassword(String password) {
+        passwordRegisterFieldSecond
+                .sendKeys(password);
+    }
+
+    public void clickRegisterSignUpButton() throws InterruptedException {
+        registerSignUpButton.click();
+        sleepSeconds(3);
+    }
+
     public String getLoggedInUserUsername() {
         return userName.getText();
     }
@@ -96,8 +123,12 @@ public class MainPage extends BasePage {
         return invalidEmailsNotification.isDisplayed();
     }
 
-    public void chooseSubCategory(String category) throws InterruptedException {
-        driver.findElement(By.linkText(category)).click();
+    public void chooseSubCategory(int categoryNumber) throws InterruptedException {
+        subCategories.get(categoryNumber).click();
         sleepSeconds(3);
+    }
+
+    public void openAnyCataloguePage() throws InterruptedException {
+        chooseSubCategory(DataGenerator.intGenerator(subCategories.size()));
     }
 }

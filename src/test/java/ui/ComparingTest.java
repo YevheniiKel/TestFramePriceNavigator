@@ -6,11 +6,13 @@ import org.testng.annotations.Test;
 import pages.CataloguePage;
 import pages.ComparingPage;
 import ui.driverSetup.BaseTestSetup;
-import util.dataUtils.CharDataForTestSite;
+import util.dataUtils.DataGenerator;
 
 import static util.elementUtils.WaitUtils.sleepSeconds;
 
 public class ComparingTest extends BaseTestSetup {
+
+    private int amountOfSubcategories;
 
     private CataloguePage cataloguePage;
     private ComparingPage comparingPage;
@@ -54,16 +56,15 @@ public class ComparingTest extends BaseTestSetup {
                         comparingPage.amountOfComparingProducts(), ++amountOfComparingProducts));
     }
 
-    private void openCataloguePage() throws InterruptedException {
-        mainPage.chooseSubCategory(CharDataForTestSite
-                .CATEGORIES
-                .stream()
-                .findAny()
-                .get());
+    private void openAnyCataloguePage() {
+        amountOfSubcategories = mainPage.subCategories.size();
+        mainPage.subCategories
+                .get(DataGenerator.intGenerator(amountOfSubcategories))
+                .click();
     }
 
     private ComparingPage openCataloguePageAndAddThreeProductsToComparing() throws InterruptedException {
-        openCataloguePage();
+        openAnyCataloguePage();
         cataloguePage = new CataloguePage(driver);
         addProductsToComparingAndClickCompare(cataloguePage);
         comparingPage = new ComparingPage(driver);
