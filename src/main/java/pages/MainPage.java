@@ -39,10 +39,10 @@ public class MainPage extends BasePage {
     @FindBy(xpath = ".//input[@id='register-form-password_repeat']")
     WebElement passwordRegisterFieldSecond;
 
-    @FindBy(xpath = ".//parent::form[@id='register-form']//button[@class='form-btn']")
+    @FindBy(xpath = ".//form[@id='register-form']//button[@class='form-btn']")
     WebElement registerSignUpButton; //confirm registration
 
-    @FindBy(xpath = ".//form[@id='login-form']/..//a[not(@class='forgot-password')]")
+    @FindBy(xpath = ".//form[@id='login-form']/following::a[not(@class = 'forgot-password') and @onclick]")
     WebElement registrationButton; // open registration form
 
     @FindBy(xpath = ".//span[@class='user-info']//span")
