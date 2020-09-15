@@ -1,11 +1,12 @@
 package ui;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.HeaderAnyPage;
 import ui.driverSetup.BaseTestSetup;
 import util.dataUtils.CharDataForTestSite;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchTest extends BaseTestSetup {
 
@@ -17,16 +18,17 @@ public class SearchTest extends BaseTestSetup {
     }
 
     @Test
-    public void resultsNotFoundProductPageTest() throws InterruptedException {
+    public void resultsNotFoundPageTest() throws InterruptedException {
         headerAnyPage.enterSearchQuery(CharDataForTestSite.INVALID_SEARCH_QUERY);
-        Assert.assertTrue(headerAnyPage.isProductNotFountNotificationIsShown(),
-                "NothingToShow search notification is not shown");
+        assertThat(headerAnyPage.nothingToSHowInSearchResult.isDisplayed())
+                .as("NothingToShow search notification is not shown").isTrue();
     }
 
     @Test
     public void textCanBeDeletedFromTheSearchField() {
         headerAnyPage.searchField.sendKeys(CharDataForTestSite.INVALID_SEARCH_QUERY);
-        Assert.assertEquals(headerAnyPage.searchField.getText(), "",
-                "NothingToShow search notification is not shown");
+        assertThat(headerAnyPage.searchField.getText())
+                .as("NothingToShow search notification is not shown")
+                .isEmpty();
     }
 }

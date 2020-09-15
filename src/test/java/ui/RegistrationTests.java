@@ -1,9 +1,10 @@
 package ui;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.driverSetup.BaseTestSetup;
 import util.dataUtils.DataGenerator;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class RegistrationTests extends BaseTestSetup {
 
@@ -23,8 +24,9 @@ public class RegistrationTests extends BaseTestSetup {
         mainPage.regEnterFirstPassword(password);
         mainPage.regEnterSecondPassword(password);
         mainPage.clickRegisterSignUpButton();
-        Assert.assertEquals(mainPage.getLoggedInUserUsername(), login,
-                "Logged in user's Username is not displayed in the right top corner of the page.\n" +
-                        String.format("window's resolution is %s", driver.manage().window().getSize()));
+        assertThat(mainPage.getLoggedInUserUsername())
+                .as("Logged in user's Username is not displayed in the right top corner of the page.\n" +
+                        String.format("window's resolution is %s", driver.manage().window().getSize()))
+                .containsOnlyOnce(login);
     }
 }

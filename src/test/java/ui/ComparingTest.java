@@ -1,6 +1,5 @@
 package ui;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CataloguePage;
@@ -8,6 +7,7 @@ import pages.ComparingPage;
 import ui.driverSetup.BaseTestSetup;
 import util.dataUtils.DataGenerator;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static util.elementUtils.WaitUtils.sleepSeconds;
 
 public class ComparingTest extends BaseTestSetup {
@@ -24,22 +24,24 @@ public class ComparingTest extends BaseTestSetup {
     }
 
     @Test
-    public void ThreeProductsAddedToComparing() throws InterruptedException {
+    public void ThreeProductsAddedToComparing() {
         int productsToCompare = 3;
         ComparingPage comparingPage = openCataloguePageAndAddThreeProductsToComparing();
-        Assert.assertEquals(comparingPage.amountOfComparingProducts(), productsToCompare,
-                String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
-                        comparingPage.amountOfComparingProducts(), productsToCompare));
+        assertThat(comparingPage.amountOfComparingProducts())
+                .as(String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
+                        comparingPage.amountOfComparingProducts(), productsToCompare))
+                .isEqualTo(productsToCompare);
     }
 
     @Test
-    public void deleteOneProductFromComparingList() throws InterruptedException {
+    public void deleteOneProductFromComparingList() {
         int productsToCompare = 2;
         comparingPage = openCataloguePageAndAddThreeProductsToComparing();
         comparingPage.deleteProductFromComparing();
-        Assert.assertEquals(comparingPage.amountOfComparingProducts(), productsToCompare,
-                String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
-                        comparingPage.amountOfComparingProducts(), productsToCompare));
+        assertThat(comparingPage.amountOfComparingProducts())
+                .as(String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
+                        comparingPage.amountOfComparingProducts(), productsToCompare))
+                .isEqualTo(productsToCompare);
     }
 
     @Test
@@ -51,9 +53,11 @@ public class ComparingTest extends BaseTestSetup {
         ComparingPage newComparingPage = new ComparingPage(driver);
         driver.get(ComparingPage.getComparingLink());
         sleepSeconds(3);
-        Assert.assertEquals(newComparingPage.amountOfComparingProducts(), amountOfComparingProducts,
-                String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
-                        comparingPage.amountOfComparingProducts(), ++amountOfComparingProducts));
+        assertThat(newComparingPage.amountOfComparingProducts())
+                .as(
+                        String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
+                                comparingPage.amountOfComparingProducts(), ++amountOfComparingProducts))
+                .isEqualTo(amountOfComparingProducts);
     }
 
     private void openAnyCataloguePage() {
@@ -63,7 +67,7 @@ public class ComparingTest extends BaseTestSetup {
                 .click();
     }
 
-    private ComparingPage openCataloguePageAndAddThreeProductsToComparing() throws InterruptedException {
+    private ComparingPage openCataloguePageAndAddThreeProductsToComparing() {
         openAnyCataloguePage();
         cataloguePage = new CataloguePage(driver);
         addProductsToComparingAndClickCompare(cataloguePage);

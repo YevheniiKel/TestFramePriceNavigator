@@ -1,12 +1,12 @@
 package ui;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.MainPage;
 import ui.driverSetup.BaseTestSetup;
 import util.dataUtils.CharDataForTestSite;
 import util.dataUtils.DataGenerator;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static util.elementUtils.WaitUtils.sleepSeconds;
 
 public class LoginTest extends BaseTestSetup {
@@ -21,9 +21,9 @@ public class LoginTest extends BaseTestSetup {
         username = CharDataForTestSite.VALID_USERNAME;
         password = CharDataForTestSite.VALID_PASSWORD;
         enterCredentials(mainPage);
-        Assert.assertEquals(
-                mainPage.getLoggedInUserUsername(), username,
-                "Account username is not shown in the right top corner of the page");
+        assertThat(mainPage.getLoggedInUserUsername())
+                .as("Account username is not shown in the right top corner of the page")
+                .isEqualTo(username);
     }
 
     @Test
@@ -31,9 +31,9 @@ public class LoginTest extends BaseTestSetup {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
         enterCredentials(mainPage);
-        Assert.assertTrue(
-                mainPage.invalidCredentialsNotificationIsShown(),
-                "Invalid credentials notification is not shown");
+        assertThat(mainPage.invalidCredentialsNotificationIsShown())
+                .as("Invalid credentials notification is not shown")
+                .isTrue();
     }
 
     @Test
@@ -41,9 +41,9 @@ public class LoginTest extends BaseTestSetup {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
         enterCredentials(mainPage);
-        Assert.assertTrue(
-                mainPage.invalidEmailNotificationIsShown(),
-                "Invalid email notification is not shown");
+        assertThat(mainPage.invalidCredentialsNotificationIsShown())
+                .as("Invalid email notification is not shown")
+                .isTrue();
     }
 
     private void enterCredentials(MainPage mainPage) throws InterruptedException {

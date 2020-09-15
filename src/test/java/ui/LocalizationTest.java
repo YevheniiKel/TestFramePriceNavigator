@@ -1,11 +1,11 @@
 package ui;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HeaderAnyPage;
 import ui.driverSetup.BaseTestSetup;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static util.elementUtils.WaitUtils.sleepSeconds;
 
 public class LocalizationTest extends BaseTestSetup {
@@ -19,8 +19,11 @@ public class LocalizationTest extends BaseTestSetup {
 
     @Test
     public void siteDefaultCityIsKharkivTest() throws InterruptedException {
+        assertThat(headerAnyPage.searchField.getAttribute("placeholder"))
+                .as(String.format("The placeholder text is incorrect: %s", "Найти товар в Харькове"))
+                .contains("Найти товар в Харькове")
+                .doesNotContain("Киев")
+                .doesNotContain("Винница");
         sleepSeconds(3);
-        Assert.assertEquals(headerAnyPage.searchField.getAttribute("placeholder"), "Найти товар в Харькове",
-                String.format("The placeholder text is incorrect: %s", "Найти товар в Харькове"));
     }
 }
