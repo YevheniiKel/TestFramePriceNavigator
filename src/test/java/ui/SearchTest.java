@@ -20,17 +20,15 @@ public class SearchTest extends BaseTestSetup {
     @Test
     public void resultsNotFoundPageTest() throws InterruptedException {
         headerAnyPage.enterSearchQuery(CharDataForTestSite.INVALID_SEARCH_QUERY);
-        assertThat(headerAnyPage.nothingToSHowInSearchResult.isDisplayed()).isTrue()
-                .withFailMessage("NothingToShow search notification is not shown");
+        assertThat(headerAnyPage.nothingToSHowInSearchResult.isDisplayed())
+                .as("NothingToShow search notification is not shown").isTrue();
     }
 
     @Test
     public void textCanBeDeletedFromTheSearchField() {
         headerAnyPage.searchField.sendKeys(CharDataForTestSite.INVALID_SEARCH_QUERY);
-        assertThat(headerAnyPage.searchField.getText().isEmpty())
-                .overridingErrorMessage("NothingToShow search notification is not shown");
-        //just using lazy initialization of string.
-        // To use or not to use?
-        // (In this usual case)
+        assertThat(headerAnyPage.searchField.getText())
+                .as("NothingToShow search notification is not shown")
+                .isEmpty();
     }
 }

@@ -21,8 +21,9 @@ public class LoginTest extends BaseTestSetup {
         username = CharDataForTestSite.VALID_USERNAME;
         password = CharDataForTestSite.VALID_PASSWORD;
         enterCredentials(mainPage);
-        assertThat(mainPage.getLoggedInUserUsername()).isEqualTo(username)
-                .overridingErrorMessage("Account username is not shown in the right top corner of the page");
+        assertThat(mainPage.getLoggedInUserUsername())
+                .as("Account username is not shown in the right top corner of the page")
+                .isEqualTo(username);
     }
 
     @Test
@@ -30,8 +31,9 @@ public class LoginTest extends BaseTestSetup {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
         enterCredentials(mainPage);
-        assertThat(mainPage.invalidCredentialsNotificationIsShown()).isTrue()
-                .overridingErrorMessage("Invalid credentials notification is not shown");
+        assertThat(mainPage.invalidCredentialsNotificationIsShown())
+                .as("Invalid credentials notification is not shown")
+                .isTrue();
     }
 
     @Test
@@ -39,8 +41,9 @@ public class LoginTest extends BaseTestSetup {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
         enterCredentials(mainPage);
-        assertThat(mainPage.invalidCredentialsNotificationIsShown()).isTrue()
-                .overridingErrorMessage("Invalid email notification is not shown");
+        assertThat(mainPage.invalidCredentialsNotificationIsShown())
+                .as("Invalid email notification is not shown")
+                .isTrue();
     }
 
     private void enterCredentials(MainPage mainPage) throws InterruptedException {

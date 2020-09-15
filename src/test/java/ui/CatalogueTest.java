@@ -14,7 +14,8 @@ public class CatalogueTest extends BaseTestSetup {
     public void openCataloguePageFromMainPage() throws InterruptedException {
         mainPage.openAnyCataloguePage();
         cataloguePage = new CataloguePage(driver);
-        assertThat(cataloguePage.isCatalogueIsDisplayed()).isTrue()
-                .overridingErrorMessage("Catalogue is not displayed on the catalogue page");
+        assertThat(cataloguePage.isCatalogueIsDisplayed())
+                .as("Catalogue is not displayed on the catalogue page")
+                .isTrue();
     }
 }

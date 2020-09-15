@@ -24,9 +24,9 @@ public class RegistrationTests extends BaseTestSetup {
         mainPage.regEnterFirstPassword(password);
         mainPage.regEnterSecondPassword(password);
         mainPage.clickRegisterSignUpButton();
-        assertThat(mainPage.getLoggedInUserUsername()).containsOnlyOnce(login)
-                .overridingErrorMessage(
-                        "Logged in user's Username is not displayed in the right top corner of the page.\n" +
-                                String.format("window's resolution is %s", driver.manage().window().getSize()));
+        assertThat(mainPage.getLoggedInUserUsername())
+                .as("Logged in user's Username is not displayed in the right top corner of the page.\n" +
+                        String.format("window's resolution is %s", driver.manage().window().getSize()))
+                .containsOnlyOnce(login);
     }
 }
