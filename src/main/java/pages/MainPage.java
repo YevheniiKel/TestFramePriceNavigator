@@ -7,7 +7,8 @@ import util.dataUtils.DataGenerator;
 
 import java.util.List;
 
-import static util.elementUtils.WaitUtils.sleepSeconds;
+import static util.elementUtils.WaitUtils.*;
+
 
 public class MainPage extends BasePage {
 
@@ -52,83 +53,83 @@ public class MainPage extends BasePage {
     WebElement invalidCredentialsNotification;
 
     @FindBy(xpath = ".//input[@id='login-form-login']/following-sibling::div[contains(@class, 'hint')]")
-    WebElement invalidEmailsNotification;
+    WebElement invalidEmailNotification;
 
     @FindBy(xpath = ".//div[@class='pc-block']//a[@title]")
     public List<WebElement> subCategories;
 
-    public void openLoginPopup() throws InterruptedException {
+    public void openLoginPopup() {
+        waitTillElementClickable(loginButton);
         loginButton.click();
-        sleepSeconds(3);
     }
 
     public MainPage enterLogin(String email) {
+        waitTillElementPresent(emailLoginField);
         emailLoginField.sendKeys(email);
         return this;
     }
 
-    public MainPage enterPass(String password) throws InterruptedException {
+    public MainPage enterPass(String password) {
+        waitTillElementPresent(passwordLoginField);
         passwordLoginField.sendKeys(password);
-        sleepSeconds(3);
         return this;
     }
 
-    public MainPage clickSignIn() throws InterruptedException {
+    public MainPage clickSignIn() {
+        waitTillElementClickable(signButton);
         signButton.click();
-        sleepSeconds(3);
         return this;
     }
 
-    public MainPage clearEmailField() throws InterruptedException {
-        emailLoginField.clear();
-        System.out.println(emailLoginField.getText());
-        sleepSeconds(3);
-        return this;
-    }
-
-    public void clickRegisterButton() throws InterruptedException {
+    public void clickRegisterButton() {
+        waitTillElementClickable(registrationButton);
         registrationButton.click();
-        sleepSeconds(1);
     }
 
     public void enterRegEmail(String email) {
+        waitTillElementPresent(emailLoginField);
         emailRegisterField
                 .sendKeys(email);
     }
 
     public void regEnterFirstPassword(String password) {
+        waitTillElementPresent(passwordRegisterFieldFirst);
         passwordRegisterFieldFirst
                 .sendKeys(password);
     }
 
     public void regEnterSecondPassword(String password) {
+        waitTillElementPresent(passwordRegisterFieldSecond);
         passwordRegisterFieldSecond
                 .sendKeys(password);
     }
 
-    public void clickRegisterSignUpButton() throws InterruptedException {
+    public void clickRegisterSignUpButton() {
+        waitTillElementClickable(registerSignUpButton);
         registerSignUpButton.click();
-        sleepSeconds(3);
     }
 
     public String getLoggedInUserUsername() {
+        waitTillElementContainText(userName);
         return userName.getText();
     }
 
     public boolean invalidCredentialsNotificationIsShown() {
+        waitTillElementPresent(invalidCredentialsNotification);
         return invalidCredentialsNotification.isDisplayed();
     }
 
     public boolean invalidEmailNotificationIsShown() {
-        return invalidEmailsNotification.isDisplayed();
+        waitTillElementPresent(invalidEmailNotification);
+        return invalidEmailNotification.isDisplayed();
     }
 
-    public void chooseSubCategory(int categoryNumber) throws InterruptedException {
+    public void chooseSubCategory(int categoryNumber) {
+        waitTillMultElementsPresent(subCategories);
         subCategories.get(categoryNumber).click();
-        sleepSeconds(3);
     }
 
-    public void openAnyCataloguePage() throws InterruptedException {
+    public void openAnyCataloguePage() {
         chooseSubCategory(DataGenerator.intGenerator(subCategories.size()));
     }
 }
