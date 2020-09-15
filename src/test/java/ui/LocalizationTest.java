@@ -19,11 +19,11 @@ public class LocalizationTest extends BaseTestSetup {
 
     @Test
     public void siteDefaultCityIsKharkivTest() throws InterruptedException {
-        sleepSeconds(3);
         assertThat(headerAnyPage.searchField.getAttribute("placeholder"))
+                .as(String.format("The placeholder text is incorrect: %s", "Найти товар в Харькове"))
                 .contains("Найти товар в Харькове")
                 .doesNotContain("Киев")
-                .doesNotContain("Винница")
-                .overridingErrorMessage(String.format("The placeholder text is incorrect: %s", "Найти товар в Харькове"));
+                .doesNotContain("Винница");
+        sleepSeconds(3);
     }
 }
