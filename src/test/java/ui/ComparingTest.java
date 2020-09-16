@@ -8,7 +8,6 @@ import ui.driverSetup.BaseTestSetup;
 import util.dataUtils.DataGenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static util.elementUtils.WaitUtils.sleepSeconds;
 
 public class ComparingTest extends BaseTestSetup {
 
@@ -19,12 +18,11 @@ public class ComparingTest extends BaseTestSetup {
 
     @BeforeMethod
     public void comparingTestSetup() {
-        cataloguePage = new CataloguePage(driver);
-        comparingPage = new ComparingPage(driver);
+        openCataloguePageAndAddThreeProductsToComparing();
     }
 
     @Test
-    public void ThreeProductsAddedToComparing() {
+    public void threeProductsAddedToComparing() {
         int productsToCompare = 3;
         ComparingPage comparingPage = openCataloguePageAndAddThreeProductsToComparing();
         assertThat(comparingPage.amountOfComparingProducts())
@@ -45,24 +43,22 @@ public class ComparingTest extends BaseTestSetup {
     }
 
     @Test
-    public void comparingLinkGeneratorTest() throws InterruptedException {
+    public void comparingLinkGeneratorTest() {
         comparingPage = openCataloguePageAndAddThreeProductsToComparing()
                 .clickGenerateComparingLink();
         comparingPage.setComparingLinkFromTheField();
         int amountOfComparingProducts = comparingPage.amountOfComparingProducts();
         ComparingPage newComparingPage = new ComparingPage(driver);
         driver.get(ComparingPage.getComparingLink());
-        sleepSeconds(3);
         assertThat(newComparingPage.amountOfComparingProducts())
-                .as(
-                        String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
-                                comparingPage.amountOfComparingProducts(), ++amountOfComparingProducts))
+                .as(String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
+                        comparingPage.amountOfComparingProducts(), ++amountOfComparingProducts))
                 .isEqualTo(amountOfComparingProducts);
     }
 
     private void openAnyCataloguePage() {
         amountOfSubcategories = mainPage.subCategories.size();
-        mainPage.subCategories
+        mainPage.subCategories//todo filter lambda findany
                 .get(DataGenerator.intGenerator(amountOfSubcategories))
                 .click();
     }
@@ -70,13 +66,12 @@ public class ComparingTest extends BaseTestSetup {
     private ComparingPage openCataloguePageAndAddThreeProductsToComparing() {
         openAnyCataloguePage();
         cataloguePage = new CataloguePage(driver);
-        addProductsToComparingAndClickCompare(cataloguePage);
-        comparingPage = new ComparingPage(driver);
-        return comparingPage;
+        return addProductsToComparingAndClickCompare(cataloguePage);
     }
 
-    private void addProductsToComparingAndClickCompare(CataloguePage cataloguePage) {
+    private ComparingPage addProductsToComparingAndClickCompare(CataloguePage cataloguePage) {
         cataloguePage.addThreeProductsToComparing();
         cataloguePage.clickCompare();
+        return new ComparingPage(driver);//TODO
     }
 }

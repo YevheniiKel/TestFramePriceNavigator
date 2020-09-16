@@ -7,14 +7,14 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static util.elementUtils.UtilActionsWithElements.clickTheElementsTimes;
-
 public class CataloguePage extends BasePage {
 
     private List<WebElement> addToCompareButtons;
 
     public CataloguePage(WebDriver driver) {
         super(driver);
+        addToCompareButtons = addToCompareButtonPath;
+        wait.waitMainElementsAppear(addToCompareButtons);
     }
 
     @FindBy(xpath = ".//section[@class='catalog']")
@@ -36,10 +36,15 @@ public class CataloguePage extends BasePage {
 
     public void addThreeProductsToComparing() {
         addToCompareButtons = addToCompareButtonPath;
-        clickTheElementsTimes(3, addToCompareButtons);
+
+        if (addToCompareButtons.size() >= 3) {
+            wait.clickAllWhenReady(addToCompareButtons.subList(0, 3));
+        } else {
+            throw new NoSuchElementException("Amount of elements is less than 3");
+        }               //this test will be written after Test analysis review
     }
 
     public void clickCompare() {
-        compareButtonPath.click();
+        wait.clickWhenReady(compareButtonPath);
     }
 }

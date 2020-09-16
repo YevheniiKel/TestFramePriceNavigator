@@ -7,7 +7,6 @@ import util.dataUtils.CharDataForTestSite;
 import util.dataUtils.DataGenerator;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static util.elementUtils.WaitUtils.sleepSeconds;
 
 public class LoginTest extends BaseTestSetup {
 
@@ -16,7 +15,7 @@ public class LoginTest extends BaseTestSetup {
     private String password;
 
     @Test
-    public void validCredentialsLogin() throws InterruptedException {
+    public void validCredentialsLogin() {
         email = CharDataForTestSite.VALID_EMAIL;
         username = CharDataForTestSite.VALID_USERNAME;
         password = CharDataForTestSite.VALID_PASSWORD;
@@ -27,7 +26,7 @@ public class LoginTest extends BaseTestSetup {
     }
 
     @Test
-    public void notRegisteredUserLogin() throws InterruptedException {
+    public void notRegisteredUserLogin() {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
         enterCredentials(mainPage);
@@ -37,7 +36,7 @@ public class LoginTest extends BaseTestSetup {
     }
 
     @Test
-    public void testLoginWithInvalidEmail() throws InterruptedException {
+    public void testLoginWithInvalidEmail() {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
         enterCredentials(mainPage);
@@ -46,8 +45,7 @@ public class LoginTest extends BaseTestSetup {
                 .isTrue();
     }
 
-    private void enterCredentials(MainPage mainPage) throws InterruptedException {
-        sleepSeconds(3);
+    private void enterCredentials(MainPage mainPage) {
         mainPage.openLoginPopup();
         mainPage.enterLogin(email)
                 .enterPass(password)

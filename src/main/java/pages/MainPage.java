@@ -7,13 +7,14 @@ import util.dataUtils.DataGenerator;
 
 import java.util.List;
 
-import static util.elementUtils.WaitUtils.*;
-
-
 public class MainPage extends BasePage {
+
+    private String defaultUsernameFiledValue;
 
     public MainPage(WebDriver driver) {
         super(driver);
+        wait.waitMainElementAppear(loginButton);
+        defaultUsernameFiledValue = getLoggedInUserUsername();
     }
 
     @FindBy(xpath = ".//span[@class='user-info']")
@@ -59,73 +60,64 @@ public class MainPage extends BasePage {
     public List<WebElement> subCategories;
 
     public void openLoginPopup() {
-        waitTillElementClickable(loginButton);
-        loginButton.click();
+        wait.clickWhenReady(loginButton);
     }
 
     public MainPage enterLogin(String email) {
-        waitTillElementPresent(emailLoginField);
-        emailLoginField.sendKeys(email);
+        wait.sendKeysWhenReady(emailLoginField, email);
         return this;
     }
 
     public MainPage enterPass(String password) {
-        waitTillElementPresent(passwordLoginField);
-        passwordLoginField.sendKeys(password);
+        wait.sendKeysWhenReady(passwordLoginField, password);
         return this;
     }
 
     public MainPage clickSignIn() {
-        waitTillElementClickable(signButton);
-        signButton.click();
+        wait.clickWhenReady(signButton);
         return this;
     }
 
     public void clickRegisterButton() {
-        waitTillElementClickable(registrationButton);
-        registrationButton.click();
+        wait.clickWhenReady(registrationButton);
+
     }
 
     public void enterRegEmail(String email) {
-        waitTillElementPresent(emailLoginField);
-        emailRegisterField
-                .sendKeys(email);
+        wait.sendKeysWhenReady(emailRegisterField, email);
     }
 
     public void regEnterFirstPassword(String password) {
-        waitTillElementPresent(passwordRegisterFieldFirst);
-        passwordRegisterFieldFirst
-                .sendKeys(password);
+        wait.sendKeysWhenReady(passwordRegisterFieldFirst, password);
     }
 
     public void regEnterSecondPassword(String password) {
-        waitTillElementPresent(passwordRegisterFieldSecond);
-        passwordRegisterFieldSecond
-                .sendKeys(password);
+        wait.sendKeysWhenReady(passwordRegisterFieldSecond, password);
     }
 
     public void clickRegisterSignUpButton() {
-        waitTillElementClickable(registerSignUpButton);
-        registerSignUpButton.click();
+        wait.clickWhenReady(registerSignUpButton);
     }
 
     public String getLoggedInUserUsername() {
-        waitTillElementContainText(userName);
+        wait.tillTextInElementChanged(userName, defaultUsernameFiledValue);
         return userName.getText();
     }
 
     public boolean invalidCredentialsNotificationIsShown() {
-        waitTillElementPresent(invalidCredentialsNotification);
+        wait.tillElementPresent(invalidCredentialsNotification);
         return invalidCredentialsNotification.isDisplayed();
     }
 
     public boolean invalidEmailNotificationIsShown() {
-        waitTillElementPresent(invalidEmailNotification);
+        wait.tillElementPresent(invalidEmailNotification);
         return invalidEmailNotification.isDisplayed();
     }
 
+    //todo iselemtainTExt(login) return bool
+
     public void chooseSubCategory(int categoryNumber) {
-        waitTillMultElementsPresent(subCategories);
+        wait.tillElementsPresent(subCategories);
         subCategories.get(categoryNumber).click();
     }
 

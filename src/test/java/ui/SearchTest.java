@@ -18,7 +18,7 @@ public class SearchTest extends BaseTestSetup {
     }
 
     @Test
-    public void resultsNotFoundPageTest() throws InterruptedException {
+    public void resultsNotFoundPageTest() {
         headerAnyPage.enterSearchQuery(CharDataForTestSite.INVALID_SEARCH_QUERY);
         assertThat(headerAnyPage.nothingToSHowInSearchResult.isDisplayed())
                 .as("NothingToShow search notification is not shown").isTrue();

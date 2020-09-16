@@ -11,7 +11,7 @@ public class CatalogueTest extends BaseTestSetup {
     private CataloguePage cataloguePage;
 
     @Test
-    public void openCataloguePageFromMainPage() throws InterruptedException {
+    public void openCataloguePageFromMainPage() {
         mainPage.openAnyCataloguePage();
         cataloguePage = new CataloguePage(driver);
         assertThat(cataloguePage.isCatalogueIsDisplayed())

@@ -17,7 +17,8 @@ public class UtilActionsWithElements {
 
     public static void clickTheElementsTimes(int times, List<WebElement> elements) {
         for (int i = 0; i < times; i++) {
-            elements.get(i).click();
+            elements.get(i);
         }
     }
+
 }

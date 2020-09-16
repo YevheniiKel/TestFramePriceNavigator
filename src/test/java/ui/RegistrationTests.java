@@ -13,7 +13,7 @@ public class RegistrationTests extends BaseTestSetup {
     private String password;
 
     @Test
-    public void registrationTest() throws InterruptedException {
+    public void registrationTest() {
         openMainPage();
         login = DataGenerator.loginGenerator();
         email = String.format("%s@gmail.com", login);

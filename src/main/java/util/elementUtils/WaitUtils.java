@@ -1,5 +1,7 @@
 package util.elementUtils;
 
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -8,26 +10,52 @@ import java.util.List;
 
 public class WaitUtils {
 
-    public static WebDriverWait webDriverWait;
+    public WebDriverWait webDriverWait;
 
-    public static void sleepSeconds(int seconds) throws InterruptedException {
-        Thread.sleep(seconds * 1000);
+    public WaitUtils(WebDriver driver) {
+        this.webDriverWait = new WebDriverWait(driver, 4);
     }
 
-    public static void waitTillElementClickable(WebElement element) {
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+    public void waitMainElementAppear(WebElement element) {
+        tillElementPresent(element);
     }
 
-    public static void waitTillMultElementsPresent(List<WebElement> elements) {
-        webDriverWait.until(ExpectedConditions.invisibilityOfAllElements(elements));
+    public void waitMainElementsAppear(List<WebElement> elements) {
+        tillElementsPresent(elements);
     }
 
-    public static void waitTillElementPresent(WebElement element) {
+    public void clickWhenReady(WebElement element) {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(element)).click();
+    }
+
+    public void clickAllWhenReady(List<WebElement> elements) {
+        for (WebElement el : elements) {
+            webDriverWait.until(ExpectedConditions.elementToBeClickable(el)).click();
+        }
+    }
+
+    public void tillElementsPresent(List<WebElement> elements) {
+        webDriverWait.until(ExpectedConditions.visibilityOfAllElements(elements));
+    }
+
+    public void tillElementPresent(WebElement element) {
         webDriverWait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public static void waitTillElementContainText(WebElement element) {
+    public void tillTextInElementChanged(WebElement element, String baseValue) {
+        webDriverWait.until(text -> !element.getText().equals(baseValue));
+    }
+
+    public void tillElementContainAnyText(WebElement element) {
         webDriverWait.until(el -> element.getText().length() != 0);
+    }
+
+    public void sendKeysWhenReadyThenEnter(WebElement element, String value) {
+        webDriverWait.until(ExpectedConditions.visibilityOf(element)).sendKeys(value, Keys.ENTER);
+    }
+
+    public void sendKeysWhenReady(WebElement element, String value) {
+        webDriverWait.until(ExpectedConditions.visibilityOf(element)).sendKeys(value);
     }
 }
 
