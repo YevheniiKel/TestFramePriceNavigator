@@ -36,15 +36,15 @@ public class CataloguePage extends BasePage {
 
     public void addThreeProductsToComparing() {
         addToCompareButtons = addToCompareButtonPath;
-
         if (addToCompareButtons.size() >= 3) {
             wait.clickAllWhenReady(addToCompareButtons.subList(0, 3));
         } else {
             throw new NoSuchElementException("Amount of elements is less than 3");
-        }               //this test will be written after Test analysis review
+        }
     }
 
-    public void clickCompare() {
+    public ComparingPage clickCompare() {
         wait.clickWhenReady(compareButtonPath);
+        return new ComparingPage(driver);
     }
 }

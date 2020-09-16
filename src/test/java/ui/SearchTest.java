@@ -1,6 +1,6 @@
 package ui;
 
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HeaderAnyPage;
 import ui.driverSetup.BaseTestSetup;
@@ -12,8 +12,9 @@ public class SearchTest extends BaseTestSetup {
 
     private HeaderAnyPage headerAnyPage;
 
-    @BeforeClass
+    @BeforeMethod
     public void searchTestSetup() {
+        driver.get(CharDataForTestSite.HOME_URL);
         headerAnyPage = new HeaderAnyPage(driver);
     }
 
