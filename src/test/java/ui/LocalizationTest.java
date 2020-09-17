@@ -4,9 +4,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HeaderAnyPage;
 import ui.driverSetup.BaseTestSetup;
+import util.dataUtils.CharDataForTestSite;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static util.elementUtils.WaitUtils.sleepSeconds;
 
 public class LocalizationTest extends BaseTestSetup {
 
@@ -14,16 +14,16 @@ public class LocalizationTest extends BaseTestSetup {
 
     @BeforeMethod
     public void localizationTestSetup() {
+        driver.get(CharDataForTestSite.HOME_URL);
         headerAnyPage = new HeaderAnyPage(driver);
     }
 
     @Test
-    public void siteDefaultCityIsKharkivTest() throws InterruptedException {
+    public void siteDefaultCityIsKharkivTest() {
         assertThat(headerAnyPage.searchField.getAttribute("placeholder"))
                 .as(String.format("The placeholder text is incorrect: %s", "Найти товар в Харькове"))
                 .contains("Найти товар в Харькове")
                 .doesNotContain("Киев")
                 .doesNotContain("Винница");
-        sleepSeconds(3);
     }
 }

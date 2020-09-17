@@ -12,6 +12,7 @@ public class ComparingPage extends BasePage {
 
     public ComparingPage(WebDriver driver) {
         super(driver);
+        waitForMainElements();
     }
 
     @FindBy(xpath = ".//a[@class='delete']")
@@ -26,24 +27,36 @@ public class ComparingPage extends BasePage {
     @FindBy(xpath = ".//textarea[@id='static-link']")
     WebElement comparingLinkField;
 
+    @Override
+    public void waitForMainElements() {
+        wait.tillElementsPresent(productsOnComparing);
+    }
+
+    @Override
+    protected void openPage() {
+
+    }
+
     public static String getComparingLink() {
         return comparingLink;
     }
 
     public int amountOfComparingProducts() {
+        wait.tillElementsPresent(productsOnComparing);
         return productsOnComparing.size();
     }
 
     public void deleteProductFromComparing() {
-        deleteButton.get(2).click();
+        wait.clickWhenReady(deleteButton.get(2));
     }
 
     public ComparingPage clickGenerateComparingLink() {
-        comparingLinkButton.click();
+        wait.clickWhenReady(comparingLinkButton);
         return this;
     }
 
     public void setComparingLinkFromTheField() {
+        wait.tillElementContainAnyText(comparingLinkField);
         comparingLink = comparingLinkField.getText();
     }
 }

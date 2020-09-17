@@ -7,14 +7,14 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static util.elementUtils.UtilActionsWithElements.clickTheElementsTimes;
-
 public class CataloguePage extends BasePage {
 
     private List<WebElement> addToCompareButtons;
 
     public CataloguePage(WebDriver driver) {
         super(driver);
+        addToCompareButtons = addToCompareButtonPath;
+        waitForMainElements();
     }
 
     @FindBy(xpath = ".//section[@class='catalog']")
@@ -26,6 +26,16 @@ public class CataloguePage extends BasePage {
     @FindBy(xpath = ".//a[contains(@href, '/compare/')]")
     WebElement compareButtonPath;
 
+    @Override
+    public void waitForMainElements() {
+        wait.tillElementPresent(catalogue);
+    }
+
+    @Override
+    protected void openPage() {
+
+    }
+
     public boolean isCatalogueIsDisplayed() {
         try {
             return catalogue.isDisplayed();
@@ -36,10 +46,15 @@ public class CataloguePage extends BasePage {
 
     public void addThreeProductsToComparing() {
         addToCompareButtons = addToCompareButtonPath;
-        clickTheElementsTimes(3, addToCompareButtons);
+        if (addToCompareButtons.size() >= 3) {
+            wait.clickAllWhenReady(addToCompareButtons.subList(0, 3));
+        } else {
+            throw new NoSuchElementException("Amount of elements is less than 3");
+        }
     }
 
-    public void clickCompare() {
-        compareButtonPath.click();
+    public ComparingPage clickCompare() {
+        wait.clickWhenReady(compareButtonPath);
+        return new ComparingPage(driver);
     }
 }

@@ -1,6 +1,6 @@
 package ui;
 
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HeaderAnyPage;
 import ui.driverSetup.BaseTestSetup;
@@ -12,13 +12,14 @@ public class SearchTest extends BaseTestSetup {
 
     private HeaderAnyPage headerAnyPage;
 
-    @BeforeClass
+    @BeforeMethod
     public void searchTestSetup() {
+        driver.get(CharDataForTestSite.HOME_URL);
         headerAnyPage = new HeaderAnyPage(driver);
     }
 
     @Test
-    public void resultsNotFoundPageTest() throws InterruptedException {
+    public void resultsNotFoundPageTest() {
         headerAnyPage.enterSearchQuery(CharDataForTestSite.INVALID_SEARCH_QUERY);
         assertThat(headerAnyPage.nothingToSHowInSearchResult.isDisplayed())
                 .as("NothingToShow search notification is not shown").isTrue();
