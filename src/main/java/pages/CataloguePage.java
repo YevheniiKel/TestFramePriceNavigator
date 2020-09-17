@@ -14,7 +14,7 @@ public class CataloguePage extends BasePage {
     public CataloguePage(WebDriver driver) {
         super(driver);
         addToCompareButtons = addToCompareButtonPath;
-        wait.waitMainElementsAppear(addToCompareButtons);
+        waitForMainElements();
     }
 
     @FindBy(xpath = ".//section[@class='catalog']")
@@ -25,6 +25,11 @@ public class CataloguePage extends BasePage {
 
     @FindBy(xpath = ".//a[contains(@href, '/compare/')]")
     WebElement compareButtonPath;
+
+    @Override
+    public void waitForMainElements() {
+        wait.tillElementPresent(catalogue);
+    }
 
     public boolean isCatalogueIsDisplayed() {
         try {

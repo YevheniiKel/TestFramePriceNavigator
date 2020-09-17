@@ -8,6 +8,7 @@ public class ProductPage extends BasePage {
 
     public ProductPage(WebDriver driver) {
         super(driver);
+        waitForMainElements();
     }
 
     @FindBy(xpath = ".//span[contains(@class, 'average-price')]")
@@ -54,4 +55,9 @@ public class ProductPage extends BasePage {
 
     @FindBy(xpath = ".//tbody//td[@class='pb-bc-r-left'] | .//tbody//td[@class='pb-bc-r-right']")
     WebElement productCharacteristics;
+
+    @Override
+    protected void waitForMainElements() {
+        super.waitForMainElements();
+    }
 }

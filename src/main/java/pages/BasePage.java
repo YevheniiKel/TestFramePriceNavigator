@@ -13,4 +13,7 @@ public class BasePage {
         this.wait = new WaitUtils(driver);
         PageFactory.initElements(driver, this);
     }
+
+    protected void waitForMainElements() {
+    }
 }

@@ -10,8 +10,7 @@ public class HeaderAnyPage extends BasePage {
 
     public HeaderAnyPage(WebDriver driver) {
         super(driver);
-        wait.waitMainElementAppear(searchField);
-        wait.waitMainElementAppear(loginButton);
+        waitForMainElements();
         defaultUsernameFiledValue = getLoggedInUserUsername();
     }
 
@@ -55,7 +54,7 @@ public class HeaderAnyPage extends BasePage {
     WebElement registrationButton; // open registration form
 
     @FindBy(xpath = ".//span[@class='user-info']//span")
-    WebElement userName;
+    public WebElement userName;
 
     @FindBy(xpath = ".//input[@id='login-form-password']/following-sibling::div[contains(@class, 'hint')]")
     WebElement invalidCredentialsNotification;
@@ -63,6 +62,17 @@ public class HeaderAnyPage extends BasePage {
     @FindBy(xpath = ".//input[@id='login-form-login']/following-sibling::div[contains(@class, 'hint')]")
     WebElement invalidEmailNotification;
 
+    @FindBy(xpath = ".//div[@class='popup-content-text']")
+    WebElement loginPopup;
+
+    @FindBy(xpath = ".//div[contains(@class, 'popup-register')]")
+    WebElement registrationPopup;
+
+    @Override
+    public void waitForMainElements() {
+        wait.tillElementPresent(searchField);
+        wait.tillElementPresent(loginButton);
+    }
 
     public void enterSearchQuery(String searchQuery) {
         wait.sendKeysWhenReadyThenEnter(searchField, searchQuery);
@@ -70,10 +80,11 @@ public class HeaderAnyPage extends BasePage {
 
     public void enterCredentials(String email, String pass) {
         openLoginPopup();
-        enterLogin(email);//todo waiter
+        enterLogin(email);
         enterPass(pass);
         clickSignIn();
     }
+
 
     public void openLoginPopup() {
         wait.clickWhenReady(loginButton);
@@ -109,9 +120,11 @@ public class HeaderAnyPage extends BasePage {
 
     public void clickRegisterSignUpButton() {
         wait.clickWhenReady(registerSignUpButton);
+        wait.tillElementInvisible(registrationPopup);
     }
 
     public String getLoggedInUserUsername() {
+        //todo iselemtainTExt(login) return bool
         wait.tillTextInElementChanged(userName, defaultUsernameFiledValue);
         return userName.getText();
     }
@@ -124,5 +137,9 @@ public class HeaderAnyPage extends BasePage {
     public boolean invalidEmailNotificationIsShown() {
         wait.tillElementPresent(invalidEmailNotification);
         return invalidEmailNotification.isDisplayed();
+    }
+
+    public boolean isElementContainSomeText(WebElement element, String text) {
+        return element.getText().contains(text);
     }
 }

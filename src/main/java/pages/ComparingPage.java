@@ -12,7 +12,7 @@ public class ComparingPage extends BasePage {
 
     public ComparingPage(WebDriver driver) {
         super(driver);
-        wait.waitMainElementsAppear(productsOnComparing);
+        waitForMainElements();
     }
 
     @FindBy(xpath = ".//a[@class='delete']")
@@ -26,6 +26,11 @@ public class ComparingPage extends BasePage {
 
     @FindBy(xpath = ".//textarea[@id='static-link']")
     WebElement comparingLinkField;
+
+    @Override
+    public void waitForMainElements() {
+        wait.tillElementsPresent(productsOnComparing);
+    }
 
     public static String getComparingLink() {
         return comparingLink;

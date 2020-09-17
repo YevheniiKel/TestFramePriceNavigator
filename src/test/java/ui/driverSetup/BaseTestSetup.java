@@ -13,7 +13,7 @@ public class BaseTestSetup {
         driver = BrowserFactory.getDriver();
     }
 
-    @AfterMethod//TODO
+    @AfterMethod
     public void tearDown() {
         driver.quit();
     }

@@ -10,13 +10,16 @@ public class MainPage extends BasePage {
 
     public MainPage(WebDriver driver) {
         super(driver);
-
+        waitForMainElements();
     }
 
     @FindBy(xpath = ".//div[@class='pc-block']//a[@title]")
     public List<WebElement> subCategories;
 
-    //todo iselemtainTExt(login) return bool
+    @Override
+    public void waitForMainElements() {
+        wait.tillElementsPresent(subCategories);
+    }
 
     public CataloguePage chooseAnySubCategory() {
         wait.tillElementsPresent(subCategories);

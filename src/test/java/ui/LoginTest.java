@@ -29,9 +29,9 @@ public class LoginTest extends BaseTestSetup {
         username = CharDataForTestSite.VALID_USERNAME;
         password = CharDataForTestSite.VALID_PASSWORD;
         header.enterCredentials(email, password);
-        assertThat(header.getLoggedInUserUsername())
+        assertThat(header.isElementContainSomeText(header.userName, username))
                 .as("Account username is not shown in the right top corner of the page")
-                .isEqualTo(username);
+                .isTrue();
     }
 
     @Test

@@ -1,19 +1,27 @@
 package util.elementUtils;
 
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class WaitUtils {
 
     public WebDriverWait webDriverWait;
+    public FluentWait fluentWait;
 
     public WaitUtils(WebDriver driver) {
         this.webDriverWait = new WebDriverWait(driver, 4);
+        this.fluentWait = new FluentWait(driver)
+                .withTimeout(Duration.ofSeconds(10))
+                .pollingEvery(Duration.ofSeconds(1))
+                .ignoring(NoSuchElementException.class);
     }
 
     public void waitMainElementAppear(WebElement element) {
@@ -56,6 +64,10 @@ public class WaitUtils {
 
     public void sendKeysWhenReady(WebElement element, String value) {
         webDriverWait.until(ExpectedConditions.visibilityOf(element)).sendKeys(value);
+    }
+
+    public void tillElementInvisible(WebElement element) {
+        fluentWait.until(ExpectedConditions.invisibilityOf(element));
     }
 }
 
