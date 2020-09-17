@@ -32,6 +32,11 @@ public class ComparingPage extends BasePage {
         wait.tillElementsPresent(productsOnComparing);
     }
 
+    @Override
+    protected void openPage() {
+
+    }
+
     public static String getComparingLink() {
         return comparingLink;
     }

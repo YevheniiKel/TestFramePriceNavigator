@@ -74,6 +74,11 @@ public class HeaderAnyPage extends BasePage {
         wait.tillElementPresent(loginButton);
     }
 
+    @Override
+    protected void openPage() {
+
+    }
+
     public void enterSearchQuery(String searchQuery) {
         wait.sendKeysWhenReadyThenEnter(searchField, searchQuery);
     }
@@ -84,7 +89,6 @@ public class HeaderAnyPage extends BasePage {
         enterPass(pass);
         clickSignIn();
     }
-
 
     public void openLoginPopup() {
         wait.clickWhenReady(loginButton);
@@ -124,7 +128,6 @@ public class HeaderAnyPage extends BasePage {
     }
 
     public String getLoggedInUserUsername() {
-        //todo iselemtainTExt(login) return bool
         wait.tillTextInElementChanged(userName, defaultUsernameFiledValue);
         return userName.getText();
     }

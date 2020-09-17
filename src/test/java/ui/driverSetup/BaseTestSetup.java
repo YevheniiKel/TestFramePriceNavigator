@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeMethod;
 public class BaseTestSetup {
     protected WebDriver driver;
 
-
     @BeforeMethod
     public void getNewDriver() {
         driver = BrowserFactory.getDriver();

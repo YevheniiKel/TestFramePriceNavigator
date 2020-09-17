@@ -31,6 +31,11 @@ public class CataloguePage extends BasePage {
         wait.tillElementPresent(catalogue);
     }
 
+    @Override
+    protected void openPage() {
+
+    }
+
     public boolean isCatalogueIsDisplayed() {
         try {
             return catalogue.isDisplayed();

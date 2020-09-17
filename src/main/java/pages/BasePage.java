@@ -14,6 +14,8 @@ public abstract class BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    protected void waitForMainElements() {
-    }
+    protected abstract void waitForMainElements();
+
+    protected abstract void openPage();
+
 }

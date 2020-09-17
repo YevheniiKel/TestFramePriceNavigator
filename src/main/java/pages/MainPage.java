@@ -21,6 +21,11 @@ public class MainPage extends BasePage {
         wait.tillElementsPresent(subCategories);
     }
 
+    @Override
+    protected void openPage() {
+
+    }
+
     public CataloguePage chooseAnySubCategory() {
         wait.tillElementsPresent(subCategories);
         subCategories.stream().findAny().get().click();

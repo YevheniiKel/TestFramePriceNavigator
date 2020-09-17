@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -14,22 +15,14 @@ import java.util.List;
 public class WaitUtils {
 
     public WebDriverWait webDriverWait;
-    public FluentWait fluentWait;
+    public Wait<WebDriver> fluentWait;
 
     public WaitUtils(WebDriver driver) {
         this.webDriverWait = new WebDriverWait(driver, 4);
-        this.fluentWait = new FluentWait(driver)
+        this.fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(NoSuchElementException.class);
-    }
-
-    public void waitMainElementAppear(WebElement element) {
-        tillElementPresent(element);
-    }
-
-    public void waitMainElementsAppear(List<WebElement> elements) {
-        tillElementsPresent(elements);
     }
 
     public void clickWhenReady(WebElement element) {
