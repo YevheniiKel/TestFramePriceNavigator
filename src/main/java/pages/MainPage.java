@@ -25,9 +25,8 @@ public class MainPage extends BasePage {
     public MainPage openPage() {
         driver.get(CharDataForTestSite.HOME_URL);
         waitForMainElements();
-        return new MainPage(driver);
+        return this;
     }
-
 
     public CataloguePage chooseAnySubCategory() {
         wait.tillElementsPresent(subCategories);

@@ -4,7 +4,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import util.dataUtils.CharDataForTestSite;
 
 import java.util.List;
 
@@ -14,6 +13,7 @@ public class CataloguePage extends BasePage {
 
     public CataloguePage(WebDriver driver) {
         super(driver);
+        waitForMainElements();
     }
 
     @FindBy(xpath = ".//section[@class='catalog']")
@@ -32,12 +32,7 @@ public class CataloguePage extends BasePage {
 
     @Override
     public CataloguePage openPage() {
-        driver.get(CharDataForTestSite.HOME_URL);
-        MainPage mainPage = new MainPage(driver);
-        mainPage.chooseAnySubCategory();
-        waitForMainElements();
-        return new CataloguePage(driver);
-
+        throw new UnsupportedOperationException("This page should not be loaded directly");
     }
 
     public boolean isCatalogueIsDisplayed() {

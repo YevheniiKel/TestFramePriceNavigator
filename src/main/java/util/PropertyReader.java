@@ -15,7 +15,6 @@ public class PropertyReader {
             if (property == null) {
                 throw new IllegalArgumentException(String.format("Could not read property with key: %s", name));
             }
-            System.out.println(property);
             return property;
         } catch (IOException e) {
             throw new IllegalStateException(e);

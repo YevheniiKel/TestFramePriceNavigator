@@ -3,7 +3,6 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import util.dataUtils.CharDataForTestSite;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class ComparingPage extends BasePage {
 
     public ComparingPage(WebDriver driver) {
         super(driver);
-        openPage();
+        waitForMainElements();
     }
 
     @FindBy(xpath = ".//a[@class='delete']")
@@ -35,12 +34,7 @@ public class ComparingPage extends BasePage {
 
     @Override
     public ComparingPage openPage() {
-        driver.get(CharDataForTestSite.HOME_URL);
-        MainPage mainPage = new MainPage(driver);
-        CataloguePage cataloguePage = mainPage.chooseAnySubCategory();
-        cataloguePage.addThreeProductsToComparing();
-        cataloguePage.clickCompare();
-        return new ComparingPage(driver);
+        throw new UnsupportedOperationException("This page should not be loaded directly");
     }
 
     public static String getComparingLink() {

@@ -30,8 +30,9 @@ public class WaitUtils {
     }
 
     public void clickAllWhenReady(List<WebElement> elements) {
+        webDriverWait.until(ExpectedConditions.visibilityOfAllElements(elements));
         for (WebElement el : elements) {
-            webDriverWait.until(ExpectedConditions.elementToBeClickable(el)).click();
+            el.click();
         }
     }
 

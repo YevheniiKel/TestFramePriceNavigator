@@ -2,7 +2,9 @@ package ui;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.CataloguePage;
 import pages.ComparingPage;
+import pages.MainPage;
 import ui.driverSetup.BaseTestSetup;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,7 +16,10 @@ public class ComparingTest extends BaseTestSetup {
 
     @BeforeMethod
     public void comparingTestSetup() {
-        comparingPage = new ComparingPage(driver).openPage();
+        MainPage mainPage = new MainPage(driver).openPage();
+        CataloguePage cataloguePage = mainPage.chooseAnySubCategory();
+        cataloguePage.addThreeProductsToComparing();
+        comparingPage = cataloguePage.clickCompare();
     }
 
     @Test

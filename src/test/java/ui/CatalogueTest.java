@@ -3,6 +3,7 @@ package ui;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CataloguePage;
+import pages.MainPage;
 import ui.driverSetup.BaseTestSetup;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,7 +14,8 @@ public class CatalogueTest extends BaseTestSetup {
 
     @BeforeMethod
     public void catTestSetUp() {
-        cataloguePage = new CataloguePage(driver).openPage();
+        MainPage mainPage = new MainPage(driver).openPage();
+        cataloguePage = mainPage.chooseAnySubCategory();
     }
 
     @Test

@@ -1,10 +1,10 @@
 package pages;
 
+import dto.UserDTO;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import util.dataUtils.CharDataForTestSite;
-import valueObjects.User;
 
 public class HeaderAnyPage extends BasePage {
 
@@ -77,21 +77,28 @@ public class HeaderAnyPage extends BasePage {
     @Override
     public HeaderAnyPage openPage() {
         driver.get(CharDataForTestSite.HOME_URL);
-        defaultUsernameFiledValue = getLoggedInUserUsername();
         waitForMainElements();
-        return new HeaderAnyPage(driver);
+        return this;
     }
 
+    public void registerNewUser(UserDTO userDto) {
+        openLoginPopup();
+        clickRegisterButton();
+        enterRegEmail(userDto.getEmail());
+        regEnterFirstPassword(userDto.getPassword());
+        regEnterSecondPassword(userDto.getPassword());
+        clickRegisterSignUpButton();
+    }
+
+    public void enterCredentials(UserDTO userDto) {
+        openLoginPopup();
+        enterEmail(userDto.getEmail());
+        enterPass(userDto.getPassword());
+        clickSignIn();
+    }
 
     public void enterSearchQuery(String searchQuery) {
         wait.sendKeysWhenReadyThenEnter(searchField, searchQuery);
-    }
-
-    public void enterCredentials(User user) {
-        openLoginPopup();
-        enterEmail(user.getEmail());
-        enterPass(user.getPassword());
-        clickSignIn();
     }
 
     public void openLoginPopup() {
@@ -132,11 +139,6 @@ public class HeaderAnyPage extends BasePage {
 
     public void clickRegisterSignUpButton() {
         wait.clickWhenReady(registerSignUpButton);
-        wait.tillElementInvisible(registrationPopup);
-    }
-
-    public String getLoggedInUserUsername() {
-        return userName.getText();
     }
 
     public boolean invalidCredentialsNotificationIsShown() {
@@ -151,6 +153,5 @@ public class HeaderAnyPage extends BasePage {
 
     public boolean isElementContainSomeText(WebElement element, String text) {
         return wait.tillTextEqualsValue(element, text);
-        //element.getText().contains(text);
     }
 }

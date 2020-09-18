@@ -13,7 +13,8 @@ public abstract class BasePage {
         this.wait = new WaitUtils(driver);
         PageFactory.initElements(driver, this);
     }
+
     protected abstract void waitForMainElements();
 
-    public abstract <P> P openPage();
+    protected abstract <P> P openPage();
 }
