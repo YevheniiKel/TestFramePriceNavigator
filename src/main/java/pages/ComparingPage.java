@@ -34,9 +34,8 @@ public class ComparingPage extends BasePage {
     }
 
     @Override
-    public ComparingPage openPage(WebDriver driver) {
+    public void openPage(WebDriver driver) {
         driver.get(CharDataForTestSite.HOME_URL);
-        return new ComparingPage(driver);
     }
 
     public static String getComparingLink() {

@@ -11,7 +11,6 @@ public class HeaderAnyPage extends BasePage {
 
     public HeaderAnyPage(WebDriver driver) {
         super(driver);
-        waitForMainElements();
         openPage(driver);
         defaultUsernameFiledValue = getLoggedInUserUsername();
     }
@@ -77,9 +76,9 @@ public class HeaderAnyPage extends BasePage {
     }
 
     @Override
-    public HeaderAnyPage openPage(WebDriver driver) {
+    public void openPage(WebDriver driver) {
         driver.get(CharDataForTestSite.HOME_URL);
-        return new HeaderAnyPage(driver);
+        waitForMainElements();
     }
 
 

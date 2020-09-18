@@ -33,9 +33,8 @@ public class CataloguePage extends BasePage {
     }
 
     @Override
-    public HeaderAnyPage openPage(WebDriver driver) {
+    public void openPage(WebDriver driver) {
         driver.get(CharDataForTestSite.HOME_URL);
-        return new HeaderAnyPage(driver);
     }
 
     public boolean isCatalogueIsDisplayed() {

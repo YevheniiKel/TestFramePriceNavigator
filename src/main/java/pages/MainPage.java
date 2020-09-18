@@ -23,9 +23,8 @@ public class MainPage extends BasePage {
     }
 
     @Override
-    public MainPage openPage(WebDriver driver) {
+    public void openPage(WebDriver driver) {
         driver.get(CharDataForTestSite.HOME_URL);
-        return new MainPage(driver);
     }
 
 

@@ -11,7 +11,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class LoginTest extends BaseTestSetup {
 
-    private HeaderAnyPage header;
+    private HeaderAnyPage headerAnyPage;
 
     private String email;
     private String username;
@@ -19,7 +19,7 @@ public class LoginTest extends BaseTestSetup {
 
     @BeforeMethod
     public void searchTestSetup() {
-        HeaderAnyPage headerAnyPage = new HeaderAnyPage(driver);
+        headerAnyPage = new HeaderAnyPage(driver);
         headerAnyPage.openPage(driver);
     }
 
@@ -28,8 +28,8 @@ public class LoginTest extends BaseTestSetup {
         email = CharDataForTestSite.VALID_EMAIL;
         username = CharDataForTestSite.VALID_USERNAME;
         password = CharDataForTestSite.VALID_PASSWORD;
-        header.enterCredentials(email, password);
-        assertThat(header.isElementContainSomeText(header.userName, username))
+        headerAnyPage.enterCredentials(email, password);
+        assertThat(headerAnyPage.isElementContainSomeText(headerAnyPage.userName, username))
                 .as("Account username is not shown in the right top corner of the page")
                 .isTrue();
     }
@@ -38,8 +38,8 @@ public class LoginTest extends BaseTestSetup {
     public void notRegisteredUserLogin() {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
-        header.enterCredentials(email, password);
-        assertThat(header.invalidCredentialsNotificationIsShown())
+        headerAnyPage.enterCredentials(email, password);
+        assertThat(headerAnyPage.invalidCredentialsNotificationIsShown())
                 .as("Invalid credentials notification is not shown")
                 .isTrue();
     }
@@ -48,8 +48,8 @@ public class LoginTest extends BaseTestSetup {
     public void testLoginWithInvalidEmail() {
         email = DataGenerator.loginGenerator();
         password = DataGenerator.passGenerator();
-        header.enterCredentials(email, password);
-        assertThat(header.invalidCredentialsNotificationIsShown())
+        headerAnyPage.enterCredentials(email, password);
+        assertThat(headerAnyPage.invalidCredentialsNotificationIsShown())
                 .as("Invalid email notification is not shown")
                 .isTrue();
     }
