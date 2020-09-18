@@ -15,5 +15,5 @@ public abstract class BasePage {
     }
     protected abstract void waitForMainElements();
 
-    public abstract void openPage(WebDriver driver);
+    public abstract <P> P openPage();
 }

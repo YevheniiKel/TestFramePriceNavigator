@@ -43,8 +43,9 @@ public class WaitUtils {
         webDriverWait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public void tillTextInElementChanged(WebElement element, String baseValue) {
-        webDriverWait.until(text -> !element.getText().equals(baseValue));
+    public boolean tillTextEqualsValue(WebElement element, String value) {
+        webDriverWait.until(text -> element.getText().equals(value));
+        return true;
     }
 
     public void tillElementContainAnyText(WebElement element) {

@@ -13,7 +13,7 @@ public class ComparingPage extends BasePage {
 
     public ComparingPage(WebDriver driver) {
         super(driver);
-        waitForMainElements();
+        openPage();
     }
 
     @FindBy(xpath = ".//a[@class='delete']")
@@ -34,8 +34,13 @@ public class ComparingPage extends BasePage {
     }
 
     @Override
-    public void openPage(WebDriver driver) {
+    public ComparingPage openPage() {
         driver.get(CharDataForTestSite.HOME_URL);
+        MainPage mainPage = new MainPage(driver);
+        CataloguePage cataloguePage = mainPage.chooseAnySubCategory();
+        cataloguePage.addThreeProductsToComparing();
+        cataloguePage.clickCompare();
+        return new ComparingPage(driver);
     }
 
     public static String getComparingLink() {

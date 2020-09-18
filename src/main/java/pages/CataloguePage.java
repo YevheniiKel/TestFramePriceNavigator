@@ -14,8 +14,6 @@ public class CataloguePage extends BasePage {
 
     public CataloguePage(WebDriver driver) {
         super(driver);
-        addToCompareButtons = addToCompareButtonPath;
-        waitForMainElements();
     }
 
     @FindBy(xpath = ".//section[@class='catalog']")
@@ -33,8 +31,13 @@ public class CataloguePage extends BasePage {
     }
 
     @Override
-    public void openPage(WebDriver driver) {
+    public CataloguePage openPage() {
         driver.get(CharDataForTestSite.HOME_URL);
+        MainPage mainPage = new MainPage(driver);
+        mainPage.chooseAnySubCategory();
+        waitForMainElements();
+        return new CataloguePage(driver);
+
     }
 
     public boolean isCatalogueIsDisplayed() {

@@ -11,7 +11,6 @@ public class MainPage extends BasePage {
 
     public MainPage(WebDriver driver) {
         super(driver);
-        waitForMainElements();
     }
 
     @FindBy(xpath = ".//div[@class='pc-block']//a[@title]")
@@ -23,8 +22,10 @@ public class MainPage extends BasePage {
     }
 
     @Override
-    public void openPage(WebDriver driver) {
+    public MainPage openPage() {
         driver.get(CharDataForTestSite.HOME_URL);
+        waitForMainElements();
+        return new MainPage(driver);
     }
 
 

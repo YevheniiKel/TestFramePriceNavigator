@@ -4,15 +4,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import util.dataUtils.CharDataForTestSite;
+import valueObjects.User;
 
 public class HeaderAnyPage extends BasePage {
 
-    private final String defaultUsernameFiledValue;
+    private String defaultUsernameFiledValue;
 
     public HeaderAnyPage(WebDriver driver) {
         super(driver);
-        openPage(driver);
-        defaultUsernameFiledValue = getLoggedInUserUsername();
     }
 
     @FindBy(xpath = ".//input[@class = 'search-text-input']")
@@ -76,9 +75,11 @@ public class HeaderAnyPage extends BasePage {
     }
 
     @Override
-    public void openPage(WebDriver driver) {
+    public HeaderAnyPage openPage() {
         driver.get(CharDataForTestSite.HOME_URL);
+        defaultUsernameFiledValue = getLoggedInUserUsername();
         waitForMainElements();
+        return new HeaderAnyPage(driver);
     }
 
 
@@ -86,10 +87,10 @@ public class HeaderAnyPage extends BasePage {
         wait.sendKeysWhenReadyThenEnter(searchField, searchQuery);
     }
 
-    public void enterCredentials(String email, String pass) {
+    public void enterCredentials(User user) {
         openLoginPopup();
-        enterLogin(email);
-        enterPass(pass);
+        enterEmail(user.getEmail());
+        enterPass(user.getPassword());
         clickSignIn();
     }
 
@@ -97,7 +98,11 @@ public class HeaderAnyPage extends BasePage {
         wait.clickWhenReady(loginButton);
     }
 
-    public void enterLogin(String email) {
+    public void enter(WebElement field, String value) {
+        wait.sendKeysWhenReady(field, value);
+    }
+
+    public void enterEmail(String email) {
         wait.sendKeysWhenReady(emailLoginField, email);
     }
 
@@ -131,7 +136,6 @@ public class HeaderAnyPage extends BasePage {
     }
 
     public String getLoggedInUserUsername() {
-        wait.tillTextInElementChanged(userName, defaultUsernameFiledValue);
         return userName.getText();
     }
 
@@ -146,6 +150,7 @@ public class HeaderAnyPage extends BasePage {
     }
 
     public boolean isElementContainSomeText(WebElement element, String text) {
-        return element.getText().contains(text);
+        return wait.tillTextEqualsValue(element, text);
+        //element.getText().contains(text);
     }
 }

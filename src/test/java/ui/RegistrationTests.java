@@ -19,8 +19,9 @@ public class RegistrationTests extends BaseTestSetup {
 
     @BeforeMethod
     public void searchTestSetup() {
+
         driver.get(CharDataForTestSite.HOME_URL);
-        headerAnyPage = new HeaderAnyPage(driver);
+        headerAnyPage = new HeaderAnyPage(driver).openPage();
     }
 
     @Test
