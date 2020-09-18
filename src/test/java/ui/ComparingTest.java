@@ -27,6 +27,7 @@ public class ComparingTest extends BaseTestSetup {
 
     @Test
     public void threeProductsAddedToComparing() {
+
         int productsToCompare = 3;
         assertThat(comparingPage.amountOfComparingProducts())
                 .as(String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
@@ -36,6 +37,9 @@ public class ComparingTest extends BaseTestSetup {
 
     @Test
     public void deleteOneProductFromComparingList() {
+        cataloguePage = mainPage.chooseAnySubCategory();
+        cataloguePage.addThreeProductsToComparing();
+        comparingPage = cataloguePage.clickCompare();
         int productsToCompare = 2;
         comparingPage.deleteProductFromComparing();
         assertThat(comparingPage.amountOfComparingProducts())

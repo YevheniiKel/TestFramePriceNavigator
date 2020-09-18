@@ -19,8 +19,8 @@ public class LoginTest extends BaseTestSetup {
 
     @BeforeMethod
     public void searchTestSetup() {
-        driver.get(CharDataForTestSite.HOME_URL);
-        header = new HeaderAnyPage(driver);
+        HeaderAnyPage headerAnyPage = new HeaderAnyPage(driver);
+        headerAnyPage.openPage(driver);
     }
 
     @Test

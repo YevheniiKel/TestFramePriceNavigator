@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import util.dataUtils.CharDataForTestSite;
 
 public class HeaderAnyPage extends BasePage {
 
@@ -11,6 +12,7 @@ public class HeaderAnyPage extends BasePage {
     public HeaderAnyPage(WebDriver driver) {
         super(driver);
         waitForMainElements();
+        openPage(driver);
         defaultUsernameFiledValue = getLoggedInUserUsername();
     }
 
@@ -75,9 +77,11 @@ public class HeaderAnyPage extends BasePage {
     }
 
     @Override
-    protected void openPage() {
-
+    public HeaderAnyPage openPage(WebDriver driver) {
+        driver.get(CharDataForTestSite.HOME_URL);
+        return new HeaderAnyPage(driver);
     }
+
 
     public void enterSearchQuery(String searchQuery) {
         wait.sendKeysWhenReadyThenEnter(searchField, searchQuery);

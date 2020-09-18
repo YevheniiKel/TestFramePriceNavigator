@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import util.dataUtils.CharDataForTestSite;
 
 import java.util.List;
 
@@ -33,8 +34,9 @@ public class ComparingPage extends BasePage {
     }
 
     @Override
-    protected void openPage() {
-
+    public ComparingPage openPage(WebDriver driver) {
+        driver.get(CharDataForTestSite.HOME_URL);
+        return new ComparingPage(driver);
     }
 
     public static String getComparingLink() {

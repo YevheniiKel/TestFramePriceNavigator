@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import util.dataUtils.CharDataForTestSite;
 
 import java.util.List;
 
@@ -22,9 +23,11 @@ public class MainPage extends BasePage {
     }
 
     @Override
-    protected void openPage() {
-
+    public MainPage openPage(WebDriver driver) {
+        driver.get(CharDataForTestSite.HOME_URL);
+        return new MainPage(driver);
     }
+
 
     public CataloguePage chooseAnySubCategory() {
         wait.tillElementsPresent(subCategories);

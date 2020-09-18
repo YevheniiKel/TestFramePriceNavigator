@@ -14,8 +14,7 @@ public class SearchTest extends BaseTestSetup {
 
     @BeforeMethod
     public void searchTestSetup() {
-        driver.get(CharDataForTestSite.HOME_URL);
-        headerAnyPage = new HeaderAnyPage(driver);
+        headerAnyPage = headerAnyPage.openPage(driver);
     }
 
     @Test
