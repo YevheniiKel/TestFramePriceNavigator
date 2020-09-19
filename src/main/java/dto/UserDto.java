@@ -3,19 +3,13 @@ package dto;
 import util.dataUtils.CharDataForTestSite;
 import util.dataUtils.DataGenerator;
 
-public class UserDTO {
+public class UserDto {
 
     private String email;
     private String login;
     private String password;
 
-    public UserDTO() {
-    }
-
-    public UserDTO(String email, String login, String password) {
-        this.email = email;
-        this.login = login;
-        this.password = password;
+    public UserDto() {
     }
 
     public String getEmail() {
@@ -30,43 +24,43 @@ public class UserDTO {
         return password;
     }
 
-    public UserDTO setEmail(String email) {
+    public UserDto setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    public UserDTO setLogin(String login) {
+    public UserDto setLogin(String login) {
         this.login = login;
         return this;
     }
 
-    public UserDTO setPassword(String password) {
+    public UserDto setPassword(String password) {
         this.password = password;
         return this;
     }
 
-    public static UserDTO createRegisteredUser() {
-        return new UserDTO()
+    public static UserDto createRegisteredUser() {
+        return new UserDto()
                 .setEmail(CharDataForTestSite.VALID_EMAIL)
                 .setLogin(CharDataForTestSite.VALID_USERNAME)
                 .setPassword(CharDataForTestSite.VALID_PASSWORD);
     }
 
-    public static UserDTO createNotRegisteredUser() {
-        return new UserDTO()
+    public static UserDto createNotRegisteredUser() {
+        return new UserDto()
                 .setEmail(String.format("%s@gmail.com", DataGenerator.loginGenerator()))
                 .setPassword(DataGenerator.passGenerator());
     }
 
-    public static UserDTO CreateInvalidEmailUser() {
-        return new UserDTO()
+    public static UserDto createInvalidEmailUser() {
+        return new UserDto()
                 .setEmail(DataGenerator.loginGenerator())
                 .setPassword(DataGenerator.passGenerator());
     }
 
-    public static UserDTO createNewUser() {
+    public static UserDto createNewUser() {
         String username = DataGenerator.loginGenerator();
-        return new UserDTO()
+        return new UserDto()
                 .setLogin(username)
                 .setEmail(String.format("%s@gmail.com", username))
                 .setPassword(DataGenerator.passGenerator());

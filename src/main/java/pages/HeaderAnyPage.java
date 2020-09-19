@@ -1,6 +1,6 @@
 package pages;
 
-import dto.UserDTO;
+import dto.UserDto;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -81,7 +81,7 @@ public class HeaderAnyPage extends BasePage {
         return this;
     }
 
-    public void registerNewUser(UserDTO userDto) {
+    public void registerNewUser(UserDto userDto) {
         openLoginPopup();
         clickRegisterButton();
         enterRegEmail(userDto.getEmail());
@@ -90,7 +90,7 @@ public class HeaderAnyPage extends BasePage {
         clickRegisterSignUpButton();
     }
 
-    public void enterCredentials(UserDTO userDto) {
+    public void enterCredentials(UserDto userDto) {
         openLoginPopup();
         enterEmail(userDto.getEmail());
         enterPass(userDto.getPassword());

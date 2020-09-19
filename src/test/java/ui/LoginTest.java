@@ -1,6 +1,6 @@
 package ui;
 
-import dto.UserDTO;
+import dto.UserDto;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -13,15 +13,15 @@ public class LoginTest extends BaseTestSetup {
 
     private HeaderAnyPage headerAnyPage;
 
-    private UserDTO registeredUser;
-    private UserDTO notRegisteredUser;
-    private UserDTO invalidEmailUser;
+    private UserDto registeredUser;
+    private UserDto notRegisteredUser;
+    private UserDto invalidEmailUser;
 
     @BeforeTest
     public void initialization() {
-        registeredUser = UserDTO.createRegisteredUser();
-        notRegisteredUser = UserDTO.createNotRegisteredUser();
-        invalidEmailUser = UserDTO.CreateInvalidEmailUser();
+        registeredUser = UserDto.createRegisteredUser();
+        notRegisteredUser = UserDto.createNotRegisteredUser();
+        invalidEmailUser = UserDto.createInvalidEmailUser();
     }
 
     @BeforeMethod
