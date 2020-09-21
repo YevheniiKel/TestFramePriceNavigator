@@ -16,6 +16,5 @@ public abstract class BasePage {
 
     protected abstract void waitForMainElements();
 
-    protected abstract void openPage();
-
+    protected abstract <P> P openPage();
 }

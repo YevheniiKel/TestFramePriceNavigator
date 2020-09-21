@@ -33,8 +33,8 @@ public class ComparingPage extends BasePage {
     }
 
     @Override
-    protected void openPage() {
-
+    public ComparingPage openPage() {
+        throw new UnsupportedOperationException("This page should not be loaded directly");
     }
 
     public static String getComparingLink() {

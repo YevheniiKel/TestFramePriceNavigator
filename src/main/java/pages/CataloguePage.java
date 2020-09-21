@@ -13,7 +13,6 @@ public class CataloguePage extends BasePage {
 
     public CataloguePage(WebDriver driver) {
         super(driver);
-        addToCompareButtons = addToCompareButtonPath;
         waitForMainElements();
     }
 
@@ -32,8 +31,8 @@ public class CataloguePage extends BasePage {
     }
 
     @Override
-    protected void openPage() {
-
+    public CataloguePage openPage() {
+        throw new UnsupportedOperationException("This page should not be loaded directly");
     }
 
     public boolean isCatalogueIsDisplayed() {

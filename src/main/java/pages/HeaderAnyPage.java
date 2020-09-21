@@ -1,17 +1,17 @@
 package pages;
 
+import dto.UserDto;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import util.dataUtils.CharDataForTestSite;
 
 public class HeaderAnyPage extends BasePage {
 
-    private final String defaultUsernameFiledValue;
+    private String defaultUsernameFiledValue;
 
     public HeaderAnyPage(WebDriver driver) {
         super(driver);
-        waitForMainElements();
-        defaultUsernameFiledValue = getLoggedInUserUsername();
     }
 
     @FindBy(xpath = ".//input[@class = 'search-text-input']")
@@ -75,26 +75,41 @@ public class HeaderAnyPage extends BasePage {
     }
 
     @Override
-    protected void openPage() {
+    public HeaderAnyPage openPage() {
+        driver.get(CharDataForTestSite.HOME_URL);
+        waitForMainElements();
+        return this;
+    }
 
+    public void registerNewUser(UserDto userDto) {
+        openLoginPopup();
+        clickRegisterButton();
+        enterRegEmail(userDto.getEmail());
+        regEnterFirstPassword(userDto.getPassword());
+        regEnterSecondPassword(userDto.getPassword());
+        clickRegisterSignUpButton();
+    }
+
+    public void enterCredentials(UserDto userDto) {
+        openLoginPopup();
+        enterEmail(userDto.getEmail());
+        enterPass(userDto.getPassword());
+        clickSignIn();
     }
 
     public void enterSearchQuery(String searchQuery) {
         wait.sendKeysWhenReadyThenEnter(searchField, searchQuery);
     }
 
-    public void enterCredentials(String email, String pass) {
-        openLoginPopup();
-        enterLogin(email);
-        enterPass(pass);
-        clickSignIn();
-    }
-
     public void openLoginPopup() {
         wait.clickWhenReady(loginButton);
     }
 
-    public void enterLogin(String email) {
+    public void enter(WebElement field, String value) {
+        wait.sendKeysWhenReady(field, value);
+    }
+
+    public void enterEmail(String email) {
         wait.sendKeysWhenReady(emailLoginField, email);
     }
 
@@ -124,12 +139,6 @@ public class HeaderAnyPage extends BasePage {
 
     public void clickRegisterSignUpButton() {
         wait.clickWhenReady(registerSignUpButton);
-        wait.tillElementInvisible(registrationPopup);
-    }
-
-    public String getLoggedInUserUsername() {
-        wait.tillTextInElementChanged(userName, defaultUsernameFiledValue);
-        return userName.getText();
     }
 
     public boolean invalidCredentialsNotificationIsShown() {
@@ -143,6 +152,6 @@ public class HeaderAnyPage extends BasePage {
     }
 
     public boolean isElementContainSomeText(WebElement element, String text) {
-        return element.getText().contains(text);
+        return wait.tillTextEqualsValue(element, text);
     }
 }

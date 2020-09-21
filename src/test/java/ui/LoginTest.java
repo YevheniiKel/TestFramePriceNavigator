@@ -1,55 +1,54 @@
 package ui;
 
+import dto.UserDto;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.HeaderAnyPage;
 import ui.driverSetup.BaseTestSetup;
-import util.dataUtils.CharDataForTestSite;
-import util.dataUtils.DataGenerator;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class LoginTest extends BaseTestSetup {
 
-    private HeaderAnyPage header;
+    private HeaderAnyPage headerAnyPage;
 
-    private String email;
-    private String username;
-    private String password;
+    private UserDto registeredUser;
+    private UserDto notRegisteredUser;
+    private UserDto invalidEmailUser;
+
+    @BeforeTest
+    public void initialization() {
+        registeredUser = UserDto.createRegisteredUser();
+        notRegisteredUser = UserDto.createNotRegisteredUser();
+        invalidEmailUser = UserDto.createInvalidEmailUser();
+    }
 
     @BeforeMethod
     public void searchTestSetup() {
-        driver.get(CharDataForTestSite.HOME_URL);
-        header = new HeaderAnyPage(driver);
+        headerAnyPage = new HeaderAnyPage(driver).openPage();
     }
 
     @Test
     public void validCredentialsLogin() {
-        email = CharDataForTestSite.VALID_EMAIL;
-        username = CharDataForTestSite.VALID_USERNAME;
-        password = CharDataForTestSite.VALID_PASSWORD;
-        header.enterCredentials(email, password);
-        assertThat(header.isElementContainSomeText(header.userName, username))
+        headerAnyPage.enterCredentials(registeredUser);
+        assertThat(headerAnyPage.isElementContainSomeText(headerAnyPage.userName, registeredUser.getLogin()))
                 .as("Account username is not shown in the right top corner of the page")
                 .isTrue();
     }
 
     @Test
-    public void notRegisteredUserLogin() {
-        email = DataGenerator.loginGenerator();
-        password = DataGenerator.passGenerator();
-        header.enterCredentials(email, password);
-        assertThat(header.invalidCredentialsNotificationIsShown())
+    public void notRegisteredUser() {
+        headerAnyPage.enterCredentials(notRegisteredUser);
+        assertThat(headerAnyPage.invalidCredentialsNotificationIsShown())
                 .as("Invalid credentials notification is not shown")
                 .isTrue();
     }
 
     @Test
     public void testLoginWithInvalidEmail() {
-        email = DataGenerator.loginGenerator();
-        password = DataGenerator.passGenerator();
-        header.enterCredentials(email, password);
-        assertThat(header.invalidCredentialsNotificationIsShown())
+        headerAnyPage.enterCredentials(invalidEmailUser);
+        assertThat(headerAnyPage.invalidCredentialsNotificationIsShown())
                 .as("Invalid email notification is not shown")
                 .isTrue();
     }

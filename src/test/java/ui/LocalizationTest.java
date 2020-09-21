@@ -4,7 +4,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HeaderAnyPage;
 import ui.driverSetup.BaseTestSetup;
-import util.dataUtils.CharDataForTestSite;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,8 +13,7 @@ public class LocalizationTest extends BaseTestSetup {
 
     @BeforeMethod
     public void localizationTestSetup() {
-        driver.get(CharDataForTestSite.HOME_URL);
-        headerAnyPage = new HeaderAnyPage(driver);
+        headerAnyPage = new HeaderAnyPage(driver).openPage();
     }
 
     @Test
