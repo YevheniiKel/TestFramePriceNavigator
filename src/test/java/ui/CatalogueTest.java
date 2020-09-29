@@ -1,13 +1,14 @@
 package ui;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import pages.CataloguePage;
 import pages.MainPage;
-import ui.driverSetup.BaseTestSetup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CatalogueTest extends BaseTestSetup {
+public class CatalogueTest {
+    WebDriver driver;
 
     private CataloguePage cataloguePage;
 

@@ -1,12 +1,10 @@
-Feature: This is a demo feature one
+Feature: Search field in the header
 
-  Scenario: This is first scenario
-    Given Precondition is given
-    When Something is done
-    Then Something is expected
+  Scenario Outline: Test ProductNotFound Page
+    When Open main page with header
+    When Enter "<searchQuery>" into search field and press enter
+    Then Product not found page is displayed
+    Examples:
+      | searchQuery       |
+      | fjbhjgjsdkjfglsdf |
 
-
-  Scenario: This is second scenario
-    Given Another precondition is given
-    When Something is done again
-    Then Something is expected again

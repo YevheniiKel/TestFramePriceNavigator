@@ -1,4 +1,4 @@
-package ui.driverSetup;
+package util;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +10,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 
 import static util.PropertyReader.getProperty;
 
-class BrowserFactory {
+public class BrowserFactory {
 
     public static WebDriver getDriver() {
         switch (getProperty("BROWSER")) {

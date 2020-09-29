@@ -1,16 +1,17 @@
 package ui;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HeaderAnyPage;
-import ui.driverSetup.BaseTestSetup;
 import util.dataUtils.CharDataForTestSite;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SearchTest extends BaseTestSetup {
+public class SearchTest {
 
     private HeaderAnyPage headerAnyPage;
+    WebDriver driver;
 
     @BeforeMethod
     public void searchTestSetup() {

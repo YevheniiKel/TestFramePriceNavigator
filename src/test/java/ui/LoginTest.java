@@ -1,15 +1,16 @@
 package ui;
 
 import dto.UserDto;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.HeaderAnyPage;
-import ui.driverSetup.BaseTestSetup;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-public class LoginTest extends BaseTestSetup {
+public class LoginTest {
+    WebDriver driver;
 
     private HeaderAnyPage headerAnyPage;
 

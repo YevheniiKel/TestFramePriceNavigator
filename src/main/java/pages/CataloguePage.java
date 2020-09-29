@@ -43,10 +43,10 @@ public class CataloguePage extends BasePage {
         }
     }
 
-    public void addThreeProductsToComparing() {
+    public void addProductsToComparing(Integer amount) {
         addToCompareButtons = addToCompareButtonPath;
-        if (addToCompareButtons.size() >= 3) {
-            wait.clickAllWhenReady(addToCompareButtons.subList(0, 3));
+        if (addToCompareButtons.size() >= amount) {
+            wait.clickAllWhenReady(addToCompareButtons.subList(0, amount));
         } else {
             throw new NoSuchElementException("Amount of elements is less than 3");
         }

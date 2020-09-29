@@ -41,12 +41,12 @@ public class ComparingPage extends BasePage {
         return comparingLink;
     }
 
-    public int amountOfComparingProducts() {
+    public String amountOfComparingProducts() {
         wait.tillElementsPresent(productsOnComparing);
-        return productsOnComparing.size();
+        return String.valueOf(productsOnComparing.size());
     }
 
-    public void deleteProductFromComparing() {
+    public void deleteOneProductFromComparing() {
         wait.clickWhenReady(deleteButton.get(2));
     }
 
