@@ -21,7 +21,7 @@ public class ComparingTestSteps {
         mainPage = new MainPage(driverManager.getDriver());
     }
 
-    @And("User opens some category")
+    @And("User opens some subcategory")
     public void userOpensSomeCategory() {
         cataloguePage = mainPage.chooseAnySubCategory();
     }
