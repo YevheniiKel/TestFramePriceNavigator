@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class CataloguePage extends BasePage {
+public class CataloguePage extends HeaderAnyPage {
 
     private List<WebElement> addToCompareButtons;
 

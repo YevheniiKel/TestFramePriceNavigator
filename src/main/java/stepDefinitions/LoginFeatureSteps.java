@@ -6,12 +6,12 @@ import pages.HeaderAnyPage;
 public class LoginFeatureSteps {
 
     private HeaderAnyPage headerAnyPage;
-    private Controller controller;
+    private DriverManager driverManager;
 
     private UserDto registeredUser;
 
-    public LoginFeatureSteps(Controller controller) {
-        this.controller = controller;
+    public LoginFeatureSteps(DriverManager driverManager) {
+        this.driverManager = driverManager;
         registeredUser = UserDto.createRegisteredUser();
     }
 

@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class ComparingPage extends BasePage {
+public class ComparingPage extends HeaderAnyPage {
 
     private static String comparingLink;
 

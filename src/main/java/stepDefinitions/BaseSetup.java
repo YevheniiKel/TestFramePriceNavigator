@@ -4,19 +4,20 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
 public class BaseSetup {
-    Controller controller;
+    DriverManager driverManager;
 
-    public BaseSetup(Controller controller) {
-        this.controller = controller;
+    public BaseSetup(DriverManager driverManager) {
+        this.driverManager = driverManager;
     }
 
     @Before
     public void getNewDriver() {
-        controller.setupController();
+        driverManager.setupController();
     }
 
     @After
     public void closeDriver() {
-        controller.teardownController();
+
+        driverManager.teardownController();
     }
 }

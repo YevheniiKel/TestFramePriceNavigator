@@ -76,9 +76,7 @@ public class HeaderAnyPage extends BasePage {
 
     @Override
     public HeaderAnyPage openPage() {
-        driver.get(CharDataForTestSite.HOME_URL);
-        waitForMainElements();
-        return this;
+        throw new UnsupportedOperationException("This page should not be loaded directly");
     }
 
     public void registerNewUser(UserDto userDto) {

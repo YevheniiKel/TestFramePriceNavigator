@@ -7,7 +7,7 @@ import util.dataUtils.CharDataForTestSite;
 
 import java.util.List;
 
-public class MainPage extends BasePage {
+public class MainPage extends HeaderAnyPage {
 
     public MainPage(WebDriver driver) {
         super(driver);

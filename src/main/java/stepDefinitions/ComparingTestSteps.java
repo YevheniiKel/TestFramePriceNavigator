@@ -1,7 +1,6 @@
 package stepDefinitions;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
@@ -10,20 +9,16 @@ import pages.ComparingPage;
 import pages.MainPage;
 
 public class ComparingTestSteps {
-    private Controller controller;
+    private DriverManager driverManager;
     private MainPage mainPage;
     private CataloguePage cataloguePage;
     private ComparingPage comparingPage;
 
     int amountOfComparingProducts;
 
-    public ComparingTestSteps(Controller controller) {
-        this.controller = controller;
-    }
-
-    @Given("User on the main page")
-    public void userOnTheMainPage() {
-        mainPage = new MainPage(controller.getDriver()).openPage();
+    public ComparingTestSteps(DriverManager driverManager) {
+        this.driverManager = driverManager;
+        mainPage = new MainPage(driverManager.getDriver());
     }
 
     @And("User opens some category")
@@ -41,12 +36,10 @@ public class ComparingTestSteps {
         comparingPage = cataloguePage.clickCompare();
     }
 
-    @Then("Amount of comparing products should be equal {string}")
-    public void amountOfComparingProductsShouldBeEqual(String amount) {
-        Assertions.assertThat(comparingPage.amountOfComparingProducts())
-                .as(String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
-                        comparingPage.amountOfComparingProducts(), amount))
-                .isEqualTo(amount);
+    @And("User put this link into address bar and press enter")
+    public void userPutThisLinkIntoAddressBarAndPressEnter() {
+        driverManager.getDriver().get(ComparingPage.getComparingLink());
+
     }
 
     @When("One product has been deleted from the comparing")
@@ -61,19 +54,21 @@ public class ComparingTestSteps {
         comparingPage.setComparingLinkFromTheField();
     }
 
-    @And("User put this link into address bar and press enter")
-    public void userPutThisLinkIntoAddressBarAndPressEnter() {
-        controller.getDriver().get(ComparingPage.getComparingLink());
-
-    }
-
     @Then("User is navigated on the same comparing page")
     public void userIsNavigatedOnTheSameComparingPage() {
-        ComparingPage newComparingPage = new ComparingPage(controller.getDriver());
+        ComparingPage newComparingPage = new ComparingPage(driverManager.getDriver());
         Assertions.assertThat(newComparingPage.amountOfComparingProducts())
                 .as(String.format("Amount of comparing products = %s doesn't meet expected amount = %s.\n",
                         comparingPage.amountOfComparingProducts(), amountOfComparingProducts))
                 .isEqualTo(String.valueOf(amountOfComparingProducts));
+    }
+
+    @Then("Amount of comparing products should be equal {string}")
+    public void amountOfComparingProductsShouldBeEqual(String amount) {
+        Assertions.assertThat(comparingPage.amountOfComparingProducts())
+                .as(String.format("Amount of comparing products = %s doesn't meet expected amount %s.\n",
+                        comparingPage.amountOfComparingProducts(), amount))
+                .isEqualTo(amount);
     }
 
 
