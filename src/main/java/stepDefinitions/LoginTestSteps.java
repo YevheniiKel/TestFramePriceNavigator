@@ -16,11 +16,14 @@ public class LoginTestSteps {
     private UserDto notRegisteredUser;
     private UserDto invalidEmailUser;
 
+    private UserDto newUser;
+
     public LoginTestSteps(DriverManager driverManager) {
         this.driverManager = driverManager;
         registeredUser = UserDto.createRegisteredUser();
         notRegisteredUser = UserDto.createNotRegisteredUser();
         invalidEmailUser = UserDto.createInvalidEmailUser();
+        newUser = UserDto.createNewUser();
         mainPage= new MainPage(driverManager.getDriver());
     }
 
@@ -38,7 +41,7 @@ public class LoginTestSteps {
         mainPage.enterCredentials(invalidEmailUser);
     }
 
-    @Then("User is logged in")
+    @Then("User is authorized")
     public void user_is_logged_in() {
         assertThat(mainPage.isElementContainSomeText(mainPage.userName, registeredUser.getLogin()))
                 .as("Account username is not shown in the right top corner of the page")
@@ -63,5 +66,27 @@ public class LoginTestSteps {
         assertThat(mainPage.invalidEmailNotificationIsShown())
                 .as("Invalid credentials notification is not shown")
                 .isTrue();
+    }
+
+    @When("User opens LogIn popup")
+    public void userOpensLogInPopup() {
+        mainPage.openLoginPopup();
+    }
+
+    @And("Clicks Register button")
+    public void clicksSignUpButton() {
+        mainPage.clickRegisterButton();
+    }
+
+    @When("User fills all required fields \\(email, password and password confirmation)")
+    public void userFillsAllRequiredFieldsEmailPasswordAndPasswordConfirmation() {
+        mainPage.enterRegEmail(newUser.getEmail());
+        mainPage.regEnterFirstPassword(newUser.getPassword());
+        mainPage.regEnterSecondPassword(newUser.getPassword());
+    }
+
+    @And("Clicks SignUp button")
+    public void clicksRegistrationButton() {
+        mainPage.clickRegisterSignUpButton();
     }
 }

@@ -89,7 +89,6 @@ public class HeaderAnyPage extends BasePage {
     }
 
     public void enterCredentials(UserDto userDto) {
-        openLoginPopup();
         enterEmail(userDto.getEmail());
         enterPass(userDto.getPassword());
         clickSignIn();
