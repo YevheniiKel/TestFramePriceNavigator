@@ -3,8 +3,6 @@ package stepDefinitions;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
-import org.sonatype.guice.bean.containers.Main;
-import pages.HeaderAnyPage;
 import pages.MainPage;
 
 

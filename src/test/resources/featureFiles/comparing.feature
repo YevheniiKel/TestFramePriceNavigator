@@ -2,7 +2,7 @@ Feature: User can compare several products
 
   Scenario Outline: User can add three products to comparing
     Given User opens main page
-    And User opens some category
+    And User opens some subcategory
     And User add "<amount>" products to comparing
     And Clicks Compare button
     Then Amount of comparing products should be equal "<amount>"
@@ -13,7 +13,7 @@ Feature: User can compare several products
 
   Scenario Outline: User can delete product from the comparing list
     Given User opens main page
-    And User opens some category
+    And User opens some subcategory
     And User add "<amount>" products to comparing
     And Clicks Compare button
     Then Amount of comparing products should be equal "<amount>"
@@ -27,7 +27,7 @@ Feature: User can compare several products
 
   Scenario Outline: User can get link to current comparing page
     Given User opens main page
-    And User opens some category
+    And User opens some subcategory
     And User add "<amount>" products to comparing
     And Clicks Compare button
     Then Amount of comparing products should be equal "<amount>"
