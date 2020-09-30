@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class DriverManager {
 
-    private WebDriver driver;
+    protected WebDriver driver;
 
     public WebDriver getDriver() {
         return driver;

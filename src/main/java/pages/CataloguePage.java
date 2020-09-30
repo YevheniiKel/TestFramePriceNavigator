@@ -17,7 +17,7 @@ public class CataloguePage extends HeaderAnyPage {
     }
 
     @FindBy(xpath = ".//section[@class='catalog']")
-    WebElement catalogue;
+     public WebElement catalogue;
 
     @FindBy(xpath = ".//a[@class='add-to-compare-link']")
     List<WebElement> addToCompareButtonPath;
@@ -33,14 +33,6 @@ public class CataloguePage extends HeaderAnyPage {
     @Override
     public CataloguePage openPage() {
         throw new UnsupportedOperationException("This page should not be loaded directly");
-    }
-
-    public boolean isCatalogueIsDisplayed() {
-        try {
-            return catalogue.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
     }
 
     public void addProductsToComparing(Integer amount) {

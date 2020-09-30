@@ -16,7 +16,7 @@ public class ComparingPage extends HeaderAnyPage {
     }
 
     @FindBy(xpath = ".//a[@class='delete']")
-    List<WebElement> deleteButton;
+    public List<WebElement> deleteButtons;
 
     @FindBy(xpath = ".//th[@class = 'item']")
     List<WebElement> productsOnComparing;
@@ -47,12 +47,11 @@ public class ComparingPage extends HeaderAnyPage {
     }
 
     public void deleteOneProductFromComparing() {
-        wait.clickWhenReady(deleteButton.get(2));
+        wait.clickWhenReady(deleteButtons.get(2));
     }
 
-    public ComparingPage clickGenerateComparingLink() {
+    public void clickGenerateComparingLink() {
         wait.clickWhenReady(comparingLinkButton);
-        return this;
     }
 
     public void setComparingLinkFromTheField() {

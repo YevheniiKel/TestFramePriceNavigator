@@ -4,6 +4,7 @@ import io.cucumber.java.en.Then;
 import pages.CataloguePage;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static util.DriverW8Wrapper.isElementDisplayed;
 
 public class CatalogueSteps {
     private CataloguePage cataloguePage;
@@ -14,7 +15,7 @@ public class CatalogueSteps {
 
     @Then("Catalogue is displayed")
     public void catalogueIsDisplayed() {
-        assertThat(cataloguePage.isCatalogueIsDisplayed())
+        assertThat(isElementDisplayed(cataloguePage.catalogue))
                 .as("Catalogue is not displayed on the catalogue page")
                 .isTrue();
     }

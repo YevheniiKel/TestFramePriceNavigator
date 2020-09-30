@@ -7,12 +7,14 @@ import org.assertj.core.api.Assertions;
 import pages.CataloguePage;
 import pages.ComparingPage;
 import pages.MainPage;
+import util.DriverW8Wrapper;
 
 public class ComparingTestSteps {
     private DriverManager driverManager;
     private MainPage mainPage;
     private CataloguePage cataloguePage;
     private ComparingPage comparingPage;
+    private DriverW8Wrapper driver;
 
     int amountOfComparingProducts;
 
@@ -44,7 +46,7 @@ public class ComparingTestSteps {
 
     @When("One product has been deleted from the comparing")
     public void oneProductHasBeenDeletedFromTheComparing() {
-        comparingPage.deleteOneProductFromComparing();
+        driver.clickElementFromList(comparingPage.deleteButtons,2);
     }
 
     @When("Generate a Link button is clicked and popup with link appear")
