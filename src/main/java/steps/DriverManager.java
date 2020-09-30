@@ -1,4 +1,4 @@
-package stepDefinitions;
+package steps;
 
 import org.openqa.selenium.WebDriver;
 import util.BrowserFactory;

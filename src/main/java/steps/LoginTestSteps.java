@@ -1,4 +1,4 @@
-package stepDefinitions;
+package steps;
 
 import dto.UserDto;
 import io.cucumber.java.en.And;

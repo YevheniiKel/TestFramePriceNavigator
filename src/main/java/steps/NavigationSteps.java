@@ -1,4 +1,4 @@
-package stepDefinitions;
+package steps;
 
 import io.cucumber.java.en.Given;
 import pages.CataloguePage;
