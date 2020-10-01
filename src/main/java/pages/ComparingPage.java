@@ -19,13 +19,13 @@ public class ComparingPage extends HeaderAnyPage {
     public List<WebElement> deleteButtons;
 
     @FindBy(xpath = ".//th[@class = 'item']")
-    List<WebElement> productsOnComparing;
+    public List<WebElement> productsOnComparing;
 
     @FindBy(xpath = ".//a[@data-select-text='static-link']")
-    WebElement comparingLinkButton;
+    public WebElement comparingLinkButton;
 
     @FindBy(xpath = ".//textarea[@id='static-link']")
-    WebElement comparingLinkField;
+    public WebElement comparingLinkField;
 
     @Override
     public void waitForMainElements() {
@@ -46,14 +46,8 @@ public class ComparingPage extends HeaderAnyPage {
         return String.valueOf(productsOnComparing.size());
     }
 
-    public void deleteOneProductFromComparing() {
-        wait.clickWhenReady(deleteButtons.get(2));
-    }
-
     public void clickGenerateComparingLink() {
-        wait.clickWhenReady(comparingLinkButton);
     }
-
     public void setComparingLinkFromTheField() {
         wait.tillElementContainAnyText(comparingLinkField);
         comparingLink = comparingLinkField.getText();

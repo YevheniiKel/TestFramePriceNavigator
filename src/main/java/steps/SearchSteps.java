@@ -4,20 +4,25 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 import pages.MainPage;
+import util.DriverManager;
+import util.elementUtils.WaitUtils;
 
 
-public class SearchTestSteps {
+public class SearchSteps {
     private MainPage mainPage;
     private DriverManager driverManager;
+    private WaitUtils wait;
 
-    public SearchTestSteps(DriverManager driverManager) {
+
+    public SearchSteps(DriverManager driverManager) {
+        wait = new WaitUtils(driverManager.getDriver());
         mainPage = new MainPage(driverManager.getDriver());
         this.driverManager = driverManager;
     }
 
     @When("Enter {string} into search field and press enter")
     public void enterSearchQueryIntoSearchFieldAndPressEnter(String searchQuery) {
-        mainPage.enterSearchQuery(searchQuery);
+        wait.sendKeysWhenReadyThenEnter(mainPage.searchField, searchQuery);
     }
 
     @Then("NothingToShow search notification should be shown")

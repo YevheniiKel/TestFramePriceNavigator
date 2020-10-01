@@ -2,20 +2,24 @@ package steps;
 
 import io.cucumber.java.en.Then;
 import pages.CataloguePage;
+import util.DriverManager;
+import util.elementUtils.WaitUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static util.DriverW8Wrapper.isElementDisplayed;
 
 public class CatalogueSteps {
     private CataloguePage cataloguePage;
+    private WaitUtils wait;
+
 
     public CatalogueSteps(DriverManager driverManager) {
         cataloguePage = new CataloguePage(driverManager.getDriver());
+        wait = new WaitUtils(driverManager.getDriver());
     }
 
     @Then("Catalogue is displayed")
     public void catalogueIsDisplayed() {
-        assertThat(isElementDisplayed(cataloguePage.catalogue))
+        assertThat(wait.isElementDisplayed(cataloguePage.catalogue))
                 .as("Catalogue is not displayed on the catalogue page")
                 .isTrue();
     }

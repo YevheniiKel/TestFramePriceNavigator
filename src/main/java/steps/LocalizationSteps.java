@@ -2,13 +2,18 @@ package steps;
 
 import io.cucumber.java.en.Then;
 import pages.MainPage;
+import util.DriverManager;
+import util.elementUtils.WaitUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LocalizationSteps {
     private MainPage mainPage;
+    private WaitUtils wait;
+
 
     public LocalizationSteps(DriverManager driverManager) {
+        wait = new WaitUtils(driverManager.getDriver());
         mainPage = new MainPage(driverManager.getDriver());
     }
 

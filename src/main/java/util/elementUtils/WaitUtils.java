@@ -64,5 +64,24 @@ public class WaitUtils {
     public void tillElementInvisible(WebElement element) {
         fluentWait.until(ExpectedConditions.invisibilityOf(element));
     }
+    public boolean isElementDisplayed( WebElement element) {
+        try {
+            return element.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public void clickElementFromList( List<WebElement> elements, int index) {
+        clickWhenReady(elements.get(index));
+    }
+
+    public String getTextFromElement( WebElement element) {
+        tillElementContainAnyText(element);
+        return element.getText();
+    }
+    public boolean isElementContainSomeText(WebElement element, String text) {
+        return tillTextEqualsValue(element, text);
+    }
 }
 

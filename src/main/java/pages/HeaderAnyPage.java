@@ -4,7 +4,6 @@ import dto.UserDto;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import util.dataUtils.CharDataForTestSite;
 
 public class HeaderAnyPage extends BasePage {
 
@@ -24,49 +23,49 @@ public class HeaderAnyPage extends BasePage {
     public WebElement nothingToSHowInSearchResult;
 
     @FindBy(xpath = ".//span[@class='user-info']")
-    WebElement loginButton;
+    public WebElement loginButton;
 
     @FindBy(xpath = ".//input[@id='login-form-login']")
-    WebElement emailLoginField;
+    public WebElement emailLoginField;
 
     @FindBy(xpath = ".//input[@id='login-form-password']")
-    WebElement passwordLoginField;
+    public WebElement passwordLoginField;
 
     @FindBy(xpath = ".//button[@id='loginButton']")
-    WebElement signButton;
+    public WebElement signButton;
 
     @FindBy(xpath = ".//form[@id='register-form']")
-    WebElement registerFrame;
+    public WebElement registerFrame;
 
     @FindBy(xpath = ".//input[@id='register-form-email']")
-    WebElement emailRegisterField;
+    public WebElement emailRegisterField;
 
     @FindBy(xpath = ".//input[@id='register-form-password']")
-    WebElement passwordRegisterFieldFirst;
+    public WebElement passwordRegisterFieldFirst;
 
     @FindBy(xpath = ".//input[@id='register-form-password_repeat']")
-    WebElement passwordRegisterFieldSecond;
+    public WebElement passwordRegisterFieldSecond;
 
     @FindBy(xpath = ".//form[@id='register-form']//button[@class='form-btn']")
-    WebElement registerSignUpButton; //confirm registration
+    public WebElement registerSignUpButton; //confirm registration
 
     @FindBy(xpath = ".//form[@id='login-form']/following::a[not(@class = 'forgot-password') and @onclick]")
-    WebElement registrationButton; // open registration form
+    public WebElement registrationButton; // open registration form
 
     @FindBy(xpath = ".//span[@class='user-info']//span")
     public WebElement userName;
 
     @FindBy(xpath = ".//input[@id='login-form-password']/following-sibling::div[contains(@class, 'hint')]")
-    WebElement invalidCredentialsNotification;
+    public WebElement invalidCredentialsNotification;
 
     @FindBy(xpath = ".//input[@id='login-form-login']/following-sibling::div[contains(@class, 'hint')]")
-    WebElement invalidEmailNotification;
+    public WebElement invalidEmailNotification;
 
     @FindBy(xpath = ".//div[@class='popup-content-text']")
-    WebElement loginPopup;
+    public WebElement loginPopup;
 
     @FindBy(xpath = ".//div[contains(@class, 'popup-register')]")
-    WebElement registrationPopup;
+    public WebElement registrationPopup;
 
     @Override
     public void waitForMainElements() {
@@ -79,63 +78,10 @@ public class HeaderAnyPage extends BasePage {
         throw new UnsupportedOperationException("This page should not be loaded directly");
     }
 
-    public void registerNewUser(UserDto userDto) {
-        openLoginPopup();
-        clickRegisterButton();
-        enterRegEmail(userDto.getEmail());
-        regEnterFirstPassword(userDto.getPassword());
-        regEnterSecondPassword(userDto.getPassword());
-        clickRegisterSignUpButton();
-    }
-
     public void enterCredentials(UserDto userDto) {
-        enterEmail(userDto.getEmail());
-        enterPass(userDto.getPassword());
-        clickSignIn();
-    }
-
-    public void enterSearchQuery(String searchQuery) {
-        wait.sendKeysWhenReadyThenEnter(searchField, searchQuery);
-    }
-
-    public void openLoginPopup() {
-        wait.clickWhenReady(loginButton);
-    }
-
-    public void enter(WebElement field, String value) {
-        wait.sendKeysWhenReady(field, value);
-    }
-
-    public void enterEmail(String email) {
-        wait.sendKeysWhenReady(emailLoginField, email);
-    }
-
-    public void enterPass(String password) {
-        wait.sendKeysWhenReady(passwordLoginField, password);
-    }
-
-    public void clickSignIn() {
+        wait.sendKeysWhenReady(emailLoginField, userDto.getEmail());
+        wait.sendKeysWhenReady(emailLoginField, userDto.getPassword());
         wait.clickWhenReady(signButton);
-    }
-
-    public void clickRegisterButton() {
-        wait.clickWhenReady(registrationButton);
-    }
-
-    public void enterRegEmail(String email) {
-        wait.sendKeysWhenReady(emailRegisterField, email);
-    }
-
-    public void regEnterFirstPassword(String password) {
-        wait.sendKeysWhenReady(passwordRegisterFieldFirst, password);
-    }
-
-    public void regEnterSecondPassword(String password) {
-        wait.sendKeysWhenReady(passwordRegisterFieldSecond, password);
-    }
-
-    public void clickRegisterSignUpButton() {
-        wait.clickWhenReady(registerSignUpButton);
     }
 
     public boolean invalidCredentialsNotificationIsShown() {
@@ -146,9 +92,5 @@ public class HeaderAnyPage extends BasePage {
     public boolean invalidEmailNotificationIsShown() {
         wait.tillElementPresent(invalidEmailNotification);
         return invalidEmailNotification.isDisplayed();
-    }
-
-    public boolean isElementContainSomeText(WebElement element, String text) {
-        return wait.tillTextEqualsValue(element, text);
     }
 }

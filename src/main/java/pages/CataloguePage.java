@@ -20,10 +20,10 @@ public class CataloguePage extends HeaderAnyPage {
      public WebElement catalogue;
 
     @FindBy(xpath = ".//a[@class='add-to-compare-link']")
-    List<WebElement> addToCompareButtonPath;
+    public List<WebElement> addToCompareButtonPath;
 
     @FindBy(xpath = ".//a[contains(@href, '/compare/')]")
-    WebElement compareButtonPath;
+    public WebElement compareButtonPath;
 
     @Override
     public void waitForMainElements() {
@@ -42,10 +42,5 @@ public class CataloguePage extends HeaderAnyPage {
         } else {
             throw new NoSuchElementException("Amount of elements is less than 3");
         }
-    }
-
-    public ComparingPage clickCompare() {
-        wait.clickWhenReady(compareButtonPath);
-        return new ComparingPage(driver);
     }
 }
