@@ -25,11 +25,6 @@ public class ComparingSteps {
         mainPage = new MainPage(driverManager.getDriver());
     }
 
-    @And("User opens some subcategory")
-    public void userOpensSomeCategory() {
-        cataloguePage = mainPage.chooseAnySubCategory();
-    }
-
     @And("User add {string} products to comparing")
     public void userAddProductsToComparing(String amount) {
         cataloguePage.addProductsToComparing(Integer.parseInt(amount));
@@ -44,7 +39,6 @@ public class ComparingSteps {
     @And("User put this link into address bar and press enter")
     public void userPutThisLinkIntoAddressBarAndPressEnter() {
         driverManager.getDriver().get(ComparingPage.getComparingLink());
-
     }
 
     @When("One product has been deleted from the comparing")

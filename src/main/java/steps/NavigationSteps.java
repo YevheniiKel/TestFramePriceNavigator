@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import pages.CataloguePage;
 import pages.ComparingPage;
@@ -24,6 +25,15 @@ public class NavigationSteps {
     @Given("User opens main page")
     public void userOnTheMainPage() {
         mainPage = new MainPage(driverManager.getDriver()).openPage();
+    }
+
+    @And("User opens some subcategory")
+    public void userOpensSomeCategory() {
+        cataloguePage = mainPage.chooseAnySubCategory();
+    }
+    @And("User opens subcategory {string}")
+    public void userOpensSomeCategory(String subcategory) {
+        cataloguePage = mainPage.chooseSomeSubcategory(subcategory);
     }
 
 }
