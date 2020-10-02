@@ -21,7 +21,7 @@ public class WaitUtils {
         this.webDriverWait = new WebDriverWait(driver, 4);
         this.fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofSeconds(1))
+                .pollingEvery(Duration.ofMillis(500))
                 .ignoring(NoSuchElementException.class);
     }
 
@@ -44,8 +44,9 @@ public class WaitUtils {
         webDriverWait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public boolean tillTextEqualsValue(WebElement element, String value) {
-        webDriverWait.until(text -> element.getText().equals(value));
+    public boolean tillTextInElementEqualsValue(WebElement element, String value) {
+        System.out.println(element.getText());
+        fluentWait.until(text -> element.getText().equals(value));
         return true;
     }
 
@@ -81,7 +82,7 @@ public class WaitUtils {
         return element.getText();
     }
     public boolean isElementContainSomeText(WebElement element, String text) {
-        return tillTextEqualsValue(element, text);
+        return tillTextInElementEqualsValue(element, text);
     }
 }
 

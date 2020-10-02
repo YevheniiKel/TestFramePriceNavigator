@@ -1,6 +1,7 @@
 package steps;
 
 import dto.UserDto;
+import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,7 +11,7 @@ import util.elementUtils.WaitUtils;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class LoginSteps {
+public class UserAccountSteps {
     private MainPage mainPage;
     private DriverManager driverManager;
     private WaitUtils wait;
@@ -18,10 +19,11 @@ public class LoginSteps {
     private UserDto registeredUser;
     private UserDto notRegisteredUser;
     private UserDto invalidEmailUser;
+    private UserDto currentUser;
 
     private UserDto newUser;
 
-    public LoginSteps(DriverManager driverManager) {
+    public UserAccountSteps(DriverManager driverManager) {
         this.driverManager = driverManager;
         wait = new WaitUtils(driverManager.getDriver());
 
@@ -30,6 +32,29 @@ public class LoginSteps {
         invalidEmailUser = UserDto.createInvalidEmailUser();
         newUser = UserDto.createNewUser();
         mainPage = new MainPage(driverManager.getDriver());
+    }
+
+    @ParameterType(".*")
+    public UserDto userType(String user) {
+        switch (user) {
+            case "registered" -> {
+                currentUser = UserDto.createRegisteredUser();
+                return currentUser;
+            }
+            case "notRegistered" -> {
+                currentUser = UserDto.createNotRegisteredUser();
+                return currentUser;
+            }
+            case "invalidInputData" -> {
+                currentUser = UserDto.createInvalidEmailUser();
+                return currentUser;
+            }
+            case "newUser" -> {
+                currentUser = UserDto.createNewUser();
+                return currentUser;
+            }
+            default -> throw new IllegalArgumentException("Unknown userType");
+        }
     }
 
     @When("User enters valid email and password")
@@ -47,18 +72,6 @@ public class LoginSteps {
         mainPage.enterCredentials(invalidEmailUser);
     }
 
-    @Then("User is authorized")
-    public void user_is_logged_in() {
-        assertThat(wait.isElementContainSomeText(mainPage.userName, registeredUser.getLogin()))
-                .as("Account username is not shown in the right top corner of the page")
-                .isTrue();
-    }
-
-    @Then("User is not logged in")
-    public void userIsNotLoggedIn() {
-        assertThat(mainPage.userName.getText()).doesNotContain(registeredUser.getLogin())
-                .as("Invalid credentials notification is not shown");
-    }
 
     @Then("[Incorrect email or password] notification is shown")
     public void incorrectEmailOrPasswordIsShown() {
@@ -84,15 +97,36 @@ public class LoginSteps {
         wait.clickWhenReady(mainPage.registrationButton);
     }
 
-    @When("User fills all required fields \\(email, password and password confirmation)")
-    public void userFillsAllRequiredFieldsEmailPasswordAndPasswordConfirmation() {
-        wait.sendKeysWhenReady(mainPage.emailRegisterField, newUser.getEmail());
-        wait.sendKeysWhenReady(mainPage.passwordRegisterFieldFirst,newUser.getPassword());
-        wait.sendKeysWhenReady(mainPage.passwordRegisterFieldSecond,newUser.getPassword());
+    @And("Clicks SignUp button")
+    public void clicksRegistrationButton() throws InterruptedException {
+        wait.clickWhenReady(mainPage.registerSignUpButton);
+        Thread.sleep(3000);
     }
 
-    @And("Clicks SignUp button")
-    public void clicksRegistrationButton() {
-        wait.clickWhenReady(mainPage.registerSignUpButton);
+    @When("User enters {userType} credentials")
+    public void userEntersTypeCredentials(UserDto user) {
+        mainPage.enterCredentials(user);
+    }
+
+    @Then("User is authorized is {string}")
+    public void userIsAuthorizedIsAuthorized(String authorized) {
+        boolean isAuthorized = Boolean.parseBoolean(authorized);
+        if (isAuthorized) {
+            mainPage = new MainPage(driverManager.getDriver());
+            assertThat(wait.isElementContainSomeText(mainPage.userName, currentUser.getLogin()))
+                    .as("Account username is not shown in the right top corner of the page")
+                    .isTrue();
+        } else {
+            assertThat(mainPage.invalidCredentialsNotification.isDisplayed())
+                    .as("Invalid credentials notification is not shown")
+                    .isTrue();
+        }
+    }
+
+    @When("{userType} user fills all required fields")
+    public void usertypeUserFillsAllRequiredFields(UserDto user) {
+        wait.sendKeysWhenReady(mainPage.emailRegisterField, user.getEmail());
+        wait.sendKeysWhenReady(mainPage.passwordRegisterFieldFirst, user.getPassword());
+        wait.sendKeysWhenReady(mainPage.passwordRegisterFieldSecond, user.getPassword());
     }
 }

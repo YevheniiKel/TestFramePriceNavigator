@@ -12,6 +12,7 @@ public class UserDto {
     public UserDto() {
     }
 
+
     public String getEmail() {
         return email;
     }
@@ -39,6 +40,18 @@ public class UserDto {
         return this;
     }
 
+    public static UserDto createNewUser() {
+        String username = DataGenerator.loginGenerator();
+        return new UserDto()
+                .setLogin(username)
+                .setEmail(String.format("%s@gmail.com", username))
+                .setPassword(DataGenerator.passGenerator());
+    }
+
+    public static UserDto createNotRegisteredUser() {
+        return createNewUser();
+    }
+
     public static UserDto createRegisteredUser() {
         return new UserDto()
                 .setEmail(CharDataForTestSite.VALID_EMAIL)
@@ -46,23 +59,9 @@ public class UserDto {
                 .setPassword(CharDataForTestSite.VALID_PASSWORD);
     }
 
-    public static UserDto createNotRegisteredUser() {
-        return new UserDto()
-                .setEmail(String.format("%s@gmail.com", DataGenerator.loginGenerator()))
-                .setPassword(DataGenerator.passGenerator());
-    }
-
     public static UserDto createInvalidEmailUser() {
         return new UserDto()
                 .setEmail(DataGenerator.loginGenerator())
-                .setPassword(DataGenerator.passGenerator());
-    }
-
-    public static UserDto createNewUser() {
-        String username = DataGenerator.loginGenerator();
-        return new UserDto()
-                .setLogin(username)
-                .setEmail(String.format("%s@gmail.com", username))
                 .setPassword(DataGenerator.passGenerator());
     }
 }

@@ -7,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class HeaderAnyPage extends BasePage {
 
-    private String defaultUsernameFiledValue;
-
     public HeaderAnyPage(WebDriver driver) {
         super(driver);
     }
@@ -80,7 +78,7 @@ public class HeaderAnyPage extends BasePage {
 
     public void enterCredentials(UserDto userDto) {
         wait.sendKeysWhenReady(emailLoginField, userDto.getEmail());
-        wait.sendKeysWhenReady(emailLoginField, userDto.getPassword());
+        wait.sendKeysWhenReady(passwordLoginField, userDto.getPassword());
         wait.clickWhenReady(signButton);
     }
 

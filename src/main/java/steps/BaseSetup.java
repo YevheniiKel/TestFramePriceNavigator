@@ -18,7 +18,6 @@ public class BaseSetup {
 
     @After
     public void closeDriver() {
-
         driverManager.teardownController();
     }
 }
