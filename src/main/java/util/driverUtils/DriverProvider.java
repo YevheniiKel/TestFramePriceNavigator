@@ -1,7 +1,6 @@
-package util;
+package util.driverUtils;
 
 import org.openqa.selenium.WebDriver;
-import util.BrowserFactory;
 
 import java.util.Objects;
 

@@ -6,7 +6,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.MainPage;
-import util.DriverProvider;
+import util.driverUtils.DriverProvider;
 import util.elementUtils.WaitUtils;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

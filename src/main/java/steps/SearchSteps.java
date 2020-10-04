@@ -4,7 +4,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 import pages.MainPage;
-import util.DriverProvider;
+import util.driverUtils.DriverProvider;
 import util.elementUtils.WaitUtils;
 
 

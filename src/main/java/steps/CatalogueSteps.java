@@ -6,7 +6,7 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.CataloguePage;
-import util.DriverProvider;
+import util.driverUtils.DriverProvider;
 import util.elementUtils.WaitUtils;
 
 import java.util.ArrayList;
@@ -86,7 +86,7 @@ public class CatalogueSteps {
     public void userUsingFilterToSeeTheProductsThatCreatedByManufacture(String manufacture) {
         cataloguePage = new CataloguePage(driverProvider.getDriver());
         wait.clickWhenReady(cataloguePage.manufactureFilterBlock
-                .findElement(By.xpath(String.format("//a[contains(text(),'Apple')]", manufacture))));
+                .findElement(By.xpath(String.format("//a[contains(text(),'%s')]", manufacture))));
         updateProductList();
     }
 

@@ -38,24 +38,24 @@ Feature: Catalogue page sorting and filters
     Examples:
       | high  |
       | 25    |
-#      | 25000 |
-#      | 6000  |
+      | 25000 |
+      | 6000  |
 
-#  Scenario Outline: User can filter products by manufacture
-#    When User using filter to see the products that created by <manufacture>
-#    Then Only products with that created by <manufacture> are shown
-#    Examples:
-#      | manufacture |
-#      | "Apple"     |
-##      | "Samsung"   |
-##      | "Sony"      |
-#
-#  Scenario Outline: User can filter products by manufacture
-#    When User using filter to see the products that created by <year>
-#    Then Only products with that created by <year> are shown
-#    Examples:
-#      | year   |
-#      | "2020" |
-##      | "2019" |
-##      | "2018" |
+  Scenario Outline: User can filter products by manufacture
+    When User using filter to see the products that created by <manufacture>
+    Then Only products with that created by <manufacture> are shown
+    Examples:
+      | manufacture |
+      | "Apple"     |
+#      | "Samsung"   |
+#      | "Sony"      |
+
+  Scenario Outline: User can filter products by manufacture
+    When User using filter to see the products that created by <year>
+    Then Only products with that created by <year> are shown
+    Examples:
+      | year   |
+      | "2020" |
+#      | "2019" |
+#      | "2018" |
 

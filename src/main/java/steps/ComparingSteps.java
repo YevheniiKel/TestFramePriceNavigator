@@ -7,7 +7,7 @@ import org.assertj.core.api.Assertions;
 import pages.CataloguePage;
 import pages.ComparingPage;
 import pages.MainPage;
-import util.DriverProvider;
+import util.driverUtils.DriverProvider;
 import util.elementUtils.WaitUtils;
 
 public class ComparingSteps {
