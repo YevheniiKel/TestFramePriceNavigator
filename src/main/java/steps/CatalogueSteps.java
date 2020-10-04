@@ -6,41 +6,40 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.CataloguePage;
-import util.DriverManager;
+import util.DriverProvider;
 import util.elementUtils.WaitUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static util.BrowserFactory.getDriver;
 import static util.elementUtils.UtilElements.parseLowestPrice;
 
 public class CatalogueSteps {
     private CataloguePage cataloguePage;
     private WaitUtils wait;
-    DriverManager driverManager;
-    private List<ProductDto> products = new ArrayList<ProductDto>();
+    private DriverProvider driverProvider;
+    private List<ProductDto> products = new ArrayList<>();
 
 
-    public CatalogueSteps(DriverManager driverManager) {
-        this.driverManager = driverManager;
-        wait = new WaitUtils(driverManager.getDriver());
+    public CatalogueSteps(DriverProvider driverProvider) {
+        this.driverProvider = driverProvider;
+        wait = new WaitUtils(driverProvider.getDriver());
     }
 
     @Then("Catalogue is displayed")
     public void catalogueIsDisplayed() {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
         assertThat(
-                wait
-                        .isElementDisplayed(
-                                cataloguePage.catalogue))
+                wait.isElementDisplayed(
+                        cataloguePage.catalogue))
                 .as("Catalogue is not displayed on the catalogue page")
                 .isTrue();
     }
 
     @When("User filter products by price in range from {int} to {int}")
     public void userFilterProductsByPriceInRangeFromLowToHigh(int low, int high) {
-        cataloguePage = new CataloguePage(driverManager.getDriver());
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
         cataloguePage.LOWPriceFilterField.sendKeys(String.valueOf(low));
         cataloguePage.HIGHPriceFilterField.sendKeys(String.valueOf(high));
         cataloguePage.OKButtonPriceFilter.click();
@@ -85,21 +84,22 @@ public class CatalogueSteps {
 
     @When("User using filter to see the products that created by {string}")
     public void userUsingFilterToSeeTheProductsThatCreatedByManufacture(String manufacture) {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
         wait.clickWhenReady(cataloguePage.manufactureFilterBlock
-                .findElement(By.xpath(String.format(".//a[contains(text(),'%s')]", manufacture))));
+                .findElement(By.xpath(String.format("//a[contains(text(),'Apple')]", manufacture))));
         updateProductList();
     }
 
     @Then("Only products with that created by {string} are shown")
     public void onlyProductsWithThatCreatedByManufactureAreShown(String year) {
         wait.clickWhenReady(cataloguePage.yearFilterBlock
-                .findElement(By.xpath(String.format(".//a[contains(text(),'%s')]", year))));
+                .findElement(By.xpath(String.format(".//a[contains(text(),'%s') and @data-id]", year))));
         updateProductList();
     }
 
     private void updateProductList() {
         products.clear();
-        cataloguePage = new CataloguePage(driverManager.getDriver());
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
         for (WebElement pr : cataloguePage.productsXpath) {
             products.add(new ProductDto()
                     .setName(pr.findElement(cataloguePage.productNamePath).getText())

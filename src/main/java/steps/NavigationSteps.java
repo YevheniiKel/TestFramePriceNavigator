@@ -5,26 +5,26 @@ import io.cucumber.java.en.Given;
 import pages.CataloguePage;
 import pages.ComparingPage;
 import pages.MainPage;
-import util.DriverManager;
+import util.DriverProvider;
 import util.elementUtils.WaitUtils;
 
 public class NavigationSteps {
-    protected DriverManager driverManager;
+    protected DriverProvider driverProvider;
     protected MainPage mainPage;
     protected CataloguePage cataloguePage;
     protected ComparingPage comparingPage;
     private WaitUtils wait;
 
 
-    public NavigationSteps(DriverManager driverManager) {
+    public NavigationSteps(DriverProvider driverProvider) {
 
-        wait = new WaitUtils(driverManager.getDriver());
-        this.driverManager = driverManager;
+        wait = new WaitUtils(driverProvider.getDriver());
+        this.driverProvider = driverProvider;
     }
 
     @Given("User opens main page")
     public void userOnTheMainPage() {
-        mainPage = new MainPage(driverManager.getDriver()).openPage();
+        mainPage = new MainPage(driverProvider.getDriver()).openPage();
     }
 
     @And("User opens some subcategory")

@@ -5,7 +5,7 @@ import util.BrowserFactory;
 
 import java.util.Objects;
 
-public class DriverManager {
+public class DriverProvider {
 
     protected WebDriver driver;
 

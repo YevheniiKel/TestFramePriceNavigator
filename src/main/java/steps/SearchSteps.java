@@ -4,20 +4,20 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 import pages.MainPage;
-import util.DriverManager;
+import util.DriverProvider;
 import util.elementUtils.WaitUtils;
 
 
 public class SearchSteps {
     private MainPage mainPage;
-    private DriverManager driverManager;
+    private DriverProvider driverProvider;
     private WaitUtils wait;
 
 
-    public SearchSteps(DriverManager driverManager) {
-        wait = new WaitUtils(driverManager.getDriver());
-        mainPage = new MainPage(driverManager.getDriver());
-        this.driverManager = driverManager;
+    public SearchSteps(DriverProvider driverProvider) {
+        wait = new WaitUtils(driverProvider.getDriver());
+        mainPage = new MainPage(driverProvider.getDriver());
+        this.driverProvider = driverProvider;
     }
 
     @When("Enter {string} into search field and press enter")

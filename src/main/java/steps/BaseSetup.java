@@ -2,22 +2,22 @@ package steps;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import util.DriverManager;
+import util.DriverProvider;
 
 public class BaseSetup {
-    DriverManager driverManager;
+    DriverProvider driverProvider;
 
-    public BaseSetup(DriverManager driverManager) {
-        this.driverManager = driverManager;
+    public BaseSetup(DriverProvider driverProvider) {
+        this.driverProvider = driverProvider;
     }
 
     @Before
     public void getNewDriver() {
-        driverManager.setupController();
+        driverProvider.setupController();
     }
 
     @After
     public void closeDriver() {
-        driverManager.teardownController();
+        driverProvider.teardownController();
     }
 }

@@ -6,14 +6,14 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.MainPage;
-import util.DriverManager;
+import util.DriverProvider;
 import util.elementUtils.WaitUtils;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class UserAccountSteps {
     private MainPage mainPage;
-    private DriverManager driverManager;
+    private DriverProvider driverProvider;
     private WaitUtils wait;
 
     private UserDto registeredUser;
@@ -23,15 +23,15 @@ public class UserAccountSteps {
 
     private UserDto newUser;
 
-    public UserAccountSteps(DriverManager driverManager) {
-        this.driverManager = driverManager;
-        wait = new WaitUtils(driverManager.getDriver());
+    public UserAccountSteps(DriverProvider driverProvider) {
+        this.driverProvider = driverProvider;
+        wait = new WaitUtils(driverProvider.getDriver());
 
         registeredUser = UserDto.createRegisteredUser();
         notRegisteredUser = UserDto.createNotRegisteredUser();
         invalidEmailUser = UserDto.createInvalidEmailUser();
         newUser = UserDto.createNewUser();
-        mainPage = new MainPage(driverManager.getDriver());
+        mainPage = new MainPage(driverProvider.getDriver());
     }
 
     @ParameterType(".*")
@@ -112,7 +112,7 @@ public class UserAccountSteps {
     public void userIsAuthorizedIsAuthorized(String authorized) {
         boolean isAuthorized = Boolean.parseBoolean(authorized);
         if (isAuthorized) {
-            mainPage = new MainPage(driverManager.getDriver());
+            mainPage = new MainPage(driverProvider.getDriver());
             assertThat(wait.isElementContainSomeText(mainPage.userName, currentUser.getLogin()))
                     .as("Account username is not shown in the right top corner of the page")
                     .isTrue();

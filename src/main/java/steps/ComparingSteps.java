@@ -7,11 +7,11 @@ import org.assertj.core.api.Assertions;
 import pages.CataloguePage;
 import pages.ComparingPage;
 import pages.MainPage;
-import util.DriverManager;
+import util.DriverProvider;
 import util.elementUtils.WaitUtils;
 
 public class ComparingSteps {
-    private DriverManager driverManager;
+    private DriverProvider driverProvider;
     private MainPage mainPage;
     private CataloguePage cataloguePage;
     private ComparingPage comparingPage;
@@ -19,10 +19,10 @@ public class ComparingSteps {
 
     int amountOfComparingProducts;
 
-    public ComparingSteps(DriverManager driverManager) {
-        this.driverManager = driverManager;
-        wait = new WaitUtils(driverManager.getDriver());
-        mainPage = new MainPage(driverManager.getDriver());
+    public ComparingSteps(DriverProvider driverProvider) {
+        this.driverProvider = driverProvider;
+        wait = new WaitUtils(driverProvider.getDriver());
+        mainPage = new MainPage(driverProvider.getDriver());
     }
 
     @And("User add {string} products to comparing")
@@ -33,12 +33,12 @@ public class ComparingSteps {
     @And("Clicks Compare button")
     public void clicksCompareButton() {
         wait.clickWhenReady(cataloguePage.compareButtonPath);
-        comparingPage = new ComparingPage(driverManager.getDriver());
+        comparingPage = new ComparingPage(driverProvider.getDriver());
     }
 
     @And("User put this link into address bar and press enter")
     public void userPutThisLinkIntoAddressBarAndPressEnter() {
-        driverManager.getDriver().get(ComparingPage.getComparingLink());
+        driverProvider.getDriver().get(ComparingPage.getComparingLink());
     }
 
     @When("One product has been deleted from the comparing")
@@ -55,7 +55,7 @@ public class ComparingSteps {
 
     @Then("User is navigated on the same comparing page")
     public void userIsNavigatedOnTheSameComparingPage() {
-        ComparingPage newComparingPage = new ComparingPage(driverManager.getDriver());
+        ComparingPage newComparingPage = new ComparingPage(driverProvider.getDriver());
         Assertions.assertThat(newComparingPage.amountOfComparingProducts())
                 .as(String.format("Amount of comparing products = %s doesn't meet expected amount = %s.\n",
                         comparingPage.amountOfComparingProducts(), amountOfComparingProducts))

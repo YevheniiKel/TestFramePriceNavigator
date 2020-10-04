@@ -2,7 +2,7 @@ package steps;
 
 import io.cucumber.java.en.Then;
 import pages.MainPage;
-import util.DriverManager;
+import util.DriverProvider;
 import util.elementUtils.WaitUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,9 +12,9 @@ public class LocalizationSteps {
     private WaitUtils wait;
 
 
-    public LocalizationSteps(DriverManager driverManager) {
-        wait = new WaitUtils(driverManager.getDriver());
-        mainPage = new MainPage(driverManager.getDriver());
+    public LocalizationSteps(DriverProvider driverProvider) {
+        wait = new WaitUtils(driverProvider.getDriver());
+        mainPage = new MainPage(driverProvider.getDriver());
     }
 
     @Then("The search city is Kharkiv")
