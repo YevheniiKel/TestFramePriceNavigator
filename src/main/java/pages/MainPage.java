@@ -10,10 +10,12 @@ import java.util.List;
 
 import static java.lang.String.format;
 
-public class MainPage extends HeaderAnyPage {
+public class MainPage extends BasePage {
 
+    public BaseHeader header;
     public MainPage(WebDriver driver) {
         super(driver);
+        header = new BaseHeader(driver);
     }
 
     @FindBy(xpath = ".//div[@class='pc-block']//a[@title]")

@@ -19,7 +19,7 @@ public class LocalizationSteps {
 
     @Then("The search city is Kharkiv")
     public void theSearchCityIsKharkiv() {
-        assertThat(mainPage.searchField.getAttribute("placeholder"))
+        assertThat(mainPage.header.searchField.getAttribute("placeholder"))
                 .as(String.format("The placeholder text is incorrect: %s", "Найти товар в Харькове"))
                 .contains("Найти товар в Харькове")
                 .doesNotContain("Киев")

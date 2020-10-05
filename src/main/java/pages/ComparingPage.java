@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class ComparingPage extends HeaderAnyPage {
+public class ComparingPage extends BasePage {
 
     private static String comparingLink;
 
@@ -36,20 +36,8 @@ public class ComparingPage extends HeaderAnyPage {
     public ComparingPage openPage() {
         throw new UnsupportedOperationException("This page should not be loaded directly");
     }
-
-    public static String getComparingLink() {
-        return comparingLink;
-    }
-
     public int amountOfComparingProducts() {
         wait.tillElementsPresent(productsOnComparing);
         return productsOnComparing.size();
-    }
-
-    public void clickGenerateComparingLink() {
-    }
-    public void setComparingLinkFromTheField() {
-        wait.tillElementContainAnyText(comparingLinkField);
-        comparingLink = comparingLinkField.getText();
     }
 }

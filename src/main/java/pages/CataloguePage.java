@@ -1,15 +1,13 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 
 import java.util.List;
 
-public class CataloguePage extends HeaderAnyPage {
+public class CataloguePage extends BasePage {
 
     public List<WebElement> addToCompareButtons;
 
@@ -52,16 +50,16 @@ public class CataloguePage extends HeaderAnyPage {
     public WebElement sortHighToLow;
 
     @FindBy(xpath = ".//div[@class='catalog-block-head']//a")
-    public By productNamePath;
+    public WebElement productNamePath;
 
     @FindBy(xpath = ".//a[@class='price']//span")
-    public By productPricePath;
+    public WebElement productPricePath;
 
     @FindBy(xpath = ".//a[@class='price']//span/../strong[1]")
-    public By productLOWPricePath;
+    public WebElement productLOWPricePath;
 
     @FindBy(xpath = ".//p[@class='content-item']//a")
-    public By productDescriptionPath;
+    public WebElement productDescriptionPath;
 
     @Override
     public void waitForMainElements() {
@@ -75,9 +73,10 @@ public class CataloguePage extends HeaderAnyPage {
     }
 
     public void addProductsToComparing(Integer amount) {
+        int i = amount;
         addToCompareButtons = addToCompareButtonPath;
-        if (addToCompareButtons.size() >= amount) {
-            wait.clickAllWhenReady(addToCompareButtons.subList(0, amount));
+        if (addToCompareButtons.size() >= i) {
+            wait.clickAllWhenReady(addToCompareButtons.subList(0, i));
         } else {
             throw new NoSuchElementException("Amount of elements is less than 3");
         }

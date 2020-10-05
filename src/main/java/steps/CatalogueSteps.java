@@ -1,6 +1,7 @@
 package steps;
 
 import dto.ProductDto;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
@@ -9,7 +10,8 @@ import pages.CataloguePage;
 import util.driverUtils.DriverProvider;
 import util.elementUtils.WaitUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static util.elementUtils.UtilElements.parseLowestPrice;
@@ -26,7 +28,20 @@ public class CatalogueSteps {
         products = new ArrayList<>();
     }
 
-    @Then("Catalogue is displayed")
+    @When("User adds {string} products to comparing")
+    public void userAddProductsToComparing(String amount) {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
+        cataloguePage.addProductsToComparing(Integer.parseInt(amount));
+    }
+
+    @And("Clicks Compare button")
+    public void clicksCompareButton() {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
+        wait.clickWhenReady(cataloguePage.compareButtonPath);
+    }
+
+
+    @Then("Catalogue page is displayed")
     public void catalogueIsDisplayed() {
         cataloguePage = new CataloguePage(driverProvider.getDriver());
         assertThat(wait.isElementDisplayed(cataloguePage.catalogue))
@@ -56,7 +71,7 @@ public class CatalogueSteps {
         cataloguePage = new CataloguePage(driverProvider.getDriver());
         cataloguePage.LOWPriceFilterField.sendKeys(String.valueOf(low));
         cataloguePage.OKButtonPriceFilter.click();
-       updateProductList();
+        updateProductList();
     }
 
     @Then("Only products with a price more than {int} are shown")
@@ -71,7 +86,7 @@ public class CatalogueSteps {
         cataloguePage = new CataloguePage(driverProvider.getDriver());
         cataloguePage.HIGHPriceFilterField.sendKeys(String.valueOf(high));
         cataloguePage.OKButtonPriceFilter.click();
-       updateProductList();
+        updateProductList();
     }
 
     @Then("Only products with a price less than {int} are shown")
@@ -97,27 +112,30 @@ public class CatalogueSteps {
         updateProductList();
     }
 
-    @Then("Only products with that created by {string} are shown")
+    @Then("Products created by {string} are shown")
     public void onlyProductsWithThatCreatedByManufactureAreShown(String manufacture) {
         cataloguePage = new CataloguePage(driverProvider.getDriver());
         assertThat(products.stream().allMatch(productDto -> (productDto.getName().contains(manufacture))));
 
     }
 
-    private void updateProductList() {
-        products.clear();
+    @Then("Products from {string} are shown")
+    public void productsFromSomeYearAreShown(String year) {
         cataloguePage = new CataloguePage(driverProvider.getDriver());
-        if (cataloguePage.productsXpath.isEmpty())
-            System.out.println("There aren't any products with this filters");
-        else {
-            products = new ArrayList<>();
-            for (WebElement pr : cataloguePage.productsXpath) {
-                products.add(new ProductDto()
-                        .setName(pr.findElement(cataloguePage.productNamePath).getText())
-                        .setLowestPrice(parseLowestPrice(pr.findElement(cataloguePage.productLOWPricePath)))
-                        .setDescription(pr.findElement(cataloguePage.productDescriptionPath).getText())
-                );
-            }
+        assertThat(products.stream().allMatch(productDto -> (productDto.getDescription().contains(year))));
+
+    }
+
+    private void updateProductList() {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
+        products.clear();
+        for (WebElement pr : cataloguePage.productsXpath) {
+            products.add(new ProductDto()
+                    .setName(pr.findElement(By.xpath("//div[@class='catalog-block-head']//a")).getText())
+                    .setLowestPrice(parseLowestPrice(pr.findElement(By.xpath(".//a[@class='price']//span/../strong[1]"))))
+                    .setDescription(pr.findElement(By.xpath(".//p[@class='content-item']//a")).getText())
+            );
         }
     }
 }
+

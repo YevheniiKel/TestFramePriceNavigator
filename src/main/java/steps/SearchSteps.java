@@ -22,19 +22,19 @@ public class SearchSteps {
 
     @When("Enter {string} into search field and press enter")
     public void enterSearchQueryIntoSearchFieldAndPressEnter(String searchQuery) {
-        wait.sendKeysWhenReadyThenEnter(mainPage.searchField, searchQuery);
+        wait.sendKeysWhenReadyThenEnter(mainPage.header.searchField, searchQuery);
     }
 
     @Then("NothingToShow search notification should be shown")
     public void textCanBeDeletedFromTheSearchField() {
-        Assertions.assertThat(mainPage.searchField.getText())
+        Assertions.assertThat(mainPage.header.searchField.getText())
                 .as("NothingToShow search notification is not shown")
                 .isEmpty();
     }
 
     @Then("Product not found page is displayed")
     public void productNotFoundPageIsDisplayed() {
-        Assertions.assertThat(mainPage.nothingToSHowInSearchResult.isDisplayed())
+        Assertions.assertThat(mainPage.header.nothingToSHowInSearchResult.isDisplayed())
                 .as("NothingToShow search notification is not shown").isTrue();
     }
 

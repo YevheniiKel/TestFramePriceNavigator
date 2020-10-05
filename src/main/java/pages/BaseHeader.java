@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class HeaderAnyPage extends BasePage {
+public class BaseHeader extends BasePage {
 
-    public HeaderAnyPage(WebDriver driver) {
+    public BaseHeader(WebDriver driver) {
         super(driver);
     }
 
@@ -72,7 +72,7 @@ public class HeaderAnyPage extends BasePage {
     }
 
     @Override
-    public HeaderAnyPage openPage() {
+    public BaseHeader openPage() {
         throw new UnsupportedOperationException("This page should not be loaded directly");
     }
 

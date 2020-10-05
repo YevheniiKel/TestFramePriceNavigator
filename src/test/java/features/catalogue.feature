@@ -3,13 +3,14 @@ Feature: Catalogue page sorting and filters
   Background:
     Given User opens main page
     When User opens subcategory "смартфоны"
-    Then Catalogue is displayed
+    Then Catalogue page is displayed
 
   Scenario Outline: User can filter products by price in range from low to high
     When User filter products by price in range from <low> to <high>
     Then Only products with a price in range from <low> to <high> are shown
     Examples:
       | low   | high   |
+      | 15    | 25     |
       | 1500  | 10000  |
       | 15000 | 25000  |
       | 30000 | 100000 |
@@ -43,7 +44,7 @@ Feature: Catalogue page sorting and filters
 
   Scenario Outline: User can filter products by manufacture
     When User using filter to see the products that created by <manufacture>
-    Then Only products with that created by <manufacture> are shown
+    Then Products created by <manufacture> are shown
     Examples:
       | manufacture |
       | "Apple"     |
@@ -52,7 +53,7 @@ Feature: Catalogue page sorting and filters
 
   Scenario Outline: User can filter products by year
     When User using filter to see the products that created in <year>
-    Then Only products with that created by <year> are shown
+    Then Products from <year> are shown
     Examples:
       | year   |
       | "2020" |
