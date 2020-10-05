@@ -9,8 +9,7 @@ import pages.CataloguePage;
 import util.driverUtils.DriverProvider;
 import util.elementUtils.WaitUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static util.elementUtils.UtilElements.parseLowestPrice;
@@ -19,20 +18,18 @@ public class CatalogueSteps {
     private CataloguePage cataloguePage;
     private WaitUtils wait;
     private DriverProvider driverProvider;
-    private List<ProductDto> products = new ArrayList<>();
-
+    private List<ProductDto> products;
 
     public CatalogueSteps(DriverProvider driverProvider) {
         this.driverProvider = driverProvider;
         wait = new WaitUtils(driverProvider.getDriver());
+        products = new ArrayList<>();
     }
 
     @Then("Catalogue is displayed")
     public void catalogueIsDisplayed() {
         cataloguePage = new CataloguePage(driverProvider.getDriver());
-        assertThat(
-                wait.isElementDisplayed(
-                        cataloguePage.catalogue))
+        assertThat(wait.isElementDisplayed(cataloguePage.catalogue))
                 .as("Catalogue is not displayed on the catalogue page")
                 .isTrue();
     }
@@ -49,63 +46,78 @@ public class CatalogueSteps {
 
     @Then("Only products with a price in range from {int} to {int} are shown")
     public void onlyProductsWithAPriceInRangeFromLowToHighAreShown(int low, int high) {
-        assertThat(
-                products.isEmpty()
-                        || ProductDto.getLowestPrice(products) >= low
-                        && ProductDto.getHighestPrice(products) <= high)
-                .isTrue();
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
+        assertThat(products.stream().allMatch(productDto ->
+                ((productDto.getLowestPrice() >= low) && (productDto.getLowestPrice() <= high))));
     }
 
     @When("User using filter to see the products with price more than {int}")
     public void userUsingFilterToSeeTheProductsWithPriceMoreThanLow(int low) {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
         cataloguePage.LOWPriceFilterField.sendKeys(String.valueOf(low));
         cataloguePage.OKButtonPriceFilter.click();
-        updateProductList();
+       updateProductList();
     }
 
-    @Then("Only products with a price  more than {int} are shown")
+    @Then("Only products with a price more than {int} are shown")
     public void onlyProductsWithAPriceMoreThanLowAreShown(int low) {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
         assertThat(products.stream().allMatch(productDto -> (productDto.getLowestPrice() >= low)));
 
     }
 
     @When("User using filter to see the products with price less than {int}")
     public void userUsingFilterToSeeTheProductsWithPriceLessThanHigh(int high) {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
         cataloguePage.HIGHPriceFilterField.sendKeys(String.valueOf(high));
         cataloguePage.OKButtonPriceFilter.click();
-        updateProductList();
+       updateProductList();
     }
 
     @Then("Only products with a price less than {int} are shown")
     public void onlyProductsWithAPriceLessThanHighAreShown(int high) {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
         assertThat(products.stream().allMatch(productDto -> (productDto.getLowestPrice() <= high)));
 
     }
 
     @When("User using filter to see the products that created by {string}")
-    public void userUsingFilterToSeeTheProductsThatCreatedByManufacture(String manufacture) {
+    public void filterByManufacture(String manufacture) {
         cataloguePage = new CataloguePage(driverProvider.getDriver());
-        wait.clickWhenReady(cataloguePage.manufactureFilterBlock
-                .findElement(By.xpath(String.format("//a[contains(text(),'%s')]", manufacture))));
+        wait.clickWhenReady(cataloguePage.filterBlock
+                .findElement(By.xpath(String.format(".//a[contains(text(),'%s') and @data-id]", manufacture))));
+        updateProductList();
+    }
+
+    @When("User using filter to see the products that created in {string}")
+    public void filterByYear(String year) {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
+        wait.clickWhenReady(cataloguePage.filterBlock
+                .findElement(By.xpath(String.format(".//a[contains(text(),'%s') and @data-id]", year))));
         updateProductList();
     }
 
     @Then("Only products with that created by {string} are shown")
-    public void onlyProductsWithThatCreatedByManufactureAreShown(String year) {
-        wait.clickWhenReady(cataloguePage.yearFilterBlock
-                .findElement(By.xpath(String.format(".//a[contains(text(),'%s') and @data-id]", year))));
-        updateProductList();
+    public void onlyProductsWithThatCreatedByManufactureAreShown(String manufacture) {
+        cataloguePage = new CataloguePage(driverProvider.getDriver());
+        assertThat(products.stream().allMatch(productDto -> (productDto.getName().contains(manufacture))));
+
     }
 
     private void updateProductList() {
         products.clear();
         cataloguePage = new CataloguePage(driverProvider.getDriver());
-        for (WebElement pr : cataloguePage.productsXpath) {
-            products.add(new ProductDto()
-                    .setName(pr.findElement(cataloguePage.productNamePath).getText())
-                    .setLowestPrice(parseLowestPrice(pr.findElement(cataloguePage.productLOWPricePath)))
-                    .setDescription(pr.findElement(cataloguePage.productDescriptionPath).getText())
-            );
+        if (cataloguePage.productsXpath.isEmpty())
+            System.out.println("There aren't any products with this filters");
+        else {
+            products = new ArrayList<>();
+            for (WebElement pr : cataloguePage.productsXpath) {
+                products.add(new ProductDto()
+                        .setName(pr.findElement(cataloguePage.productNamePath).getText())
+                        .setLowestPrice(parseLowestPrice(pr.findElement(cataloguePage.productLOWPricePath)))
+                        .setDescription(pr.findElement(cataloguePage.productDescriptionPath).getText())
+                );
+            }
         }
     }
 }

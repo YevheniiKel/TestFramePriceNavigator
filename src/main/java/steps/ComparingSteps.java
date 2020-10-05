@@ -48,7 +48,7 @@ public class ComparingSteps {
 
     @When("Generate a Link button is clicked and popup with link appear")
     public void generateALinkButtonIsClickedAndPopupWithLinkAppear() {
-        amountOfComparingProducts = Integer.parseInt(comparingPage.amountOfComparingProducts());
+        amountOfComparingProducts = comparingPage.amountOfComparingProducts();
         wait.clickWhenReady(comparingPage.comparingLinkButton);
         comparingPage.setComparingLinkFromTheField();
     }

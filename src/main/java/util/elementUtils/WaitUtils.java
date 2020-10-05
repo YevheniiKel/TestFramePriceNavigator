@@ -63,7 +63,11 @@ public class WaitUtils {
     }
 
     public void tillElementInvisible(WebElement element) {
-        fluentWait.until(ExpectedConditions.invisibilityOf(element));
+        try{
+            fluentWait.until(ExpectedConditions.invisibilityOf(element));
+        }catch (NoSuchElementException ignored){
+
+        }
     }
     public boolean isElementDisplayed( WebElement element) {
         try {

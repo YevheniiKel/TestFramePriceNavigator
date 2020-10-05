@@ -5,6 +5,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 
 import java.util.List;
 
@@ -29,9 +30,6 @@ public class CataloguePage extends HeaderAnyPage {
     @FindBy(xpath = ".//div[@class='content-shadow-block']//article")
     public List<WebElement> productsXpath;
 
-    @FindBy(xpath = ".//div[@class='filter']")
-    public WebElement filters;
-
     @FindBy(xpath = ".//input[@id='price-min']")
     public WebElement LOWPriceFilterField;
 
@@ -41,11 +39,8 @@ public class CataloguePage extends HeaderAnyPage {
     @FindBy(xpath = ".//a[@id='buttonPrice']")
     public WebElement OKButtonPriceFilter;
 
-    @FindBy(xpath = ".//div[@data-id = 'producers']")
-    public WebElement manufactureFilterBlock;
-
-    @FindBy(xpath = ".//div[@class='filter-block-body']")
-    public WebElement yearFilterBlock;
+    @FindBy(xpath = ".//div[contains(@class, 'container-filters')]")
+    public WebElement filterBlock;
 
     @FindBy(xpath = ".//li[contains(@class,'dropdown-sorting')]/a")
     public WebElement sortDropDown;
@@ -71,7 +66,7 @@ public class CataloguePage extends HeaderAnyPage {
     @Override
     public void waitForMainElements() {
         wait.tillElementPresent(catalogue);
-        wait.tillElementPresent(filters);
+        wait.tillElementPresent(filterBlock);
     }
 
     @Override
@@ -88,19 +83,7 @@ public class CataloguePage extends HeaderAnyPage {
         }
     }
 
-//    public void filtersByPrice(int low, int high) {
-//        LOWPriceFilterField.sendKeys(String.valueOf(low));
-//        HIGHPriceFilterField.sendKeys(String.valueOf(high));
-//        OKButtonPriceFilter.click();
-//        wait.tillElementInvisible(catalogue.findElement(By.xpath(".//div[contains(@class, 'on-loading')]")));
-//        updateProductList();
-//    }
-//
-//    public void filterByMaxPrice(int high) {
-//        HIGHPriceFilterField.sendKeys(String.valueOf(high));
-//        OKButtonPriceFilter.click();
-//        updateProductList();
-//    }
+
 //
 //    public void sortByPriceLowToHigh() {
 //        wait.clickWhenReady(sortDropDown);
@@ -112,30 +95,6 @@ public class CataloguePage extends HeaderAnyPage {
 //        wait.clickWhenReady(sortDropDown);
 //        wait.clickWhenReady(sortHighToLow);
 //        updateProductList();
-//    }
-//
-//    public boolean productsShownWithPricesLOW_HIGH(int low, int high) {
-//
-//        return productsDto.isEmpty()
-//                || ProductDto.getLowestPrice(productsDto) >= low
-//                && ProductDto.getHighestPrice(productsDto) <= high;
-//    }
-//
-//    public boolean productsDisplayedWithPriceMoreThan(int low) {
-//        for (ProductDto p : productsDto) {
-//            if ((p.getLowestPrice() <= low))
-//                return false;
-//        }
-//        return true;
-//    }
-//
-//    public boolean productsDisplayedWithPriceLessThan(int high) {
-//        for (ProductDto p :
-//                productsDto) {
-//            if ((p.getLowestPrice() >= high))
-//                return false;
-//        }
-//        return true;
 //    }
 //
 //    public boolean filtrationByPriceIsAvailable() {

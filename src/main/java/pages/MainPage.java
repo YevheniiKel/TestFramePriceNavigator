@@ -18,13 +18,16 @@ public class MainPage extends HeaderAnyPage {
 
     @FindBy(xpath = ".//div[@class='pc-block']//a[@title]")
     public List<WebElement> subCategories;
+
     @FindBy(xpath = ".//a[@href = '/electronics/']")
     public WebElement electronicsCategory;
 
-    @Override
+    @FindBy(xpath = ".//a[contains(@class, 'pc-block__head')]")
+    public List<WebElement> categories;
 
+    @Override
     public void waitForMainElements() {
-        wait.tillElementsPresent(subCategories);
+        wait.tillElementsPresent(categories);
     }
 
     @Override

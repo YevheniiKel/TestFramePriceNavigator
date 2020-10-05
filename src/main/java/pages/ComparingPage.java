@@ -41,9 +41,9 @@ public class ComparingPage extends HeaderAnyPage {
         return comparingLink;
     }
 
-    public String amountOfComparingProducts() {
+    public int amountOfComparingProducts() {
         wait.tillElementsPresent(productsOnComparing);
-        return String.valueOf(productsOnComparing.size());
+        return productsOnComparing.size();
     }
 
     public void clickGenerateComparingLink() {
