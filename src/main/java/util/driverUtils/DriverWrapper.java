@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class DriverWrapper implements WebDriver, WaitsImplementation {
+
     public WebDriver driver;
 
     public DriverWrapper(WebDriver driver) {

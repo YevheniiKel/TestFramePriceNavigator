@@ -11,7 +11,6 @@ public class LocalizationSteps {
     private DriverWrapper driver;
     private MainPage mainPage;
 
-
     public LocalizationSteps(DriverWrapper driver) {
         this.driver = driver;
     }
@@ -19,7 +18,6 @@ public class LocalizationSteps {
     @Then("The search city is Kharkiv")
     public void theSearchCityIsKharkiv() {
         mainPage = new MainPage(driver);
-
         assertThat(mainPage.header.searchField.getAttribute("placeholder"))
                 .as(String.format("The placeholder text is incorrect: %s", "Найти товар в Харькове"))
                 .contains("Найти товар в Харькове")

@@ -8,8 +8,6 @@ import java.util.List;
 
 public class ComparingPage extends BasePage {
 
-    private static String comparingLink;
-
     public ComparingPage(DriverWrapper driver) {
         super(driver);
         waitForMainElements();

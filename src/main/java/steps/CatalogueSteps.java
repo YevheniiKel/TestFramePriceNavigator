@@ -18,8 +18,8 @@ import static util.elementUtils.UtilElements.parseLowestPrice;
 public class CatalogueSteps {
 
     private DriverWrapper driver;
-
     private CataloguePage cataloguePage;
+
     private List<ProductDto> products;
 
     public CatalogueSteps(DriverWrapper driver) {
@@ -38,7 +38,6 @@ public class CatalogueSteps {
         cataloguePage = new CataloguePage(driver);
         driver.clickWhenReady(cataloguePage.compareButtonPath);
     }
-
 
     @Then("Catalogue page is displayed")
     public void catalogueIsDisplayed() {

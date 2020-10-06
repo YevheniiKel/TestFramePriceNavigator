@@ -7,10 +7,10 @@ import pages.MainPage;
 import util.driverUtils.DriverWrapper;
 
 public class NavigationSteps {
-    private DriverWrapper driver;
-    protected MainPage mainPage;
-    protected CataloguePage cataloguePage;
 
+    private DriverWrapper driver;
+    private MainPage mainPage;
+    private CataloguePage cataloguePage;
 
     public NavigationSteps(DriverWrapper driver) {
         this.driver = driver;

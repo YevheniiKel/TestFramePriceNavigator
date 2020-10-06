@@ -12,7 +12,6 @@ public class UserDto {
     public UserDto() {
     }
 
-
     public String getEmail() {
         return email;
     }

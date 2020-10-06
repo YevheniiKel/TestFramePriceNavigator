@@ -56,6 +56,4 @@ public class ComparingSteps {
                         comparingPage.amountOfComparingProducts(), amount))
                 .isEqualByComparingTo(Integer.parseInt(amount));
     }
-
-
 }
