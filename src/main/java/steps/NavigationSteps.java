@@ -14,7 +14,9 @@ public class NavigationSteps {
     private CataloguePage cataloguePage;
 
     public NavigationSteps(DriverProvider driver) {
-        this.driver = driver.getDriver();}
+        this.driver = driver.getDriver();
+    }
+
     @Given("User opens main page")
     public void userOnTheMainPage() {
         mainPage = new MainPage(driver).openPage();

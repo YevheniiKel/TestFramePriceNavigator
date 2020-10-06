@@ -7,6 +7,8 @@ import util.driverUtils.DriverWrapper;
 
 import java.util.List;
 
+import static java.lang.String.format;
+
 public class CataloguePage extends BasePage {
 
     public List<WebElement> addToCompareButtons;
@@ -39,6 +41,9 @@ public class CataloguePage extends BasePage {
 
     @FindBy(xpath = ".//div[contains(@class, 'container-filters')]")
     public WebElement filterBlock;
+
+    @FindBy(xpath = ".//div[contains(@class, 'on-loading')]")
+    public WebElement reloadProductsWrapper;
 
     @FindBy(xpath = ".//li[contains(@class,'dropdown-sorting')]/a")
     public WebElement sortDropDown;
@@ -73,12 +78,11 @@ public class CataloguePage extends BasePage {
     }
 
     public void addProductsToComparing(Integer amount) {
-        int i = amount;
         addToCompareButtons = addToCompareButtonPath;
-        if (addToCompareButtons.size() >= i) {
-            driver.clickAllWhenReady(addToCompareButtons.subList(0, i));
+        if (addToCompareButtons.size() >= amount) {
+            driver.clickAllWhenReady(addToCompareButtons.subList(0, amount));
         } else {
-            throw new NoSuchElementException("Amount of elements is less than 3");
+            throw new NoSuchElementException(format("Amount of elements is less than %s", amount));
         }
     }
 }

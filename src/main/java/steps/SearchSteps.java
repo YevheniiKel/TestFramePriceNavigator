@@ -14,7 +14,9 @@ public class SearchSteps {
     private MainPage mainPage;
 
     public SearchSteps(DriverProvider driver) {
-        this.driver = driver.getDriver();}
+        this.driver = driver.getDriver();
+    }
+
     @When("User searches for {string}")
     public void enterSearchQueryIntoSearchFieldAndPressEnter(String searchQuery) {
         mainPage = new MainPage(driver);

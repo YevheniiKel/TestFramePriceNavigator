@@ -17,12 +17,7 @@ public class ComparingSteps {
     private String comparingLink;
 
     public ComparingSteps(DriverProvider driver) {
-        this.driver = driver.getDriver();}
-
-
-    @And("User follows with generated link")
-    public void userPutThisLinkIntoAddressBarAndPressEnter() {
-        driver.get(comparingLink);
+        this.driver = driver.getDriver();
     }
 
     @When("One product has been deleted from the comparing")
@@ -38,6 +33,11 @@ public class ComparingSteps {
         driver.clickWhenReady(comparingPage.comparingLinkButton);
         driver.waitTillElementContainAnyText(comparingPage.comparingLinkField);
         comparingLink = comparingPage.comparingLinkField.getText();
+    }
+
+    @And("User follows with generated link")
+    public void userPutThisLinkIntoAddressBarAndPressEnter() {
+        driver.get(comparingLink);
     }
 
     @Then("User is navigated to the same comparing page")

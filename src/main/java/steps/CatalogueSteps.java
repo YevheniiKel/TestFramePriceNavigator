@@ -40,22 +40,21 @@ public class CatalogueSteps {
         driver.clickWhenReady(cataloguePage.compareButtonPath);
     }
 
-    @Then("Catalogue page is displayed")
-    public void catalogueIsDisplayed() {
-        cataloguePage = new CataloguePage(driver);
-        assertThat(driver.isElementDisplayed(cataloguePage.catalogue))
-                .as("Catalogue is not displayed on the catalogue page")
-                .isTrue();
-    }
-
     @When("User applies filter by price in range from {int} to {int}")
     public void userFilterProductsByPriceInRangeFromLowToHigh(int low, int high) {
         cataloguePage = new CataloguePage(driver);
         cataloguePage.LOWPriceFilterField.sendKeys(String.valueOf(low));
         cataloguePage.HIGHPriceFilterField.sendKeys(String.valueOf(high));
         cataloguePage.OKButtonPriceFilter.click();
-        driver.waitTillElementDisappear(cataloguePage.catalogue.findElement(By.xpath(".//div[contains(@class, 'on-loading')]")));
         updateProductList();
+    }
+
+    @Then("Catalogue page is displayed")
+    public void catalogueIsDisplayed() {
+        cataloguePage = new CataloguePage(driver);
+        assertThat(driver.isElementDisplayed(cataloguePage.catalogue))
+                .as("Catalogue is not displayed on the catalogue page")
+                .isTrue();
     }
 
     @Then("Products with a price in range from {int} to {int} are shown")

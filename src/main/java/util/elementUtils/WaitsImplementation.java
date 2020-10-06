@@ -1,9 +1,6 @@
 package util.elementUtils;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -57,7 +54,7 @@ public interface WaitsImplementation extends WebDriver {
                 .until(ExpectedConditions.visibilityOf(element)).sendKeys(value);
     }
 
-    default void waitTillElementDisappear(WebElement element) throws NoSuchElementException {
+    default void waitTillElementDisappear(WebElement element) throws NoSuchElementException, StaleElementReferenceException {
         new WebDriverWait(WaitsImplementation.this, TIMEOUT)
                 .until(ExpectedConditions.invisibilityOf(element));
     }

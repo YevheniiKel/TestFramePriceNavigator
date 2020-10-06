@@ -1,7 +1,5 @@
 package dto;
 
-import java.util.List;
-
 public class ProductDto {
 
     private Integer lowestPrice;
@@ -36,20 +34,5 @@ public class ProductDto {
 
     public String getDescription() {
         return description;
-    }
-
-    public static Integer getHighestPrice(List<ProductDto> productList) {
-        return productList.stream()
-                .reduce((a, b) -> a.getLowestPrice() > b.getLowestPrice() ? a : b)
-                .get()
-                .getLowestPrice();
-
-    }
-
-    public static Integer getLowestPrice(List<ProductDto> productList) {
-        return productList.stream()
-                .reduce((a, b) -> a.getLowestPrice() < b.getLowestPrice() ? a : b)
-                .get()
-                .getLowestPrice();
     }
 }

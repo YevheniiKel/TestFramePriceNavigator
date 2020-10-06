@@ -1,7 +1,6 @@
 package util.driverUtils;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -23,6 +22,7 @@ public class DriverProvider {
     public DriverWrapper getDriver() {
         return Optional.ofNullable(driver).orElseGet(this::createNewDriver);
     }
+
     private DriverWrapper createNewDriver() {
         switch (getProperty("BROWSER")) {
             case "FIREFOX" -> {

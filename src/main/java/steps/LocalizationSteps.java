@@ -13,7 +13,8 @@ public class LocalizationSteps {
     private MainPage mainPage;
 
     public LocalizationSteps(DriverProvider driver) {
-        this.driver = driver.getDriver();}
+        this.driver = driver.getDriver();
+    }
 
     @Then("The search city is Kharkiv")
     public void theSearchCityIsKharkiv() {

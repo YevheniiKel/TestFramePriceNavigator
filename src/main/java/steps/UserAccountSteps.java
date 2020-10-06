@@ -5,7 +5,6 @@ import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.it.Ma;
 import pages.MainPage;
 import util.driverUtils.DriverProvider;
 import util.driverUtils.DriverWrapper;
@@ -52,22 +51,6 @@ public class UserAccountSteps {
             }
             default -> throw new IllegalArgumentException("Unknown userType");
         }
-    }
-
-    @Then("[Incorrect email or password] notification is shown")
-    public void incorrectEmailOrPasswordIsShown() {
-        mainPage = new MainPage(driver);
-        assertThat(mainPage.header.invalidCredentialsNotificationIsShown())
-                .as("Invalid credentials notification is not shown")
-                .isTrue();
-    }
-
-    @Then("[Incorrect email] notification is shown")
-    public void incorrectEmailNotificationIsShown() {
-        mainPage = new MainPage(driver);
-        assertThat(mainPage.header.invalidEmailNotificationIsShown())
-                .as("Invalid credentials notification is not shown")
-                .isTrue();
     }
 
     @When("User opens LogIn popup")
