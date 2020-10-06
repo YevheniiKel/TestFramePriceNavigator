@@ -4,29 +4,27 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 import pages.MainPage;
-import util.driverUtils.DriverProvider;
-import util.elementUtils.WaitUtils;
+import util.driverUtils.DriverWrapper;
 
 
 public class SearchSteps {
+
+    private DriverWrapper driver;
     private MainPage mainPage;
-    private DriverProvider driverProvider;
-    private WaitUtils wait;
 
-
-    public SearchSteps(DriverProvider driverProvider) {
-        wait = new WaitUtils(driverProvider.getDriver());
-        mainPage = new MainPage(driverProvider.getDriver());
-        this.driverProvider = driverProvider;
+    public SearchSteps(DriverWrapper driver) {
+        this.driver = driver;
     }
 
-    @When("Enter {string} into search field and press enter")
+    @When("User searches for {string}")
     public void enterSearchQueryIntoSearchFieldAndPressEnter(String searchQuery) {
-        wait.sendKeysWhenReadyThenEnter(mainPage.header.searchField, searchQuery);
+        mainPage = new MainPage(driver);
+        driver.sendKeysWhenReadyThenEnter(mainPage.header.searchField, searchQuery);
     }
 
-    @Then("NothingToShow search notification should be shown")
+    @Then("NothingToShow search notification is be shown")
     public void textCanBeDeletedFromTheSearchField() {
+        mainPage = new MainPage(driver);
         Assertions.assertThat(mainPage.header.searchField.getText())
                 .as("NothingToShow search notification is not shown")
                 .isEmpty();
@@ -34,9 +32,8 @@ public class SearchSteps {
 
     @Then("Product not found page is displayed")
     public void productNotFoundPageIsDisplayed() {
+        mainPage = new MainPage(driver);
         Assertions.assertThat(mainPage.header.nothingToSHowInSearchResult.isDisplayed())
                 .as("NothingToShow search notification is not shown").isTrue();
     }
-
-
 }

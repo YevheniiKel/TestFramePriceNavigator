@@ -5,63 +5,61 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 
-public interface WaitsImplementation {
-
-    WebDriverWait webDriverWait = null;
-    Wait<WebDriver> fluentWait = null;
-
-//    publi1c WaitUtils(WebDriver driver) {
-//        this.webDriverWait = new WebDriverWait(driver, 4);
-//        this.fluentWait = new FluentWait<>(driver)
-//                .withTimeout(Duration.ofSeconds(10))
-//                .pollingEvery(Duration.ofSeconds(1))
-//                .ignoring(NoSuchElementException.class);
-//    }
+public interface WaitsImplementation extends WebDriver {
+    long TIMEOUT = 10;
 
     default void clickWhenReady(WebElement element) {
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        new WebDriverWait(WaitsImplementation.this, TIMEOUT)
+                .until(ExpectedConditions.elementToBeClickable(element)).click();
     }
 
     default void clickAllWhenReady(List<WebElement> elements) {
-        webDriverWait.until(ExpectedConditions.visibilityOfAllElements(elements));
+        new WebDriverWait(WaitsImplementation.this, TIMEOUT)
+                .until(ExpectedConditions.visibilityOfAllElements(elements));
         for (WebElement el : elements) {
             el.click();
         }
     }
 
     default void tillElementsPresent(List<WebElement> elements) {
-        webDriverWait.until(ExpectedConditions.visibilityOfAllElements(elements));
+        new WebDriverWait(WaitsImplementation.this, TIMEOUT)
+                .until(ExpectedConditions.visibilityOfAllElements(elements));
     }
 
     default void tillElementPresent(WebElement element) {
-        webDriverWait.until(ExpectedConditions.visibilityOf(element));
+        new WebDriverWait(WaitsImplementation.this, TIMEOUT)
+                .until(ExpectedConditions.visibilityOf(element));
     }
 
     default boolean tillTextEqualsValue(WebElement element, String value) {
-        webDriverWait.until(text -> element.getText().equals(value));
+        new WebDriverWait(WaitsImplementation.this, TIMEOUT)
+                .until(text -> element.getText().equals(value));
         return true;
     }
 
     default void tillElementContainAnyText(WebElement element) {
-        webDriverWait.until(el -> element.getText().length() != 0);
+        new WebDriverWait(WaitsImplementation.this, TIMEOUT)
+                .until(el -> element.getText().length() != 0);
     }
 
     default void sendKeysWhenReadyThenEnter(WebElement element, String value) {
-        webDriverWait.until(ExpectedConditions.visibilityOf(element)).sendKeys(value, Keys.ENTER);
+        new WebDriverWait(WaitsImplementation.this, TIMEOUT)
+                .until(ExpectedConditions.visibilityOf(element)).sendKeys(value, Keys.ENTER);
     }
 
     default void sendKeysWhenReady(WebElement element, String value) {
-        webDriverWait.until(ExpectedConditions.visibilityOf(element)).sendKeys(value);
+        new WebDriverWait(WaitsImplementation.this, TIMEOUT)
+                .until(ExpectedConditions.visibilityOf(element)).sendKeys(value);
     }
 
     default void tillElementInvisible(WebElement element) {
-        fluentWait.until(ExpectedConditions.invisibilityOf(element));
+        new WebDriverWait(WaitsImplementation.this, TIMEOUT)
+                .until(ExpectedConditions.invisibilityOf(element));
     }
 
     default boolean isElementDisplayed(WebElement element) {
@@ -79,5 +77,16 @@ public interface WaitsImplementation {
     default String getTextFromElement(WebElement element) {
         tillElementContainAnyText(element);
         return element.getText();
+    }
+
+    default boolean tillTextInElementEqualsValue(WebElement element, String value) {
+        System.out.println(element.getText());
+        new WebDriverWait(WaitsImplementation.this, TIMEOUT)
+                .until(text -> element.getText().equals(value));
+        return true;
+    }
+
+    default boolean isElementContainSomeText(WebElement element, String text) {
+        return tillTextInElementEqualsValue(element, text);
     }
 }

@@ -1,8 +1,8 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import util.driverUtils.DriverWrapper;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class ComparingPage extends BasePage {
 
     private static String comparingLink;
 
-    public ComparingPage(WebDriver driver) {
+    public ComparingPage(DriverWrapper driver) {
         super(driver);
         waitForMainElements();
     }
@@ -29,15 +29,16 @@ public class ComparingPage extends BasePage {
 
     @Override
     public void waitForMainElements() {
-        wait.tillElementsPresent(productsOnComparing);
+        driver.tillElementsPresent(productsOnComparing);
     }
 
     @Override
     public ComparingPage openPage() {
         throw new UnsupportedOperationException("This page should not be loaded directly");
     }
+
     public int amountOfComparingProducts() {
-        wait.tillElementsPresent(productsOnComparing);
+        driver.tillElementsPresent(productsOnComparing);
         return productsOnComparing.size();
     }
 }

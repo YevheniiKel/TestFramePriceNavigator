@@ -4,25 +4,21 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import pages.CataloguePage;
 import pages.MainPage;
-import util.driverUtils.DriverProvider;
-import util.elementUtils.WaitUtils;
+import util.driverUtils.DriverWrapper;
 
 public class NavigationSteps {
-    protected DriverProvider driverProvider;
+    private DriverWrapper driver;
     protected MainPage mainPage;
     protected CataloguePage cataloguePage;
-    private WaitUtils wait;
 
 
-    public NavigationSteps(DriverProvider driverProvider) {
-
-        wait = new WaitUtils(driverProvider.getDriver());
-        this.driverProvider = driverProvider;
+    public NavigationSteps(DriverWrapper driver) {
+        this.driver = driver;
     }
 
     @Given("User opens main page")
     public void userOnTheMainPage() {
-        mainPage = new MainPage(driverProvider.getDriver()).openPage();
+        mainPage = new MainPage(driver).openPage();
     }
 
     @And("User opens some subcategory")
@@ -34,5 +30,4 @@ public class NavigationSteps {
     public void userOpensSomeCategory(String subcategory) {
         cataloguePage = mainPage.chooseSomeSubcategory(subcategory);
     }
-
 }

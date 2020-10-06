@@ -4,6 +4,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import util.driverUtils.DriverWrapper;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class CataloguePage extends BasePage {
 
     public List<WebElement> addToCompareButtons;
 
-    public CataloguePage(WebDriver driver) {
+    public CataloguePage(DriverWrapper driver) {
         super(driver);
         waitForMainElements();
     }
@@ -63,8 +64,8 @@ public class CataloguePage extends BasePage {
 
     @Override
     public void waitForMainElements() {
-        wait.tillElementPresent(catalogue);
-        wait.tillElementPresent(filterBlock);
+        driver.tillElementPresent(catalogue);
+        driver.tillElementPresent(filterBlock);
     }
 
     @Override
@@ -76,61 +77,9 @@ public class CataloguePage extends BasePage {
         int i = amount;
         addToCompareButtons = addToCompareButtonPath;
         if (addToCompareButtons.size() >= i) {
-            wait.clickAllWhenReady(addToCompareButtons.subList(0, i));
+            driver.clickAllWhenReady(addToCompareButtons.subList(0, i));
         } else {
             throw new NoSuchElementException("Amount of elements is less than 3");
         }
     }
-
-
-//
-//    public void sortByPriceLowToHigh() {
-//        wait.clickWhenReady(sortDropDown);
-//        wait.clickWhenReady(sortLowToHigh);
-//        updateProductList();
-//    }
-//
-//    public void sortByPriceHighToLow() {
-//        wait.clickWhenReady(sortDropDown);
-//        wait.clickWhenReady(sortHighToLow);
-//        updateProductList();
-//    }
-//
-//    public boolean filtrationByPriceIsAvailable() {
-//        return LOWPriceFilterField.isDisplayed()
-//                && HIGHPriceFilterField.isDisplayed()
-//                && OKButtonPriceFilter.isDisplayed();
-//    }
-//
-//    public boolean allProductsFromOneManufactureDisplayed(String man) {
-//        for (ProductDto p :
-//                productsDto) {
-//            if (!p.getName().contains(man))
-//                return false;
-//        }
-//        return true;
-//    }
-//
-//    public boolean allProductsFromYearDisplayed(String year) {
-//        for (ProductDto p :
-//                productsDto) {
-//            if (!p.getDescription().contains(year))
-//                return false;
-//        }
-//        return true;
-//    }
-//
-//    public boolean productsSortedLowToHigh() {
-//        Comparator<ProductDto> compareByPrice = Comparator.comparing((ProductDto pr) -> pr.getLowestPrice());
-//        List<ProductDto> testSortedList = productsDto.stream()
-//                .sorted(compareByPrice).collect(Collectors.toList());
-//        return testSortedList.equals(productsDto);
-//    }
-//
-//    public boolean productsSortedHighToLow() {
-//        Comparator<ProductDto> compareByPrice = (ProductDto pr1, ProductDto pr2) -> pr2.getLowestPrice().compareTo(pr1.getLowestPrice());
-//        List<ProductDto> testSortedList = productsDto.stream()
-//                .sorted(compareByPrice).collect(Collectors.toList());
-//        return testSortedList.equals(productsDto);
-//    }
 }

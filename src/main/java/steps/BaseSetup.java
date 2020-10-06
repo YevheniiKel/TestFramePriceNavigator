@@ -3,21 +3,18 @@ package steps;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import util.driverUtils.DriverProvider;
+import util.driverUtils.DriverWrapper;
 
 public class BaseSetup {
-    DriverProvider driverProvider;
 
-    public BaseSetup(DriverProvider driverProvider) {
-        this.driverProvider = driverProvider;
-    }
+    private DriverWrapper driver;
 
-    @Before
-    public void getNewDriver() {
-        driverProvider.setupController();
+    public BaseSetup(DriverWrapper driver) {
+        this.driver = driver;
     }
 
     @After
     public void closeDriver() {
-        driverProvider.teardownController();
+        driver.quiteDriver();
     }
 }

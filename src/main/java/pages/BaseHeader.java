@@ -4,10 +4,11 @@ import dto.UserDto;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import util.driverUtils.DriverWrapper;
 
 public class BaseHeader extends BasePage {
 
-    public BaseHeader(WebDriver driver) {
+    public BaseHeader(DriverWrapper driver) {
         super(driver);
     }
 
@@ -67,8 +68,8 @@ public class BaseHeader extends BasePage {
 
     @Override
     public void waitForMainElements() {
-        wait.tillElementPresent(searchField);
-        wait.tillElementPresent(loginButton);
+        driver.tillElementPresent(searchField);
+        driver.tillElementPresent(loginButton);
     }
 
     @Override
@@ -77,18 +78,18 @@ public class BaseHeader extends BasePage {
     }
 
     public void enterCredentials(UserDto userDto) {
-        wait.sendKeysWhenReady(emailLoginField, userDto.getEmail());
-        wait.sendKeysWhenReady(passwordLoginField, userDto.getPassword());
-        wait.clickWhenReady(signButton);
+        driver.sendKeysWhenReady(emailLoginField, userDto.getEmail());
+        driver.sendKeysWhenReady(passwordLoginField, userDto.getPassword());
+        driver.clickWhenReady(signButton);
     }
 
     public boolean invalidCredentialsNotificationIsShown() {
-        wait.tillElementPresent(invalidCredentialsNotification);
+        driver.tillElementPresent(invalidCredentialsNotification);
         return invalidCredentialsNotification.isDisplayed();
     }
 
     public boolean invalidEmailNotificationIsShown() {
-        wait.tillElementPresent(invalidEmailNotification);
+        driver.tillElementPresent(invalidEmailNotification);
         return invalidEmailNotification.isDisplayed();
     }
 }

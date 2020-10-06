@@ -6,32 +6,27 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.MainPage;
-import util.driverUtils.DriverProvider;
-import util.elementUtils.WaitUtils;
+import util.driverUtils.DriverWrapper;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class UserAccountSteps {
+
+    private DriverWrapper driver;
     private MainPage mainPage;
-    private DriverProvider driverProvider;
-    private WaitUtils wait;
 
     private UserDto registeredUser;
     private UserDto notRegisteredUser;
     private UserDto invalidEmailUser;
     private UserDto currentUser;
-
     private UserDto newUser;
 
-    public UserAccountSteps(DriverProvider driverProvider) {
-        this.driverProvider = driverProvider;
-        wait = new WaitUtils(driverProvider.getDriver());
-
+    public UserAccountSteps(DriverWrapper driver) {
+        this.driver = driver;
         registeredUser = UserDto.createRegisteredUser();
         notRegisteredUser = UserDto.createNotRegisteredUser();
         invalidEmailUser = UserDto.createInvalidEmailUser();
         newUser = UserDto.createNewUser();
-        mainPage = new MainPage(driverProvider.getDriver());
     }
 
     @ParameterType(".*")
@@ -59,22 +54,26 @@ public class UserAccountSteps {
 
     @When("User enters valid email and password")
     public void user_enters_valid_email_and_password() {
+        mainPage = new MainPage(driver);
         mainPage.header.enterCredentials(registeredUser);
     }
 
     @When("User enters not registered email and password")
     public void user_enters_not_registered_email_and_password() {
+        mainPage = new MainPage(driver);
         mainPage.header.enterCredentials(notRegisteredUser);
     }
 
     @When("User enters invalid email and password")
     public void user_enters_invalid_email() {
+        mainPage = new MainPage(driver);
         mainPage.header.enterCredentials(invalidEmailUser);
     }
 
 
     @Then("[Incorrect email or password] notification is shown")
     public void incorrectEmailOrPasswordIsShown() {
+        mainPage = new MainPage(driver);
         assertThat(mainPage.header.invalidCredentialsNotificationIsShown())
                 .as("Invalid credentials notification is not shown")
                 .isTrue();
@@ -82,6 +81,7 @@ public class UserAccountSteps {
 
     @Then("[Incorrect email] notification is shown")
     public void incorrectEmailNotificationIsShown() {
+        mainPage = new MainPage(driver);
         assertThat(mainPage.header.invalidEmailNotificationIsShown())
                 .as("Invalid credentials notification is not shown")
                 .isTrue();
@@ -89,17 +89,17 @@ public class UserAccountSteps {
 
     @When("User opens LogIn popup")
     public void userOpensLogInPopup() {
-        wait.clickWhenReady(mainPage.header.loginButton);
+        driver.clickWhenReady(mainPage.header.loginButton);
     }
 
     @And("Clicks Register button")
     public void clicksSignUpButton() {
-        wait.clickWhenReady(mainPage.header.registrationButton);
+        driver.clickWhenReady(mainPage.header.registrationButton);
     }
 
     @And("Clicks SignUp button")
     public void clicksRegistrationButton() throws InterruptedException {
-        wait.clickWhenReady(mainPage.header.registerSignUpButton);
+        driver.clickWhenReady(mainPage.header.registerSignUpButton);
         Thread.sleep(3000);
     }
 
@@ -112,8 +112,8 @@ public class UserAccountSteps {
     public void userIsAuthorizedIsAuthorized(String authorized) {
         boolean isAuthorized = Boolean.parseBoolean(authorized);
         if (isAuthorized) {
-            mainPage = new MainPage(driverProvider.getDriver());
-            assertThat(wait.isElementContainSomeText(mainPage.header.userName, currentUser.getLogin()))
+            mainPage = new MainPage(driver);
+            assertThat(driver.isElementContainSomeText(mainPage.header.userName, currentUser.getLogin()))
                     .as("Account username is not shown in the right top corner of the page")
                     .isTrue();
         } else {
@@ -125,8 +125,8 @@ public class UserAccountSteps {
 
     @When("{userType} user fills all required fields")
     public void usertypeUserFillsAllRequiredFields(UserDto user) {
-        wait.sendKeysWhenReady(mainPage.header.emailRegisterField, user.getEmail());
-        wait.sendKeysWhenReady(mainPage.header.passwordRegisterFieldFirst, user.getPassword());
-        wait.sendKeysWhenReady(mainPage.header.passwordRegisterFieldSecond, user.getPassword());
+        driver.sendKeysWhenReady(mainPage.header.emailRegisterField, user.getEmail());
+        driver.sendKeysWhenReady(mainPage.header.passwordRegisterFieldFirst, user.getPassword());
+        driver.sendKeysWhenReady(mainPage.header.passwordRegisterFieldSecond, user.getPassword());
     }
 }
