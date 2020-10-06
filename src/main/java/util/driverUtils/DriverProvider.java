@@ -8,17 +8,22 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+import java.util.Optional;
+
 import static util.PropertyReader.getProperty;
 
 public class DriverProvider {
 
-    protected WebDriver driver;
+    private DriverWrapper driver;
 
     public DriverProvider() {
-        this.driver = DriverProvider.createNewDriver();
+        this.driver = createNewDriver();
     }
 
-    private static DriverWrapper createNewDriver() {
+    public DriverWrapper getDriver() {
+        return Optional.ofNullable(driver).orElseGet(this::createNewDriver);
+    }
+    private DriverWrapper createNewDriver() {
         switch (getProperty("BROWSER")) {
             case "FIREFOX" -> {
                 WebDriverManager.firefoxdriver().setup();
@@ -41,9 +46,5 @@ public class DriverProvider {
             }
             default -> throw new IllegalArgumentException("Unknown browser. Please, edit config.properties");
         }
-    }
-
-    public WebDriver getDriver() {
-        return driver;
     }
 }

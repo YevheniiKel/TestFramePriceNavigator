@@ -5,7 +5,9 @@ import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.it.Ma;
 import pages.MainPage;
+import util.driverUtils.DriverProvider;
 import util.driverUtils.DriverWrapper;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -21,8 +23,8 @@ public class UserAccountSteps {
     private UserDto currentUser;
     private UserDto newUser;
 
-    public UserAccountSteps(DriverWrapper driver) {
-        this.driver = driver;
+    public UserAccountSteps(DriverProvider driver) {
+        this.driver = driver.getDriver();
         registeredUser = UserDto.createRegisteredUser();
         notRegisteredUser = UserDto.createNotRegisteredUser();
         invalidEmailUser = UserDto.createInvalidEmailUser();
@@ -32,44 +34,25 @@ public class UserAccountSteps {
     @ParameterType(".*")
     public UserDto userType(String user) {
         switch (user) {
-            case "registered" -> {
+            case "Registered" -> {
                 currentUser = UserDto.createRegisteredUser();
                 return currentUser;
             }
-            case "notRegistered" -> {
+            case "NotRegistered" -> {
                 currentUser = UserDto.createNotRegisteredUser();
                 return currentUser;
             }
-            case "invalidInputData" -> {
+            case "InvalidInputData" -> {
                 currentUser = UserDto.createInvalidEmailUser();
                 return currentUser;
             }
-            case "newUser" -> {
+            case "NewUser" -> {
                 currentUser = UserDto.createNewUser();
                 return currentUser;
             }
             default -> throw new IllegalArgumentException("Unknown userType");
         }
     }
-
-    @When("User enters valid email and password")
-    public void user_enters_valid_email_and_password() {
-        mainPage = new MainPage(driver);
-        mainPage.header.enterCredentials(registeredUser);
-    }
-
-    @When("User enters not registered email and password")
-    public void user_enters_not_registered_email_and_password() {
-        mainPage = new MainPage(driver);
-        mainPage.header.enterCredentials(notRegisteredUser);
-    }
-
-    @When("User enters invalid email and password")
-    public void user_enters_invalid_email() {
-        mainPage = new MainPage(driver);
-        mainPage.header.enterCredentials(invalidEmailUser);
-    }
-
 
     @Then("[Incorrect email or password] notification is shown")
     public void incorrectEmailOrPasswordIsShown() {
@@ -89,38 +72,35 @@ public class UserAccountSteps {
 
     @When("User opens LogIn popup")
     public void userOpensLogInPopup() {
+        mainPage = new MainPage(driver);
         driver.clickWhenReady(mainPage.header.loginButton);
     }
 
     @And("Clicks Register button")
     public void clicksSignUpButton() {
+        mainPage = new MainPage(driver);
         driver.clickWhenReady(mainPage.header.registrationButton);
     }
 
     @And("Clicks SignUp button")
     public void clicksRegistrationButton() throws InterruptedException {
+        mainPage = new MainPage(driver);
         driver.clickWhenReady(mainPage.header.registerSignUpButton);
         Thread.sleep(3000);
     }
 
     @When("User enters {userType} credentials")
     public void userEntersTypeCredentials(UserDto user) {
+        mainPage = new MainPage(driver);
         mainPage.header.enterCredentials(user);
     }
 
-    @Then("User is authorized is {string}")
-    public void userIsAuthorizedIsAuthorized(String authorized) {
-        boolean isAuthorized = Boolean.parseBoolean(authorized);
-        if (isAuthorized) {
-            mainPage = new MainPage(driver);
-            assertThat(driver.isElementContainSomeText(mainPage.header.userName, currentUser.getLogin()))
-                    .as("Account username is not shown in the right top corner of the page")
-                    .isTrue();
-        } else {
-            assertThat(mainPage.header.invalidCredentialsNotification.isDisplayed())
-                    .as("Invalid credentials notification is not shown")
-                    .isTrue();
-        }
+    @Then("User is authorized")
+    public void userIsAuthorizedIsAuthorized() {
+        mainPage = new MainPage(driver);
+        assertThat(driver.isElementContainSomeText(mainPage.header.userName, currentUser.getLogin()))
+                .as("Account username is not shown in the right top corner of the page")
+                .isTrue();
     }
 
     @When("{userType} user fills all required fields")
@@ -128,5 +108,34 @@ public class UserAccountSteps {
         driver.sendKeysWhenReady(mainPage.header.emailRegisterField, user.getEmail());
         driver.sendKeysWhenReady(mainPage.header.passwordRegisterFieldFirst, user.getPassword());
         driver.sendKeysWhenReady(mainPage.header.passwordRegisterFieldSecond, user.getPassword());
+    }
+
+    @And("[Invalid credentials] notification is shown")
+    public void invalidCredentialsNotificationIsShown() {
+        mainPage = new MainPage(driver);
+        assertThat(mainPage.header.invalidCredentialsNotification.isDisplayed());
+    }
+
+    @And("[Invalid email] notification is shown")
+    public void invalidEmailNotificationIsShown() {
+        mainPage = new MainPage(driver);
+        assertThat(mainPage.header.invalidEmailNotification.isDisplayed());
+    }
+
+    @Then("{userType} user is authorized")
+    public void userIsAuthorized(UserDto user) {
+        mainPage = new MainPage(driver);
+        assertThat(driver.isElementContainSomeText(mainPage.header.userName, user.getLogin()))
+                .as("Account username is not shown in the right top corner of the page")
+                .isTrue();
+    }
+
+    @Then("{userType} user is not authorized")
+    public void usertypeUserIsNotAuthorized(UserDto user) {
+        mainPage = new MainPage(driver);
+        driver.waitTillElementPresent(mainPage.header.userName);
+        assertThat(!mainPage.header.userName.getText().equals(user.getLogin()))
+                .as("Invalid credentials notification is not shown")
+                .isTrue();
     }
 }

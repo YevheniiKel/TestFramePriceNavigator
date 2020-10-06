@@ -30,7 +30,7 @@ public class MainPage extends BasePage {
 
     @Override
     public void waitForMainElements() {
-        driver.tillElementsPresent(categories);
+        driver.waitTillElementPresent(electronicsCategory);
     }
 
     @Override
@@ -41,13 +41,13 @@ public class MainPage extends BasePage {
     }
 
     public CataloguePage chooseAnySubCategory() {
-        driver.tillElementsPresent(subCategories);
+        driver.waitTillElementsPresent(subCategories);
         subCategories.stream().findAny().get().click();
         return new CataloguePage(driver);
     }
 
     public CataloguePage chooseSomeSubcategory(String subcategory) {
-        driver.tillElementsPresent(subCategories);
+        driver.waitTillElementsPresent(subCategories);
         electronicsCategory.findElement(By.xpath(format("..//a[contains(@title, '%s')]", subcategory))).click();
         return new CataloguePage(driver);
     }

@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 import pages.ComparingPage;
+import util.driverUtils.DriverProvider;
 import util.driverUtils.DriverWrapper;
 
 public class ComparingSteps {
@@ -15,9 +16,9 @@ public class ComparingSteps {
     private int amountOfComparingProducts;
     private String comparingLink;
 
-    public ComparingSteps(DriverWrapper driver) {
-        this.driver = driver;
-    }
+    public ComparingSteps(DriverProvider driver) {
+        this.driver = driver.getDriver();}
+
 
     @And("User follows with generated link")
     public void userPutThisLinkIntoAddressBarAndPressEnter() {
@@ -35,7 +36,7 @@ public class ComparingSteps {
         comparingPage = new ComparingPage(driver);
         amountOfComparingProducts = comparingPage.amountOfComparingProducts();
         driver.clickWhenReady(comparingPage.comparingLinkButton);
-        driver.tillElementContainAnyText(comparingPage.comparingLinkField);
+        driver.waitTillElementContainAnyText(comparingPage.comparingLinkField);
         comparingLink = comparingPage.comparingLinkField.getText();
     }
 

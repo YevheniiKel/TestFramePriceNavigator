@@ -9,8 +9,8 @@ public class BaseSetup {
 
     private DriverWrapper driver;
 
-    public BaseSetup(DriverWrapper driver) {
-        this.driver = driver;
+    public BaseSetup(DriverProvider driverProvider) {
+        this.driver = driverProvider.getDriver();
     }
 
     @After

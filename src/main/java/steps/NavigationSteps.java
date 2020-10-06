@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import pages.CataloguePage;
 import pages.MainPage;
+import util.driverUtils.DriverProvider;
 import util.driverUtils.DriverWrapper;
 
 public class NavigationSteps {
@@ -12,10 +13,8 @@ public class NavigationSteps {
     private MainPage mainPage;
     private CataloguePage cataloguePage;
 
-    public NavigationSteps(DriverWrapper driver) {
-        this.driver = driver;
-    }
-
+    public NavigationSteps(DriverProvider driver) {
+        this.driver = driver.getDriver();}
     @Given("User opens main page")
     public void userOnTheMainPage() {
         mainPage = new MainPage(driver).openPage();

@@ -2,6 +2,7 @@ package steps;
 
 import io.cucumber.java.en.Then;
 import pages.MainPage;
+import util.driverUtils.DriverProvider;
 import util.driverUtils.DriverWrapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,9 +12,8 @@ public class LocalizationSteps {
     private DriverWrapper driver;
     private MainPage mainPage;
 
-    public LocalizationSteps(DriverWrapper driver) {
-        this.driver = driver;
-    }
+    public LocalizationSteps(DriverProvider driver) {
+        this.driver = driver.getDriver();}
 
     @Then("The search city is Kharkiv")
     public void theSearchCityIsKharkiv() {

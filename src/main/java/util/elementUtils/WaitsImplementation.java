@@ -26,23 +26,23 @@ public interface WaitsImplementation extends WebDriver {
         }
     }
 
-    default void tillElementsPresent(List<WebElement> elements) {
+    default void waitTillElementsPresent(List<WebElement> elements) {
         new WebDriverWait(WaitsImplementation.this, TIMEOUT)
                 .until(ExpectedConditions.visibilityOfAllElements(elements));
     }
 
-    default void tillElementPresent(WebElement element) {
+    default void waitTillElementPresent(WebElement element) {
         new WebDriverWait(WaitsImplementation.this, TIMEOUT)
                 .until(ExpectedConditions.visibilityOf(element));
     }
 
-    default boolean tillTextEqualsValue(WebElement element, String value) {
+    default boolean waitTillTextEqualsValue(WebElement element, String value) {
         new WebDriverWait(WaitsImplementation.this, TIMEOUT)
                 .until(text -> element.getText().equals(value));
         return true;
     }
 
-    default void tillElementContainAnyText(WebElement element) {
+    default void waitTillElementContainAnyText(WebElement element) {
         new WebDriverWait(WaitsImplementation.this, TIMEOUT)
                 .until(el -> element.getText().length() != 0);
     }
@@ -57,7 +57,7 @@ public interface WaitsImplementation extends WebDriver {
                 .until(ExpectedConditions.visibilityOf(element)).sendKeys(value);
     }
 
-    default void tillElementInvisible(WebElement element) {
+    default void waitTillElementDisappear(WebElement element) throws NoSuchElementException {
         new WebDriverWait(WaitsImplementation.this, TIMEOUT)
                 .until(ExpectedConditions.invisibilityOf(element));
     }
@@ -75,11 +75,11 @@ public interface WaitsImplementation extends WebDriver {
     }
 
     default String getTextFromElement(WebElement element) {
-        tillElementContainAnyText(element);
+        waitTillElementContainAnyText(element);
         return element.getText();
     }
 
-    default boolean tillTextInElementEqualsValue(WebElement element, String value) {
+    default boolean waitTillTextInElementEqualsValue(WebElement element, String value) {
         System.out.println(element.getText());
         new WebDriverWait(WaitsImplementation.this, TIMEOUT)
                 .until(text -> element.getText().equals(value));
@@ -87,6 +87,6 @@ public interface WaitsImplementation extends WebDriver {
     }
 
     default boolean isElementContainSomeText(WebElement element, String text) {
-        return tillTextInElementEqualsValue(element, text);
+        return waitTillTextInElementEqualsValue(element, text);
     }
 }

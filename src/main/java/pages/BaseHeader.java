@@ -1,7 +1,6 @@
 package pages;
 
 import dto.UserDto;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import util.driverUtils.DriverWrapper;
@@ -68,8 +67,8 @@ public class BaseHeader extends BasePage {
 
     @Override
     public void waitForMainElements() {
-        driver.tillElementPresent(searchField);
-        driver.tillElementPresent(loginButton);
+        driver.waitTillElementPresent(searchField);
+        driver.waitTillElementPresent(loginButton);
     }
 
     @Override
@@ -84,12 +83,12 @@ public class BaseHeader extends BasePage {
     }
 
     public boolean invalidCredentialsNotificationIsShown() {
-        driver.tillElementPresent(invalidCredentialsNotification);
+        driver.waitTillElementPresent(invalidCredentialsNotification);
         return invalidCredentialsNotification.isDisplayed();
     }
 
     public boolean invalidEmailNotificationIsShown() {
-        driver.tillElementPresent(invalidEmailNotification);
+        driver.waitTillElementPresent(invalidEmailNotification);
         return invalidEmailNotification.isDisplayed();
     }
 }

@@ -27,7 +27,7 @@ public class ComparingPage extends BasePage {
 
     @Override
     public void waitForMainElements() {
-        driver.tillElementsPresent(productsOnComparing);
+        driver.waitTillElementsPresent(productsOnComparing);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ComparingPage extends BasePage {
     }
 
     public int amountOfComparingProducts() {
-        driver.tillElementsPresent(productsOnComparing);
+        driver.waitTillElementsPresent(productsOnComparing);
         return productsOnComparing.size();
     }
 }

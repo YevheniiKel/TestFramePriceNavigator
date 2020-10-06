@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import util.driverUtils.DriverWrapper;
@@ -64,8 +63,8 @@ public class CataloguePage extends BasePage {
 
     @Override
     public void waitForMainElements() {
-        driver.tillElementPresent(catalogue);
-        driver.tillElementPresent(filterBlock);
+        driver.waitTillElementPresent(catalogue);
+        driver.waitTillElementPresent(filterBlock);
     }
 
     @Override

@@ -7,6 +7,7 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.CataloguePage;
+import util.driverUtils.DriverProvider;
 import util.driverUtils.DriverWrapper;
 
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class CatalogueSteps {
 
     private List<ProductDto> products;
 
-    public CatalogueSteps(DriverWrapper driver) {
-        this.driver = driver;
+    public CatalogueSteps(DriverProvider driver) {
+        this.driver = driver.getDriver();
         products = new ArrayList<>();
     }
 
@@ -53,7 +54,7 @@ public class CatalogueSteps {
         cataloguePage.LOWPriceFilterField.sendKeys(String.valueOf(low));
         cataloguePage.HIGHPriceFilterField.sendKeys(String.valueOf(high));
         cataloguePage.OKButtonPriceFilter.click();
-        driver.tillElementInvisible(cataloguePage.catalogue.findElement(By.xpath(".//div[contains(@class, 'on-loading')]")));
+        driver.waitTillElementDisappear(cataloguePage.catalogue.findElement(By.xpath(".//div[contains(@class, 'on-loading')]")));
         updateProductList();
     }
 
