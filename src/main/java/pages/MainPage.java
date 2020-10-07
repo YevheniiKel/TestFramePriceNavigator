@@ -3,8 +3,10 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import util.dataUtils.CharDataForTestSite;
-import util.driverUtils.DriverWrapper;
+import pages.base.BaseHeader;
+import pages.base.BasePage;
+import utils.dataUtils.CharDataForTestSite;
+import utils.driverUtils.DriverWrapper;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package util.dataUtils;
+package utils.dataUtils;
 
 public class DataGenerator {
 

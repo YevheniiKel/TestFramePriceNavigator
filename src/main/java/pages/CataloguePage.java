@@ -3,7 +3,8 @@ package pages;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import util.driverUtils.DriverWrapper;
+import pages.base.BasePage;
+import utils.driverUtils.DriverWrapper;
 
 import java.util.List;
 

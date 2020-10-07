@@ -1,4 +1,4 @@
-package util.elementUtils;
+package utils.waitUtils;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;

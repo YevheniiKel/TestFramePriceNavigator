@@ -1,6 +1,6 @@
-package util.dataUtils;
+package utils.dataUtils;
 
-import static util.PropertyReader.getProperty;
+import static utils.PropertyReader.getProperty;
 
 public class CharDataForTestSite {
     public static final String HOME_URL = getProperty("HOME_URL");

@@ -1,4 +1,4 @@
-package util.driverUtils;
+package utils.driverUtils;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,7 +9,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.util.Optional;
 
-import static util.PropertyReader.getProperty;
+import static utils.PropertyReader.getProperty;
 
 public class DriverProvider {
 
@@ -31,7 +31,7 @@ public class DriverProvider {
                         .addArguments("start-maximized")
                         .addArguments("disable-infobars")
                         .addArguments("--headless");
-                return new DriverWrapper(new FirefoxDriver());
+                return new DriverWrapper(new FirefoxDriver(options));
             }
             case "CHROME" -> {
                 WebDriverManager.chromedriver().setup();

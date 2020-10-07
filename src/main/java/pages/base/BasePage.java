@@ -1,7 +1,7 @@
-package pages;
+package pages.base;
 
 import org.openqa.selenium.support.PageFactory;
-import util.driverUtils.DriverWrapper;
+import utils.driverUtils.DriverWrapper;
 
 public abstract class BasePage {
     protected DriverWrapper driver;

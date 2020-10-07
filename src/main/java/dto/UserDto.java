@@ -1,7 +1,7 @@
 package dto;
 
-import util.dataUtils.CharDataForTestSite;
-import util.dataUtils.DataGenerator;
+import utils.dataUtils.CharDataForTestSite;
+import utils.dataUtils.DataGenerator;
 
 public class UserDto {
 

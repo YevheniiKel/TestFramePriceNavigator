@@ -1,9 +1,9 @@
-package pages;
+package pages.base;
 
 import dto.UserDto;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import util.driverUtils.DriverWrapper;
+import utils.driverUtils.DriverWrapper;
 
 public class BaseHeader extends BasePage {
 

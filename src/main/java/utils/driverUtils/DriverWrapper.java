@@ -1,13 +1,15 @@
-package util.driverUtils;
+package utils.driverUtils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import util.elementUtils.WaitsImplementation;
+import utils.waitUtils.WaitsImplementation;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import static java.lang.String.format;
 
 public class DriverWrapper implements WebDriver, WaitsImplementation {
 
@@ -107,17 +109,17 @@ public class DriverWrapper implements WebDriver, WaitsImplementation {
             try {
                 driver.manage().deleteAllCookies();
             } catch (Exception ex) {
-                System.out.println(String.format("An  exception  occurred while cookie deleting: %s", ex));
+                System.out.println(format("An  exception  occurred while cookie deleting: %s", ex));
             }
         try {
             driver.close();
         } catch (Exception ex) {
-            System.out.println(String.format("An  exception  occurred while driver closing: %s", ex));
+            System.out.println(format("An  exception  occurred while driver closing: %s", ex));
         }
         try {
             driver.quit();
         } catch (Exception ex) {
-            System.out.println(String.format("An  exception  occurred while cookie deleting: %s", ex));
+            System.out.println(format("An  exception  occurred while cookie deleting: %s", ex));
         }
         driver = null;
     }
