@@ -27,10 +27,10 @@ public class CatalogueSteps {
         products = new ArrayList<>();
     }
 
-    @When("User adds {string} products to comparing")
-    public void userAddProductsToComparing(String amount) {
+    @When("User adds {int} products to comparing")
+    public void userAddProductsToComparing(int amount) {
         var cataloguePage = new CataloguePage(driver);
-        cataloguePage.addProductsToComparing(Integer.parseInt(amount));
+        cataloguePage.addProductsToComparing(amount);
     }
 
     @And("User clicks Compare button")
@@ -42,9 +42,9 @@ public class CatalogueSteps {
     @When("User applies filter by price in range from {int} to {int}")
     public void userFilterProductsByPriceInRangeFromLowToHigh(int low, int high) {
         var cataloguePage = new CataloguePage(driver);
-        cataloguePage.LOWPriceFilterField.sendKeys(String.valueOf(low));
-        cataloguePage.HIGHPriceFilterField.sendKeys(String.valueOf(high));
-        cataloguePage.OKButtonPriceFilter.click();
+        driver.sendKeysWhenReady(cataloguePage.LOWPriceFilterField, String.valueOf(low));
+        driver.sendKeysWhenReady(cataloguePage.HIGHPriceFilterField, String.valueOf(high));
+        driver.clickWhenReady(cataloguePage.OKButtonPriceFilter);
         updateProductList();
     }
 
@@ -58,7 +58,7 @@ public class CatalogueSteps {
 
     @Then("Products with a price in range from {int} to {int} are shown")
     public void onlyProductsWithAPriceInRangeFromLowToHighAreShown(int low, int high) {
-        var cataloguePage = new CataloguePage(driver);
+        new CataloguePage(driver);
         assertThat(products.stream().allMatch(productDto ->
                 ((productDto.getLowestPrice() >= low) && (productDto.getLowestPrice() <= high))));
     }
@@ -66,14 +66,14 @@ public class CatalogueSteps {
     @When("User applies filter by price more than {int}")
     public void userUsingFilterToSeeTheProductsWithPriceMoreThanLow(int low) {
         var cataloguePage = new CataloguePage(driver);
-        cataloguePage.LOWPriceFilterField.sendKeys(String.valueOf(low));
-        cataloguePage.OKButtonPriceFilter.click();
+        driver.sendKeysWhenReady(cataloguePage.LOWPriceFilterField, String.valueOf(low));
+        driver.clickWhenReady(cataloguePage.OKButtonPriceFilter);
         updateProductList();
     }
 
     @Then("Products with a price more than {int} are shown")
     public void onlyProductsWithAPriceMoreThanLowAreShown(int low) {
-        var cataloguePage = new CataloguePage(driver);
+        new CataloguePage(driver);
         assertThat(products.stream().allMatch(productDto -> (productDto.getLowestPrice() >= low)));
 
     }
@@ -81,14 +81,14 @@ public class CatalogueSteps {
     @When("User applies filter by price less than {int}")
     public void userUsingFilterToSeeTheProductsWithPriceLessThanHigh(int high) {
         var cataloguePage = new CataloguePage(driver);
-        cataloguePage.HIGHPriceFilterField.sendKeys(String.valueOf(high));
-        cataloguePage.OKButtonPriceFilter.click();
+        driver.sendKeysWhenReady(cataloguePage.HIGHPriceFilterField, String.valueOf(high));
+        driver.clickWhenReady(cataloguePage.OKButtonPriceFilter);
         updateProductList();
     }
 
     @Then("Products with a price less than {int} are shown")
     public void onlyProductsWithAPriceLessThanHighAreShown(int high) {
-        var cataloguePage = new CataloguePage(driver);
+        new CataloguePage(driver);
         assertThat(products.stream().allMatch(productDto -> (productDto.getLowestPrice() <= high)));
 
     }

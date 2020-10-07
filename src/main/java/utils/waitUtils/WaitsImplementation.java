@@ -77,7 +77,6 @@ public interface WaitsImplementation extends WebDriver {
     }
 
     default boolean waitTillTextInElementEqualsValue(WebElement element, String value) {
-        System.out.println(element.getText());
         new WebDriverWait(WaitsImplementation.this, TIMEOUT)
                 .until(text -> element.getText().equals(value));
         return true;

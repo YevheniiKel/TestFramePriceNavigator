@@ -65,10 +65,9 @@ public class UserAccountSteps {
     }
 
     @And("Clicks SignUp button")
-    public void clicksRegistrationButton() throws InterruptedException {
+    public void clicksRegistrationButton() {
         var mainPage = new MainPage(driver);
         driver.clickWhenReady(mainPage.header.registerSignUpButton);
-        Thread.sleep(3000);
     }
 
     @When("User enters {userType} credentials")

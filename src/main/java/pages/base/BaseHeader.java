@@ -32,9 +32,6 @@ public class BaseHeader extends BasePage {
     @FindBy(xpath = ".//button[@id='loginButton']")
     public WebElement signButton;
 
-    @FindBy(xpath = ".//form[@id='register-form']")
-    public WebElement registerFrame;
-
     @FindBy(xpath = ".//input[@id='register-form-email']")
     public WebElement emailRegisterField;
 
@@ -59,12 +56,6 @@ public class BaseHeader extends BasePage {
     @FindBy(xpath = ".//input[@id='login-form-login']/following-sibling::div[contains(@class, 'hint')]")
     public WebElement invalidEmailNotification;
 
-    @FindBy(xpath = ".//div[@class='popup-content-text']")
-    public WebElement loginPopup;
-
-    @FindBy(xpath = ".//div[contains(@class, 'popup-register')]")
-    public WebElement registrationPopup;
-
     @Override
     public void waitForMainElements() {
         driver.waitTillElementPresent(searchField);
@@ -80,15 +71,5 @@ public class BaseHeader extends BasePage {
         driver.sendKeysWhenReady(emailLoginField, userDto.getEmail());
         driver.sendKeysWhenReady(passwordLoginField, userDto.getPassword());
         driver.clickWhenReady(signButton);
-    }
-
-    public boolean invalidCredentialsNotificationIsShown() {
-        driver.waitTillElementPresent(invalidCredentialsNotification);
-        return invalidCredentialsNotification.isDisplayed();
-    }
-
-    public boolean invalidEmailNotificationIsShown() {
-        driver.waitTillElementPresent(invalidEmailNotification);
-        return invalidEmailNotification.isDisplayed();
     }
 }

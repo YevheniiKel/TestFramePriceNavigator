@@ -43,30 +43,6 @@ public class CataloguePage extends BasePage {
     @FindBy(xpath = ".//div[contains(@class, 'container-filters')]")
     public WebElement filterBlock;
 
-    @FindBy(xpath = ".//div[contains(@class, 'on-loading')]")
-    public WebElement reloadProductsWrapper;
-
-    @FindBy(xpath = ".//li[contains(@class,'dropdown-sorting')]/a")
-    public WebElement sortDropDown;
-
-    @FindBy(xpath = ".//a[@data-sort='price']")
-    public WebElement sortLowToHigh;
-
-    @FindBy(xpath = ".//a[@data-sort='price_desc']")
-    public WebElement sortHighToLow;
-
-    @FindBy(xpath = ".//div[@class='catalog-block-head']//a")
-    public WebElement productNamePath;
-
-    @FindBy(xpath = ".//a[@class='price']//span")
-    public WebElement productPricePath;
-
-    @FindBy(xpath = ".//a[@class='price']//span/../strong[1]")
-    public WebElement productLOWPricePath;
-
-    @FindBy(xpath = ".//p[@class='content-item']//a")
-    public WebElement productDescriptionPath;
-
     @Override
     public void waitForMainElements() {
         driver.waitTillElementPresent(catalogue);

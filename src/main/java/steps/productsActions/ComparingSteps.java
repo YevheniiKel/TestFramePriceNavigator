@@ -36,7 +36,8 @@ public class ComparingSteps {
 
     @And("User follows with generated link")
     public void userPutThisLinkIntoAddressBarAndPressEnter() {
-        driver.get(comparingLink);
+        if (!comparingLink.isEmpty()) driver.get(comparingLink);
+        else throw new IllegalArgumentException("Link is not generated");
     }
 
     @Then("User is navigated to the same comparing page")

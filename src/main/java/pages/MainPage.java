@@ -27,9 +27,6 @@ public class MainPage extends BasePage {
     @FindBy(xpath = ".//a[@href = '/electronics/']")
     public WebElement electronicsCategory;
 
-    @FindBy(xpath = ".//a[contains(@class, 'pc-block__head')]")
-    public List<WebElement> categories;
-
     @Override
     public void waitForMainElements() {
         driver.waitTillElementPresent(electronicsCategory);
