@@ -1,33 +1,52 @@
 package pages;
 
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.base.BasePage;
+import utils.driverUtils.DriverWrapper;
 
 import java.util.List;
 
+import static java.lang.String.format;
+
 public class CataloguePage extends BasePage {
 
-    private List<WebElement> addToCompareButtons;
+    public List<WebElement> addToCompareButtons;
 
-    public CataloguePage(WebDriver driver) {
+    public CataloguePage(DriverWrapper driver) {
         super(driver);
         waitForMainElements();
     }
 
     @FindBy(xpath = ".//section[@class='catalog']")
-    WebElement catalogue;
+    public WebElement catalogue;
 
     @FindBy(xpath = ".//a[@class='add-to-compare-link']")
-    List<WebElement> addToCompareButtonPath;
+    public List<WebElement> addToCompareButtonPath;
 
     @FindBy(xpath = ".//a[contains(@href, '/compare/')]")
-    WebElement compareButtonPath;
+    public WebElement compareButtonPath;
+
+    @FindBy(xpath = ".//div[@class='content-shadow-block']//article")
+    public List<WebElement> productsXpath;
+
+    @FindBy(xpath = ".//input[@id='price-min']")
+    public WebElement LOWPriceFilterField;
+
+    @FindBy(xpath = ".//input[@id='price-max']")
+    public WebElement HIGHPriceFilterField;
+
+    @FindBy(xpath = ".//a[@id='buttonPrice']")
+    public WebElement OKButtonPriceFilter;
+
+    @FindBy(xpath = ".//div[contains(@class, 'container-filters')]")
+    public WebElement filterBlock;
 
     @Override
     public void waitForMainElements() {
-        wait.tillElementPresent(catalogue);
+        driver.waitTillElementPresent(catalogue);
+        driver.waitTillElementPresent(filterBlock);
     }
 
     @Override
@@ -35,25 +54,12 @@ public class CataloguePage extends BasePage {
         throw new UnsupportedOperationException("This page should not be loaded directly");
     }
 
-    public boolean isCatalogueIsDisplayed() {
-        try {
-            return catalogue.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    public void addThreeProductsToComparing() {
+    public void addProductsToComparing(Integer amount) {
         addToCompareButtons = addToCompareButtonPath;
-        if (addToCompareButtons.size() >= 3) {
-            wait.clickAllWhenReady(addToCompareButtons.subList(0, 3));
+        if (addToCompareButtons.size() >= amount) {
+            driver.clickAllWhenReady(addToCompareButtons.subList(0, amount));
         } else {
-            throw new NoSuchElementException("Amount of elements is less than 3");
+            throw new NoSuchElementException(format("Amount of elements is less than %s", amount));
         }
-    }
-
-    public ComparingPage clickCompare() {
-        wait.clickWhenReady(compareButtonPath);
-        return new ComparingPage(driver);
     }
 }

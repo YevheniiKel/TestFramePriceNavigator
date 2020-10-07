@@ -1,35 +1,34 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.base.BasePage;
+import utils.driverUtils.DriverWrapper;
 
 import java.util.List;
 
 public class ComparingPage extends BasePage {
 
-    private static String comparingLink;
-
-    public ComparingPage(WebDriver driver) {
+    public ComparingPage(DriverWrapper driver) {
         super(driver);
         waitForMainElements();
     }
 
     @FindBy(xpath = ".//a[@class='delete']")
-    List<WebElement> deleteButton;
+    public List<WebElement> deleteButtons;
 
     @FindBy(xpath = ".//th[@class = 'item']")
-    List<WebElement> productsOnComparing;
+    public List<WebElement> productsOnComparing;
 
     @FindBy(xpath = ".//a[@data-select-text='static-link']")
-    WebElement comparingLinkButton;
+    public WebElement comparingLinkButton;
 
     @FindBy(xpath = ".//textarea[@id='static-link']")
-    WebElement comparingLinkField;
+    public WebElement comparingLinkField;
 
     @Override
     public void waitForMainElements() {
-        wait.tillElementsPresent(productsOnComparing);
+        driver.waitTillElementsPresent(productsOnComparing);
     }
 
     @Override
@@ -37,26 +36,8 @@ public class ComparingPage extends BasePage {
         throw new UnsupportedOperationException("This page should not be loaded directly");
     }
 
-    public static String getComparingLink() {
-        return comparingLink;
-    }
-
     public int amountOfComparingProducts() {
-        wait.tillElementsPresent(productsOnComparing);
+        driver.waitTillElementsPresent(productsOnComparing);
         return productsOnComparing.size();
-    }
-
-    public void deleteProductFromComparing() {
-        wait.clickWhenReady(deleteButton.get(2));
-    }
-
-    public ComparingPage clickGenerateComparingLink() {
-        wait.clickWhenReady(comparingLinkButton);
-        return this;
-    }
-
-    public void setComparingLinkFromTheField() {
-        wait.tillElementContainAnyText(comparingLinkField);
-        comparingLink = comparingLinkField.getText();
     }
 }

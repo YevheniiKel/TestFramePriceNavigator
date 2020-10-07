@@ -1,16 +1,13 @@
-package pages;
+package pages.base;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import util.elementUtils.WaitUtils;
+import utils.driverUtils.DriverWrapper;
 
 public abstract class BasePage {
-    protected WebDriver driver;
-    protected WaitUtils wait;
+    protected DriverWrapper driver;
 
-    public BasePage(WebDriver driver) {
+    public BasePage(DriverWrapper driver) {
         this.driver = driver;
-        this.wait = new WaitUtils(driver);
         PageFactory.initElements(driver, this);
     }
 

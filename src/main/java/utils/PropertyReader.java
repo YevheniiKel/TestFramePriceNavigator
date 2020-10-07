@@ -1,9 +1,10 @@
-package util;
+package utils;
 
 import java.io.IOException;
 import java.util.Properties;
 
 public class PropertyReader {
+
     private PropertyReader() {
     }
 
