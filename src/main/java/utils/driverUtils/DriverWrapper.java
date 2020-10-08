@@ -126,14 +126,20 @@ public class DriverWrapper implements WebDriver, WaitsImplementation {
         driver = null;
     }
 
-    public void saveScreenshot(String testName) throws IOException {
+    public void saveScreenshot(String testName) {
         testName = formatToFileName(testName);
         long currentTime = System.currentTimeMillis();
-        TakesScreenshot screenshot = (TakesScreenshot) driver;
         String reportPath = "target/fail-reports/";
+
+        TakesScreenshot screenshot = (TakesScreenshot) driver;
         File screenshotFile = screenshot.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(screenshotFile,
-                new File(format(reportPath + "%s/%s-%s.png", currentTime, testName, currentTime)));
+        try {
+            FileUtils.copyFile(screenshotFile,
+                    new File(format(reportPath + "%s/%s-%s.png", currentTime, testName, currentTime)));
+        } catch (IOException e) {
+            System.out.println(format("An exception occurred while file creating:\n%s", e));
+        }
     }
+
 }
 

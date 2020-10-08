@@ -20,10 +20,13 @@ public class BaseSetup {
         driver.getDriver();
     }
 
-    @After
-    public void closeDriver(Scenario scenario) throws IOException {
-      if (scenario.isFailed())
+   @After(order = 1)
+   public void ifTestFalisTakeScreenshot(Scenario scenario){
+       if (scenario.isFailed())
            driver.getDriver().saveScreenshot(scenario.getName());
+   }
+    @After(order = 0)
+    public void closeDriver(){
         driver.getDriver().quiteDriver();
     }
 }
