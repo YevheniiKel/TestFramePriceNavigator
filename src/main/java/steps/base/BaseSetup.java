@@ -2,6 +2,7 @@ package steps.base;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import utils.driverUtils.DriverProvider;
 
 public class BaseSetup {
@@ -17,7 +18,13 @@ public class BaseSetup {
         driver.getDriver();
     }
 
-    @After
+    @After(order = 1)
+    public void ifTestFalisTakeScreenshot(Scenario scenario) {
+        if (scenario.isFailed())
+            driver.getDriver().saveScreenshot(scenario.getName());
+    }
+
+    @After(order = 0)
     public void closeDriver() {
         driver.getDriver().quiteDriver();
     }

@@ -1,15 +1,17 @@
 package utils.driverUtils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import utils.waitUtils.WaitsImplementation;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import static java.lang.String.format;
+import static utils.dataUtils.StringParsers.formatToFileName;
 
 public class DriverWrapper implements WebDriver, WaitsImplementation {
 
@@ -123,5 +125,21 @@ public class DriverWrapper implements WebDriver, WaitsImplementation {
         }
         driver = null;
     }
+
+    public void saveScreenshot(String testName) {
+        testName = formatToFileName(testName);
+        long currentTime = System.currentTimeMillis();
+        String reportPath = "target/fail-reports/";
+
+        TakesScreenshot screenshot = (TakesScreenshot) driver;
+        File screenshotFile = screenshot.getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(screenshotFile,
+                    new File(format(reportPath + "%s/%s-%s.png", currentTime, testName, currentTime)));
+        } catch (IOException e) {
+            System.out.println(format("An exception occurred while file creating:\n%s", e));
+        }
+    }
+
 }
 
