@@ -5,8 +5,6 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import utils.driverUtils.DriverProvider;
 
-import java.io.IOException;
-
 public class BaseSetup {
 
     private DriverProvider driver;
@@ -20,13 +18,14 @@ public class BaseSetup {
         driver.getDriver();
     }
 
-   @After(order = 1)
-   public void ifTestFalisTakeScreenshot(Scenario scenario){
-       if (scenario.isFailed())
-           driver.getDriver().saveScreenshot(scenario.getName());
-   }
+    @After(order = 1)
+    public void ifTestFalisTakeScreenshot(Scenario scenario) {
+        if (scenario.isFailed())
+            driver.getDriver().saveScreenshot(scenario.getName());
+    }
+
     @After(order = 0)
-    public void closeDriver(){
+    public void closeDriver() {
         driver.getDriver().quiteDriver();
     }
 }
