@@ -21,7 +21,7 @@ public class LocalizationSteps {
         assertThat(mainPage.header.searchField.getAttribute("placeholder"))
                 .as(String.format("The placeholder text is incorrect: %s", "Найти товар в Харькове"))
                 .contains("Найти товар в Харькове")
-                .contains("Киев")
+                .doesNotContain("Киев")
                 .doesNotContain("Винница");
     }
 }
