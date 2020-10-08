@@ -19,7 +19,7 @@ public interface WaitsImplementation extends WebDriver {
         new WebDriverWait(WaitsImplementation.this, TIMEOUT)
                 .until(ExpectedConditions.visibilityOfAllElements(elements));
         for (WebElement el : elements) {
-            el.click();
+            clickWhenReady(el);
         }
     }
 
