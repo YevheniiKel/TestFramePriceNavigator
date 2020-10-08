@@ -24,27 +24,6 @@
                     </includes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.trivago.rta</groupId>
-                <artifactId>cluecumber-report-plugin</artifactId>
-                <version>1.8.0</version>
-                <executions>
-                    <execution>
-                        <id>report</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>reporting</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sourceJsonReportDirectory>${project.build.directory}/json-cucumber-reports
-                    </sourceJsonReportDirectory>
-                    <generatedHtmlReportDirectory>${project.build.directory}/generated-report
-                    </generatedHtmlReportDirectory>
-                    <expandStepHooks>true</expandStepHooks>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
