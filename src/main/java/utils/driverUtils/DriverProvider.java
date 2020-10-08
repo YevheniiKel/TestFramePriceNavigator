@@ -29,8 +29,7 @@ public class DriverProvider {
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions options = new FirefoxOptions()
                         .addArguments("start-maximized")
-                        .addArguments("disable-infobars")
-                        .addArguments("--headless");
+                        .addArguments("disable-infobars");
                 return new DriverWrapper(new FirefoxDriver(options));
             }
             case "CHROME" -> {
