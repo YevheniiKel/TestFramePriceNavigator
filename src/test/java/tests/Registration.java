@@ -1,4 +1,4 @@
-package ui;
+package tests;
 
 import dto.UserDto;
 import org.testng.annotations.BeforeMethod;
@@ -9,7 +9,7 @@ import ui.driverSetup.BaseTestSetup;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-public class RegistrationTests extends BaseTestSetup {
+public class Registration extends BaseTestSetup {
 
     private HeaderAnyPage headerAnyPage;
     private UserDto newUser;

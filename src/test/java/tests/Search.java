@@ -1,4 +1,4 @@
-package ui;
+package tests;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -8,7 +8,7 @@ import util.dataUtils.CharDataForTestSite;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SearchTest extends BaseTestSetup {
+public class Search extends BaseTestSetup {
 
     private HeaderAnyPage headerAnyPage;
 

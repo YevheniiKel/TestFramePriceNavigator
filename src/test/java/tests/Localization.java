@@ -1,4 +1,4 @@
-package ui;
+package tests;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -7,7 +7,7 @@ import ui.driverSetup.BaseTestSetup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LocalizationTest extends BaseTestSetup {
+public class Localization extends BaseTestSetup {
 
     private HeaderAnyPage headerAnyPage;
 
