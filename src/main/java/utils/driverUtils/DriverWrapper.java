@@ -6,6 +6,8 @@ import utils.waitUtils.WaitsImplementation;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -128,14 +130,17 @@ public class DriverWrapper implements WebDriver, WaitsImplementation {
 
     public void saveScreenshot(String testName) {
         testName = formatToFileName(testName);
-        long currentTime = System.currentTimeMillis();
+        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy_HH-mm-ss");
+        Date date = new Date();
+        var currentTime = formatter.format(date);
+
         String reportPath = "target/fail-reports/";
 
         TakesScreenshot screenshot = (TakesScreenshot) driver;
         File screenshotFile = screenshot.getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(screenshotFile,
-                    new File(format(reportPath + "%s/%s-%s.png", currentTime, testName, currentTime)));
+                    new File(format(reportPath + "%s-%s.png", currentTime, testName)));
         } catch (IOException e) {
             System.out.println(format("An exception occurred while file creating:\n%s", e));
         }

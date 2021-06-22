@@ -23,7 +23,6 @@ Feature: User can compare several products
     Examples:
       | amount | amountMinusOne |
       | 3      | 2              |
-      | 4      | 3              |
 
   Scenario Outline: User can get link to current comparing page
     When User adds <amount> products to comparing
@@ -35,5 +34,4 @@ Feature: User can compare several products
 
     Examples:
       | amount |
-      | 3      |
       | 4      |
