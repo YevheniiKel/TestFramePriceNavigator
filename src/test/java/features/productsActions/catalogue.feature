@@ -11,8 +11,6 @@ Feature: Catalogue page sorting and filters
     Examples:
       | low   | high   |
       | 15    | 25     |
-      | 1500  | 10000  |
-      | 15000 | 25000  |
       | 30000 | 100000 |
 
   Scenario Outline: User can filter products to get products with price more than some value
@@ -22,7 +20,6 @@ Feature: Catalogue page sorting and filters
       | low   |
       | 10000 |
       | 1000  |
-      | 25000 |
 
   Scenario Outline: User can filter products to get products with price less than some value
     When User applies filter by price less than <high>
@@ -31,7 +28,6 @@ Feature: Catalogue page sorting and filters
       | high  |
       | 25    |
       | 25000 |
-      | 6000  |
 
   Scenario Outline: User can filter products to get products with price more than some value
     When User applies filter by price less than <high>
@@ -40,7 +36,6 @@ Feature: Catalogue page sorting and filters
       | high  |
       | 25    |
       | 25000 |
-      | 6000  |
 
   Scenario Outline: User can filter products by manufacture
     When User applies filter by manufacture: <manufacture>
@@ -48,7 +43,6 @@ Feature: Catalogue page sorting and filters
     Examples:
       | manufacture |
       | "Apple"     |
-      | "Samsung"   |
       | "Sony"      |
 
   Scenario Outline: User can filter products by year
@@ -56,7 +50,6 @@ Feature: Catalogue page sorting and filters
     Then Products from <year> are shown
     Examples:
       | year   |
-      | "2020" |
-      | "2019" |
+      | "2021" |
       | "2018" |
 
