@@ -4,13 +4,13 @@ Feature: Login features
     Given User opens main page
     When User opens LogIn popup
 
-  Scenario Outline: Registered user can log in with valid credentials
-    When User enters <userType> credentials
-    Then <userType> user is authorized
-    Examples:
-      | userType   |
-      | Registered |
-
+#  Scenario Outline: Registered user can log in with valid credentials
+#    When User enters <userType> credentials
+#    Then <userType> user is authorized
+#    Examples:
+#      | userType   |
+#      | Registered |
+#
 #  Scenario Outline: User cannot log in with  not registered credentials
 #    When User enters <userType> credentials
 #    Then <userType> user is not authorized
